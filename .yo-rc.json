@@ -1,0 +1,18 @@
+{
+  "generator-ng-fullstack": {
+    "appName": "happy-team",
+    "username": "alicia",
+    "userEmail": "alicia.sykes@accenture.com",
+    "stack": "fullstack",
+    "repoHostUrl": "github.com",
+    "userNameSpace": "alicia",
+    "client": "ng2",
+    "stylePreprocessor": "sass",
+    "server": "node",
+    "nodeWebFrameworkServer": "express",
+    "transpilerServer": "babel",
+    "secure": false,
+    "testsSeparated": true,
+    "differentStaticServer": false
+  }
+}
