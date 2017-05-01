@@ -1,6 +1,18 @@
+
+# IDE and local config files
 .idea
-coverage
-node_modules
-unit_coverage
-client/dev/bower_components
 typings
+
+# Libraries and modules
+node_modules
+client/dev/bower_components
+
+# Test results files
+coverage
+unit_coverage
+
+# Compiled source
+client/dev/**/*.css
+client/dev/**/*.js
+!client/dev/config.js
+
