@@ -13,8 +13,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var testing_1 = require("@angular/core/testing");
 var Observable_1 = require("rxjs/Observable");
-var todo_cmp_1 = require("../../../../client/dev/todo/components/todo-cmp");
-var todo_service_1 = require("../../../../client/dev/todo/services/todo-service");
+var todo_cmp_1 = require("../../../../client/dev/todo/todo-cmp");
+var todo_service_1 = require("../../../../client/dev/todo/todo-service");
 var MockTodoService = (function (_super) {
     __extends(MockTodoService, _super);
     function MockTodoService() {

@@ -1,7 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts" />
 
 
-  import {TodoService} from "../../../../client/dev/todo/services/todo-service";
+  import {TodoService} from "../../../../client/dev/todo/todo-service";
 
 
 describe("todo_service", () => {

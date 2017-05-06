@@ -5,14 +5,14 @@ import {
 
 import {
 	TodoCmp
-} from "../components/todo-cmp";
+} from "./todo-cmp";
 
 const todoRoutes:Routes = [
 	{
-		path: "",
+		path: "todo",
 		component: TodoCmp,
 		pathMatch: "full"
 	}
-]
+];
 
 export const todoRouting = RouterModule.forRoot(todoRoutes);

@@ -9,8 +9,8 @@ import {
   Observable
 } from "rxjs/Observable";
 
-import {TodoCmp} from "../../../../client/dev/todo/components/todo-cmp";
-import {TodoService} from "../../../../client/dev/todo/services/todo-service";
+import {TodoCmp} from "../../../../client/dev/todo/todo-cmp";
+import {TodoService} from "../../../../client/dev/todo/todo-service";
 
 class MockTodoService extends TodoService {
   getAll(): Observable<any> {
@@ -35,7 +35,7 @@ class MockTodoService extends TodoService {
 describe("todo_component", () => {
   describe("creation", () => {
     it("should create the component correctly", async(() => {
-      let fixture = TestBed.createComponent(TodoCmp);	  
+      let fixture = TestBed.createComponent(TodoCmp);
 	  fixture.detectChanges();
 
 	  let compiled = fixture.debugElement.nativeElement;
@@ -44,9 +44,9 @@ describe("todo_component", () => {
     }));
 
     it("should inicialize the cmp correctly", async(() => {
-      let fixture = TestBed.createComponent(TodoCmp);      
+      let fixture = TestBed.createComponent(TodoCmp);
 	  let instance = fixture.debugElement.componentInstance;
-	  
+
 	  spyOn(instance, "_getAll").and.callFake(() => {});
 	  fixture.detectChanges();
 	  expect(instance._getAll).toHaveBeenCalled();
@@ -65,7 +65,7 @@ describe("todo_component", () => {
     it("should call remove correctly", async(() => {
       let fixture = TestBed.createComponent(TodoCmp);
 	  fixture.detectChanges();
-	  
+
 	  let instance = fixture.debugElement.componentInstance;
 	  let _id = "abc123";
 

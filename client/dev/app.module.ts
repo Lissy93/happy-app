@@ -3,26 +3,35 @@ import { HttpModule } from "@angular/http";
 import { FormsModule, FormBuilder } from "@angular/forms";
 import { BrowserModule  } from "@angular/platform-browser";
 import { App }   from "./app";
-import { TodoCmp }   from "./todo/components/todo-cmp";
-import { todoRouting } from "./todo/components/todo-route";
-import { TodoService }   from "./todo/services/todo-service";
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HomeComponent }   from "./home/home.component";
+import { homeRouting } from "./home/home.route";
+import { HomeService }   from "./home/home.service";
+
+import { NavbarComponent } from './navbar/navbar.component';
+import {MaterialModule} from "@angular/material";
 
 @NgModule({
     imports: [
       BrowserModule,
       FormsModule,
       HttpModule,
-      todoRouting
+      homeRouting,
+      BrowserAnimationsModule,
+      MaterialModule
     ],
     declarations: [
       App,
-      TodoCmp,
+      HomeComponent,
+      NavbarComponent
     ],
     providers: [
-      TodoService,
+      HomeService
     ],
     bootstrap: [
-      App,
+      App
     ],
 })
 export class AppModule {}

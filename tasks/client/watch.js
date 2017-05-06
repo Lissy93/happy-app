@@ -17,18 +17,18 @@ gulp.task(tasks.CLIENT_WATCH, [tasks.CLIENT_BUILD_TS,  tasks.CLIENT_COMPILE_TO_C
   let _watchable = [];
 
   _watchable.push(base.DEV + "**/*.ts");
-  _watchable.push(base.DEV + "**/*.css");
+  // _watchable.push(base.DEV + "**/*.css");
   _watchable.push(base.DEV + "**/*.html");
-  
-  
+
+
   _watchable.push(base.DEV + "**/*.{sass,scss}");
-  
+
 
   return gulp.watch(_watchable, [
-    tasks.CLIENT_BUILD_TS, 
-    
+    tasks.CLIENT_BUILD_TS,
+
     tasks.CLIENT_COMPILE_TO_CSS,
-    
+
     tasks.CLIENT_RELOAD,
   ]);
 });

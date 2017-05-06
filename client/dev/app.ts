@@ -1,6 +1,4 @@
-import {
-	Component
-} from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
 	selector: "app",
@@ -8,6 +6,4 @@ import {
 		<router-outlet></router-outlet>
 	`
 })
-export class App {
-
-}
+export class App { }

@@ -11,7 +11,7 @@ import {
 
 import {
   TodoService
-} from "../services/todo-service";
+} from "./todo-service";
 
 type Todo = {
   todoMessage: string;
@@ -20,8 +20,8 @@ type Todo = {
 
 @Component({
   selector: "todo-cmp",
-  templateUrl: "todo/templates/todo.html",
-  styleUrls: ["todo/styles/todo.css"]
+  templateUrl: "todo/todo.html",
+  styleUrls: ["todo/todo.css"]
 })
 export class TodoCmp implements OnInit {
   title: string = "ng2do";

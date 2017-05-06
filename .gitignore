@@ -13,6 +13,7 @@ unit_coverage
 
 # Compiled source
 client/dev/**/*.css
+!client/dev/basic.css
 client/dev/**/*.js
 !client/dev/config.js
 
