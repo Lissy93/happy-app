@@ -15,5 +15,6 @@ unit_coverage
 client/dev/**/*.css
 !client/dev/basic.css
 client/dev/**/*.js
+client/dev/**/*.map
 !client/dev/config.js
 
