@@ -1,3 +1,22 @@
-<md-toolbar>
-  <h1><ng-content></ng-content></h1>
+<md-toolbar color="accent" class="row between-xs">
+
+  <div class="col-xs-12 col-md-3">
+    <h1><ng-content select="[project-name]"></ng-content></h1>
+  </div>
+
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <nav md-tab-nav-bar>
+      <a md-tab-link
+         *ngFor="let team of teams"
+         routerLinkActive #rla="routerLinkActive"
+         active="true">
+        {{team}}
+      </a>
+    </nav>
+  </div>
+
+
+
+
+
 </md-toolbar>

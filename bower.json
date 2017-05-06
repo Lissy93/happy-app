@@ -1,0 +1,24 @@
+{
+  "name": "happy-team",
+  "description": "",
+  "main": "client/dev/index.html",
+  "authors": [
+    "Alicia Sykes"
+  ],
+  "license": "private",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/dev/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "flexboxgrid": "^6.3.2",
+    "c3": "^0.4.11",
+    "d3": "^4.8.0"
+  }
+}

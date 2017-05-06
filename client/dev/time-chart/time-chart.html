@@ -1,0 +1,21 @@
+<md-card class="example-card">
+  <div class="pull-right">
+    <button md-button class="mat-icon-button"><md-icon>autorenew</md-icon></button>
+    <button md-button class="mat-icon-button"><md-icon>open_in_new</md-icon></button>
+    <button md-button class="mat-icon-button"><md-icon>code</md-icon></button>
+  </div>
+  <md-card-header>
+    <md-card-title><h3>Time Chart</h3></md-card-title>
+    <md-card-subtitle>Team Happiness over Time</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+
+    <div id="time-chart"></div>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button color="accent"  (click)="showSingleLine()">AGGREGATE</button>
+    <button md-raised-button color="accent"  (click)="showMultiLines()">BREAKDOWN</button>
+    <button md-button>MORE</button>
+  </md-card-actions>
+</md-card>

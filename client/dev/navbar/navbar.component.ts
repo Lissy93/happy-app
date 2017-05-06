@@ -6,4 +6,9 @@ import { Component } from "@angular/core";
   styleUrls: ["navbar/navbar.css"]
 })
 
-export class NavbarComponent { }
+export class NavbarComponent {
+
+  teams: string[] = ['team-1','team-2','team-3'];
+
+
+}

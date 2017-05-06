@@ -11,6 +11,9 @@ import { homeRouting } from "./home/home.route";
 import { HomeService }   from "./home/home.service";
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { TimeChartComponent } from './time-chart/time-chart.component';
+import { CalendarChartComponent } from './calendar-chart/calendar-chart.component';
+import {OverviewChartComponent } from './overview-chart/overview-chart.component';
 import {MaterialModule} from "@angular/material";
 
 @NgModule({
@@ -25,7 +28,10 @@ import {MaterialModule} from "@angular/material";
     declarations: [
       App,
       HomeComponent,
-      NavbarComponent
+      NavbarComponent,
+      TimeChartComponent,
+      OverviewChartComponent,
+      CalendarChartComponent
     ],
     providers: [
       HomeService
