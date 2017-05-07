@@ -1,6 +1,6 @@
 export default class TodoController {
   static getAll(req, res) {
-    res.status(200).json({"hello":"world"});
+    res.status(200).json(['feature-team1','team-two','define-team','leadership']);
   }
 
 }
