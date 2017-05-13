@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector: "navbar",
@@ -7,8 +7,5 @@ import { Component } from "@angular/core";
 })
 
 export class NavbarComponent {
-
-  teams: string[] = ['team-1','team-2','team-3'];
-
-
+  @Input() teams: string[];
 }
