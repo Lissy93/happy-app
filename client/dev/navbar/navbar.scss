@@ -1,7 +1,7 @@
 
 $primary-color: #ffd740;
 
-$black: #18182b;
+$black: #2e2e35;
 $dark-grey: #383838;
 $med-grey: #808080;
 $light-grey: #dbdbdb;
@@ -18,7 +18,7 @@ header{
     padding: 0.5em 1em;
     cursor: default;
 
-    h1, h2{
+    h1, h2, i{
       font-weight: 100;
       margin: 0;
       display: inline-block;
