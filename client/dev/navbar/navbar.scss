@@ -1,8 +1,59 @@
 
-h1{ font-weight: 100; }
+$primary-color: #ffd740;
+
+$black: #18182b;
+$dark-grey: #383838;
+$med-grey: #808080;
+$light-grey: #dbdbdb;
+$white: #FFFFFF;
+
+
+/* header surrounds whole top-bar */
+header{
+  background: $primary-color;
+
+  /* Surrounds both the h1 and h2 in top-left */
+  .title-container{
+
+    padding: 0.5em 1em;
+    cursor: default;
+
+    h1, h2{
+      font-weight: 100;
+      margin: 0;
+      display: inline-block;
+    }
+
+    h1{
+      color: $black;
+    }
+
+    h2{
+      font-size: 1em;
+      margin-top: 0.2em;
+      opacity: 0.6;
+    }
+
+  }
+
+}
+
+
 
 .isActivatedTab{
   font-weight: 600;
   color: #000;
-  background: #d8b531;
+  background: darken($primary-color, 20%);
+}
+
+
+nav{
+  border: none;
+
+  /deep/.mat-tab-links{ text-align: right; }
+
+  a:hover{
+    color: $black;
+    background: darken($primary-color, 20%);
+  }
 }
