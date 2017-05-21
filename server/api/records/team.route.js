@@ -1,4 +1,4 @@
-import TeamController from "./team-controller";
+import TeamController from "./team.controller";
 
 export default class TeamRoutes {
   static init(router) {

@@ -1,3 +1,9 @@
-/**
- * Created by Alicia on 21/05/2017.
- */
+import SentimentsController from "./sentiments.controller";
+
+export default class SentimentsRoutes {
+  static init(router) {
+    router
+      .route('/api/team-sentiment/:teamName')
+      .get(SentimentsController.getAll);
+  }
+}
