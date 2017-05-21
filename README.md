@@ -1,4 +1,14 @@
 
+## Development Setup
+Setting up the project for development is done in the standard way.
+
+The steps are as follows:
+ 1. Clone the repo, and `cd` into it
+ 2. `npm install` the node dependencies
+ 3. Connect to mongo, `mongod`. See the [Getting Started page on MongoDB documentation][2].
+ 4. Populate the database with some sample data (optional). `gulp populate-sample-data` (*See [Data](#Data) section for more info*)
+ 5. Start the development server, `npm run dev`. This watches, compiles and refreshes appropriate server and client components.
+
 
 ## Data
 
@@ -48,8 +58,9 @@ For example:
   }
 ]
     
-
 ```
+*[see more...][sample-data]*
+
 
 For development, a random set of data can be generated (using a tool such as [json-generator][1]), with a definition similar to the one below:
 
@@ -59,9 +70,8 @@ For development, a random set of data can be generated (using a tool such as [js
     'repeat(4,6)': {
     teamName: 'team-{{city()}}',
     data: [
-      {
-        
-		'repeat(45,90)': {
+      {     
+       'repeat(45,90)': {
         date: function (tags, parent, index) {
            var d = new Date();
            return d.setDate(d.getDate()-index);
@@ -82,5 +92,16 @@ For development, a random set of data can be generated (using a tool such as [js
   }
 ]
 ```
+
+To populate the database with generated or exported data, run:
+```
+gulp populate-sample-data
+```
+By default this will use whatever data is in [`/tasks/setup/sample-data.json`][sample-data], 
+but any path can be used by passing in an optional first parameter.
+
+[sample-data]: /tasks/setup/sample-data.json
+
 [1]:http://www.json-generator.com/
+[2]: https://docs.mongodb.com/v3.0/tutorial/getting-started-with-the-mongo-shell/
 
