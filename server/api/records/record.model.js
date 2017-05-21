@@ -6,11 +6,11 @@ let teamRecordSchema = new Schema({
   data: [
     {
       date: Date,
-      userResults: {
+      userResults: [{
         userHash: String,
         score: String,
         comment: String
-      }
+      }]
     }
   ]
 });
