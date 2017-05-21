@@ -100,6 +100,43 @@ gulp populate-sample-data
 By default this will use whatever data is in [`/tasks/setup/sample-data.json`][sample-data], 
 but any path can be used by passing in an optional first parameter.
 
+
+## API
+
+The frontend accesses it's data through the set of functions exposed by the backend. 
+There are **GET** routes for just returning data, and **POST** routes which update/
+add new data, and require authentication.
+
+All API calls are made from `BASE_URL/api/`, where `BASE_URL` is the URI of the app
+root *(e.g. 'localhost', IP address or the domain pointing to main app)*
+
+### /teams
+Returns an array of all teams referenced to in the datasets
+
+- **URL:** `/teams/`
+- **Method:** `GET`
+- **URL Params:** none
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `['team-name1', 'team2', 'three', 'forth-team']`
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `[]`
+
+
+### /team-sentiment
+Returns all recorded sentiment data for any given team
+
+- **URL:** `/team-sentiment/`
+- **Method:** `GET`
+- **URL Params:** `teamName` (the name of the team, as a String)
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#Data) format)
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `{}`
+
 [sample-data]: /tasks/setup/sample-data.json
 
 [1]:http://www.json-generator.com/
