@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
+import {TeamService} from "../team.service";
 
 @Component({
   selector: "navbar",
@@ -11,11 +12,14 @@ import {Router, ActivatedRoute} from "@angular/router";
 export class NavbarComponent {
 
   @Input() teams: string[];
-  teamName: string;
-
   router: Router;
 
-  constructor(private http: Http, private route: ActivatedRoute, router: Router) {
+  constructor(
+    private http: Http,
+    private route: ActivatedRoute,
+    router: Router,
+    private teamService: TeamService
+  ) {
     this.router = router;
   }
 
@@ -28,14 +32,10 @@ export class NavbarComponent {
       this.teams = teams
     );
 
-    // Get requested team name
-    this.route.params.subscribe( params =>
-      this.teamName = params['teamName']
-    );
 
     // Get requested team name
     this.route.params.subscribe( params =>
-      this.teamName = params['teamName']
+      this.teamService.setTeam(params['teamName'])
     );
 
   }

@@ -15,6 +15,7 @@ import { TimeChartComponent } from './time-chart/time-chart.component';
 import { CalendarChartComponent } from './calendar-chart/calendar-chart.component';
 import {OverviewChartComponent } from './overview-chart/overview-chart.component';
 import {MaterialModule} from "@angular/material";
+import {TeamService} from "./team.service";
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {MaterialModule} from "@angular/material";
       CalendarChartComponent
     ],
     providers: [
-      HomeService
+      HomeService,
+      TeamService
     ],
     bootstrap: [
       App

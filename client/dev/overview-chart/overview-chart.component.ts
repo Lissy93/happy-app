@@ -2,6 +2,7 @@ import {
   Component,
   OnInit
 } from "@angular/core";
+import {TeamService} from "../team.service";
 declare const c3, d3;
 
 @Component({
@@ -12,9 +13,39 @@ declare const c3, d3;
 export class OverviewChartComponent implements OnInit {
 
   chart: any;
+  rawData: any = {};
+
+  constructor( private teamService: TeamService){}
 
   ngOnInit() {
     this.generateChart();
+    this.teamService.sentimentDataUpdated.subscribe(
+      (teamSentimentData) => {
+        this.rawData = teamSentimentData;
+        let chartData = this.makeChartData(this.rawData);
+        this.generateChart();
+        this.setChartData(chartData)
+      }
+    );
+  }
+
+  makeChartData(rawData){
+    let sentimentCount = {};
+    rawData.data.forEach((dateSet)=>{
+      dateSet.userResults.forEach((userResult)=>{
+        let sentiment = userResult.score;
+        if(sentimentCount[sentiment]){sentimentCount[sentiment]++}
+        else{sentimentCount[sentiment] = 1}
+      })
+    });
+
+    let chartData = [];
+    Object.keys(sentimentCount).forEach((sentimentName)=>{
+      chartData.push([sentimentName, sentimentCount[sentimentName]]);
+    });
+
+    return chartData;
+
   }
 
   generateChart(){
@@ -31,37 +62,24 @@ export class OverviewChartComponent implements OnInit {
         title: ""
       }
     });
-    this.showByToday();
+  }
+
+  setChartData(chartData){
+    this.chart.load({
+      columns: chartData
+    });
   }
 
   showByToday(){
-    this.chart.load({
-      columns: [
-        ['good', 8],
-        ['average', 4],
-        ['bad', 3],
-      ]
-    });
+
   }
 
   showByWeek(){
-    this.chart.load({
-      columns: [
-        ['good', 32],
-        ['average', 22],
-        ['bad', 5],
-      ]
-    });
+
   }
 
   showByMonth(){
-    this.chart.load({
-      columns: [
-        ['good', 310],
-        ['average', 45],
-        ['bad', 25],
-      ]
-    });
+
   }
 
 }
