@@ -9,3 +9,6 @@ require("require-dir")("client");
 
 require("require-dir")("server");
 
+
+require("./setup/index");
+
