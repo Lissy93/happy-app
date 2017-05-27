@@ -19,7 +19,7 @@ to users/ admins.
 
 User data is represented in the [following JSON format](docs/example-json-struct.png): 
 ```
-teamName: (Object)
+teamName: (String)
 data: (Array)
 ---date: (Timestamp)
 ---userResults: (Object)
@@ -93,12 +93,15 @@ For development, a random set of data can be generated (using a tool such as [js
 ]
 ```
 
-To populate the database with generated or exported data, run:
+To populate the database with either randomly generated data, or exported JSON, run:
 ```
 gulp populate-sample-data
 ```
-By default this will use whatever data is in [`/tasks/setup/sample-data.json`][sample-data], 
-but any path can be used by passing in an optional first parameter.
+By default this generates a set of random, but reasonably realistic sample data, 
+the parameters of which were defined in the [populate-demo-db.js](`/tasks/setup/populate-demo-db.js`) file. 
+Alternativley, the path of previously generated or exported data can be specified,
+and the database will be populated the that data. 
+An example filename parameter may look something like this:  [`/tasks/setup/sample-data.json`][sample-data].
 
 
 ## API
