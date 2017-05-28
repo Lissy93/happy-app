@@ -16,6 +16,7 @@ import { CalendarChartComponent } from './calendar-chart/calendar-chart.componen
 import {OverviewChartComponent } from './overview-chart/overview-chart.component';
 import {MaterialModule} from "@angular/material";
 import {TeamService} from "./team.service";
+import {SharedModule} from "./shared-helpers.module";
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import {TeamService} from "./team.service";
       HttpModule,
       homeRouting,
       BrowserAnimationsModule,
-      MaterialModule
+      MaterialModule,
+      SharedModule
     ],
     declarations: [
       App,

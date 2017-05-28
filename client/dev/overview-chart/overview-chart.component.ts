@@ -3,6 +3,8 @@ import {
   OnInit
 } from "@angular/core";
 import {TeamService} from "../team.service";
+import {SharedModule} from "../shared-helpers.module";
+
 declare const c3, d3;
 
 @Component({
@@ -15,7 +17,10 @@ export class OverviewChartComponent implements OnInit {
   chart: any;
   rawData: any = {};
 
-  constructor( private teamService: TeamService){}
+  constructor(
+    private teamService: TeamService,
+    private sharedModule: SharedModule
+  ){}
 
   ngOnInit() {
     this.generateChart();
@@ -52,15 +57,12 @@ export class OverviewChartComponent implements OnInit {
     this.chart = c3.generate({
       bindto: '#overview-chart',
       data: {
-        columns: [],
-        type : 'donut',
+        columns: [], type : 'donut',
+        colors: {
+          good: '#4DC54E', average: '#D3D030', bad: '#BB5337'
+        }
       },
-      color: {
-        pattern: ['#4DC54E', '#D3D030', '#BB5337']
-      },
-      donut: {
-        title: ""
-      }
+      donut: { title: "" }
     });
   }
 
@@ -72,7 +74,24 @@ export class OverviewChartComponent implements OnInit {
 
   showByToday(){
 
-  }
+    let sharedModule = this.sharedModule;
+
+    /**
+     * Determines if given timestamp was since midnight, today
+     */
+    function isToday(then){
+      return sharedModule.getNumDaysFromDate(then) == 0;
+    }
+
+    let newUserData = [];
+    this.rawData.data.forEach((dateSet)=>{
+      if(isToday(dateSet.date)){
+        newUserData.push(dateSet)
+      }
+    });
+    this.rawData.data = newUserData;
+    this.setChartData(this.makeChartData(this.rawData));
+    }
 
   showByWeek(){
 
