@@ -27,14 +27,17 @@ export class OverviewChartComponent implements OnInit {
     this.teamService.sentimentDataUpdated.subscribe(
       (teamSentimentData) => {
         this.rawData = teamSentimentData;
-        let chartData = this.makeChartData(this.rawData);
         this.generateChart();
-        this.setChartData(chartData)
+        this.updateChart();
       }
     );
   }
 
-  makeChartData(rawData){
+  updateChart(rawData = this.rawData){
+    this.setChartData(this.makeChartData(rawData));
+  }
+
+  private makeChartData(rawData){
     let sentimentCount = {};
     rawData.data.forEach((dateSet)=>{
       dateSet.userResults.forEach((userResult)=>{
@@ -53,7 +56,8 @@ export class OverviewChartComponent implements OnInit {
 
   }
 
-  generateChart(){
+
+  private generateChart(){
     this.chart = c3.generate({
       bindto: '#overview-chart',
       data: {
@@ -66,39 +70,41 @@ export class OverviewChartComponent implements OnInit {
     });
   }
 
-  setChartData(chartData){
+  private setChartData(chartData){
     this.chart.load({
       columns: chartData
     });
   }
 
-  showByToday(){
-
+  private showLastXDays(xDays){
     let sharedModule = this.sharedModule;
 
-    /**
-     * Determines if given timestamp was since midnight, today
-     */
-    function isToday(then){
-      return sharedModule.getNumDaysFromDate(then) == 0;
+    // Determines if given timestamp was since midnight, today
+    function isWithinRange(then, range){
+      return sharedModule.getNumDaysFromDate(then) <= range;
     }
 
     let newUserData = [];
     this.rawData.data.forEach((dateSet)=>{
-      if(isToday(dateSet.date)){
+      if(isWithinRange(dateSet.date, xDays)){
         newUserData.push(dateSet)
       }
     });
-    this.rawData.data = newUserData;
-    this.setChartData(this.makeChartData(this.rawData));
-    }
+    let newRawData = JSON.parse(JSON.stringify(this.rawData));
+    newRawData.data = newUserData;
+    this.updateChart(newRawData);
+  }
+
+  showByToday(){
+    this.showLastXDays(0);
+  }
 
   showByWeek(){
-
+    this.showLastXDays(7);
   }
 
   showByMonth(){
-
+    this.showLastXDays(30);
   }
 
 }
