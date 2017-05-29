@@ -14,8 +14,9 @@ declare const c3, d3;
 })
 export class OverviewChartComponent implements OnInit {
 
-  chart: any;
-  rawData: any = {};
+  chart: any; // Stores the actual C3 chart
+  rawData: any = {}; // The returned, un-formatted team data
+  chartVisible: boolean; // If true chart will show
 
   constructor(
     private teamService: TeamService,
@@ -34,7 +35,15 @@ export class OverviewChartComponent implements OnInit {
   }
 
   updateChart(rawData = this.rawData){
-    this.setChartData(this.makeChartData(rawData));
+    const chartData = this.makeChartData(rawData);
+    this.chartVisible = this.isThereEnoughData(chartData);
+    if(this.chartVisible){
+      this.setChartData(chartData);
+    }
+  }
+
+  private isThereEnoughData(chartData){
+    return chartData.length > 0;
   }
 
   private makeChartData(rawData){
@@ -51,7 +60,6 @@ export class OverviewChartComponent implements OnInit {
     Object.keys(sentimentCount).forEach((sentimentName)=>{
       chartData.push([sentimentName, sentimentCount[sentimentName]]);
     });
-
     return chartData;
 
   }
@@ -93,6 +101,10 @@ export class OverviewChartComponent implements OnInit {
     let newRawData = JSON.parse(JSON.stringify(this.rawData));
     newRawData.data = newUserData;
     this.updateChart(newRawData);
+  }
+
+  private showLodader(){
+
   }
 
   showByToday(){
