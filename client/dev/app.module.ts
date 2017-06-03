@@ -17,6 +17,7 @@ import {OverviewChartComponent } from './overview-chart/overview-chart.component
 import {MaterialModule} from "@angular/material";
 import {TeamService} from "./team.service";
 import {SharedModule} from "./shared-helpers.module";
+import {LoaderComponent} from "./loader/loader.component";
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {SharedModule} from "./shared-helpers.module";
       NavbarComponent,
       TimeChartComponent,
       OverviewChartComponent,
-      CalendarChartComponent
+      CalendarChartComponent,
+      LoaderComponent
     ],
     providers: [
       HomeService,
