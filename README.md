@@ -1,3 +1,13 @@
+## Contents
+ 1. [Project Introduction](#introduction)
+ 1. [Development Setup](#development-setup)
+ 2. [Production Setup](#production-setup)
+ 3. [Test Environment](#test-environment)
+ 4. [Data](#data)
+ 5. [API](#api)
+
+
+## Introduction
 
 ## Development Setup
 Setting up the project for development is done in the standard way.
@@ -6,9 +16,13 @@ The steps are as follows:
  1. Clone the repo, and `cd` into it
  2. `npm install` the node dependencies
  3. Connect to mongo, `mongod`. See the [Getting Started page on MongoDB documentation][2].
- 4. Populate the database with some sample data (optional). `gulp populate-sample-data` (*See [Data](#Data) section for more info*)
+ 4. Populate the database with some sample data (optional). `gulp populate-sample-data` (*See [Data](#data) section for more info*)
  5. Start the development server, `npm run dev`. This watches, compiles and refreshes appropriate server and client components.
 
+
+## Production Setup
+
+## Test Environment
 
 ## Data
 
@@ -135,7 +149,7 @@ Returns all recorded sentiment data for any given team
 - **URL Params:** `teamName` (the name of the team, as a String)
 - **Success Response:**
   - **Code:** `200`
-  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#Data) format)
+  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
 - **Error Response:**
   - **Code:** `200`
   - **Content:** `{}`
