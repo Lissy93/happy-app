@@ -154,6 +154,44 @@ Returns all recorded sentiment data for any given team
   - **Code:** `200`
   - **Content:** `{}`
 
+
+## Project Planning
+
+### Wireframes
+
+### High-Level Functional Requirements
+
+#### Mail Scheduler
+_The system the sends out periodic emails to team members, collects, verifies, formats and inserts results_
+- Maintains a list of email addresses for each member of each team
+- Generates unique data-collection links ( associated with email address, timestamp and mood)
+- Sends emails at a specified time on given days (e.g. 4pm Mon- Fri)
+- Verifies that users response is valid (from team-member email, and not already submitted within timeframe)
+- Inserts team members response into the database
+
+#### View Responses (Individual Team)
+_A series of data visualisations to display team mood_
+- Overview chart. A very simple proportion (donut) chart, showing overall percentages. Should allow the user to switch between displaying results from today, this week, and this month.
+- Time chart. A line chart showing team sentiment over-time. Should allow the user to switch between aggregate (one line representing overall sentiment), and breakdown (line for each sentiment).
+- Calendar view. A detailed month-view calendar, showing the number of responses for each sentiment per day, with hover tooltip to view comments (if applicable) for each response.
+- Comment view. Show's in plain text the comments, sorted by most recent first.
+- Sentiment word cloud. Generated from comments, size of word represents number of occurrences, colour represents sentiment.
+- Grid view. Grid to show responses over time, the primary use of this is to gauge what percentage of team members consistently respond to the survey.
+- Stats view. Numeric value, displaying the worst and best day, highest and lowest participation day.
+
+#### View Responses (All Teams)
+_The homepage will provide entry point to the application, as well as a quick overview of each team_
+- List all teams, as links to their team response page
+- Show small overview for each team
+- Time Grid. The primary data visualisation for the homepage, is a grid, with row for each team, and column for each day, coloured by response.
+
+#### Admin Dashboard
+_Allows team admin to modify certain application settings and maintain the team member list_
+- Should be secured, only accessible using admin credentials
+- Should allow the admin to modify when emails are sent out (times and days)
+- Should allow admin to add and remove team email addresses on the distribution list
+
+
 [sample-data]: /tasks/setup/sample-data.json
 
 [1]:http://www.json-generator.com/
