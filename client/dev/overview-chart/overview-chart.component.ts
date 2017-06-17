@@ -47,14 +47,7 @@ export class OverviewChartComponent implements OnInit {
   }
 
   private makeChartData(rawData){
-    let sentimentCount = {};
-    rawData.data.forEach((dateSet)=>{
-      dateSet.userResults.forEach((userResult)=>{
-        let sentiment = userResult.score;
-        if(sentimentCount[sentiment]){sentimentCount[sentiment]++}
-        else{sentimentCount[sentiment] = 1}
-      })
-    });
+    const sentimentCount = this.sharedModule.getOverallSentimentCount(rawData);
 
     let chartData = [];
     Object.keys(sentimentCount).forEach((sentimentName)=>{
@@ -89,7 +82,7 @@ export class OverviewChartComponent implements OnInit {
 
     // Determines if given timestamp was since midnight, today
     function isWithinRange(then, range){
-      return sharedModule.getNumDaysFromDate(then) <= range;
+      return SharedModule.getNumDaysFromDate(then) <= range;
     }
 
     let newUserData = [];
