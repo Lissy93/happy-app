@@ -7,7 +7,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "skipLibCheck": true,
-        "lib": ["es2015", "es2015.iterable", "dom"],
+        "lib": ["es2015", "es7", "es2015.iterable", "dom"],
         "noImplicitAny": false
     },
     "exclude": [
