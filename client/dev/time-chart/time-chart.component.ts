@@ -25,15 +25,21 @@ export class TimeChartComponent implements OnInit {
         (teamSentimentData) => {
           this.rawData = teamSentimentData;
           this.generateChart();
-          this.updateChart([]);
         }
     );
   }
 
   private makeAxisData(rawData = this.rawData){
+    function formatDate(date) {
+      date = new Date(date);
+      const monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May',
+        'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      return `${date.getDate()} ${monthNames[date.getMonth()]}`;
+    }
+
     let dateResults = [];
-    Object.keys(this.sharedModule.getSentimentCountPerDay(this.rawData)).forEach((date)=> {
-      dateResults.push(date);
+    Object.keys(this.sharedModule.getSentimentCountPerDay(rawData)).forEach((date)=> {
+      dateResults.push(formatDate(date));
     });
     return dateResults;
   }
@@ -59,20 +65,25 @@ export class TimeChartComponent implements OnInit {
     this.showMultiLines();
   }
 
-  private updateChart(chartData){
-    this.chart.load({
-      columns: [
-        ['overall',    1, 1, 4, 6, 8, 4, 4, 10, 13]
-      ],
-      unload: ['good', 'average', 'bad']
-    });
-  }
+  private showSingleLine(rawData = this.rawData){
 
-  private showSingleLine(){
+    let sentimentResults = ['overall']; // Will store final chart data
+    const sentimentPerDay = this.sharedModule.getSentimentCountPerDay(rawData);
+
+    // Get sentiment data into the right format for the C3 chart
+    Object.keys(sentimentPerDay).forEach((date)=>{ // For each day of data...
+        let dayScore = 0;
+        Object.keys(sentimentPerDay[date]).forEach((label)=>{
+          let labelScore = SharedModule.convertLabelToValue(label);
+          dayScore += (labelScore * sentimentPerDay[date][label]);
+        });
+        sentimentResults.push(String(dayScore));
+    });
+
+    console.log(sentimentResults);
+
     this.chart.load({
-      columns: [
-        ['overall',    1, 1, 4, 6, 8, 4, 4, 10, 13]
-      ],
+      columns: [ sentimentResults ],
       unload: ['good', 'average', 'bad']
   });
   }
@@ -99,7 +110,7 @@ export class TimeChartComponent implements OnInit {
         })
 
     });
-
+console.log(sentimentResults );
     // Load the new data into the chart :)
     this.chart.load({
       columns: sentimentResults,
