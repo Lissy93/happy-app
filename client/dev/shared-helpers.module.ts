@@ -11,11 +11,27 @@ export class SharedModule {
    * @param historicalDate
    * @returns {number}
    */
-  getNumDaysFromDate(historicalDate){
+  static getNumDaysFromDate(historicalDate){
     const day = 24*60*60*1000;              // The number of milliseconds in one day
     const now = new Date().getTime();       // The time right now
     const then = new Date(historicalDate).getTime();  // The time comparing to
     return Math.round((now - then) / day ); // Find difference in milliseconds, then days
+  }
+
+
+  /**
+   * Returns the numeric value for string sentiment labels, specified in config
+   * @param label
+   * @returns {number}
+   */
+  static convertLabelToValue(label){
+    // TODO: These labels and values should be read from a config file
+    switch(label) {
+      case 'good': { return 1; }
+      case 'average': { return 0; }
+      case 'bad': { return -1; }
+      default: { return 0; }
+    }
   }
 
   /**
