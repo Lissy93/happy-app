@@ -1,4 +1,6 @@
 import {Component, OnInit} from "@angular/core";
+import {TeamService} from "../team.service";
+import {SharedModule} from "../shared-helpers.module";
 declare const c3, d3;
 
 @Component({
@@ -9,13 +11,35 @@ declare const c3, d3;
 
 export class TimeChartComponent implements OnInit {
 
-  chart: any;
+  chart: any;             // Stores the actual C3 chart
+  rawData: any = {};      // The returned, un-formatted team data
+  chartVisible: boolean;  // If true chart will show
+
+  constructor(
+      private teamService: TeamService,
+      private sharedModule: SharedModule
+  ){}
 
   ngOnInit(): void {
-    this.generateChart();
+    this.teamService.sentimentDataUpdated.subscribe(
+        (teamSentimentData) => {
+          this.rawData = teamSentimentData;
+          this.generateChart();
+          this.updateChart([]);
+        }
+    );
+  }
+
+  private makeAxisData(rawData = this.rawData){
+    let dateResults = [];
+    Object.keys(this.sharedModule.getSentimentCountPerDay(this.rawData)).forEach((date)=> {
+      dateResults.push(date);
+    });
+    return dateResults;
   }
 
   private generateChart(){
+
     this.chart =  c3.generate({
       bindto: '#time-chart',
       data: {
@@ -27,12 +51,21 @@ export class TimeChartComponent implements OnInit {
       axis: {
         x: {
           type: 'category',
-          categories: ['Mon 15', 'Tue 16', 'Wed 17', 'Thur 18', 'Fri 19', 'Mon 22', 'Tue 23', 'Wed 24', 'Thur 25']
+          categories: this.makeAxisData()
         }
       }
     });
 
     this.showMultiLines();
+  }
+
+  private updateChart(chartData){
+    this.chart.load({
+      columns: [
+        ['overall',    1, 1, 4, 6, 8, 4, 4, 10, 13]
+      ],
+      unload: ['good', 'average', 'bad']
+    });
   }
 
   private showSingleLine(){
@@ -44,16 +77,34 @@ export class TimeChartComponent implements OnInit {
   });
   }
 
-  private showMultiLines(){
-    this.chart.load({
-      columns: [
-        ['good',    1, 1, 4, 6, 8, 4, 4, 10, 13],
-        ['average', 6, 7, 6, 5, 3, 5, 4, 3, 2],
-        ['bad',     8, 7, 5, 4, 3, 6, 7, 2, 0]
-      ],
-      unload: ['overall']
-    })
+  /**
+   * Displays a line for each sentiment-label on the chart
+   * @param rawData
+   */
+  private showMultiLines(rawData = this.rawData){
+    let sentimentResults = []; // Will store final chart data
+    const sentimentPerDay = this.sharedModule.getSentimentCountPerDay(rawData);
+    const labels = this.sharedModule.getAllLabels(rawData); // good, bad....
+    labels.forEach((label)=> sentimentResults.push([label])); // Initialise
 
+    // Get sentiment data into the right format for the C3 chart
+    Object.keys(sentimentPerDay).forEach((date)=>{ // For each day of data...
+        labels.forEach((label)=>{ // For each label (e.g. good, average, bad)...
+          sentimentResults.forEach((sentimentResult)=>{
+            if(sentimentResult[0] == label){ // (First value of arr is the label)
+              if(!sentimentPerDay[date][label]) sentimentResult.push(0);
+              else sentimentResult.push(sentimentPerDay[date][label]);
+            }
+          })
+        })
+
+    });
+
+    // Load the new data into the chart :)
+    this.chart.load({
+      columns: sentimentResults,
+      unload: ['overall']
+    });
   }
 
 }
