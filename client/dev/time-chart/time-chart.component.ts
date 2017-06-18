@@ -29,6 +29,11 @@ export class TimeChartComponent implements OnInit {
     );
   }
 
+  /**
+   * Returns an array of every date with results, all formatted for the chart
+    * @param rawData
+   * @returns {Array}
+   */
   private makeAxisData(rawData = this.rawData){
     function formatDate(date) {
       date = new Date(date);
@@ -65,6 +70,10 @@ export class TimeChartComponent implements OnInit {
     this.showMultiLines();
   }
 
+  /**
+   * Shows 1 single line, as an aggregate summary of overall sentiment
+   * @param rawData
+   */
   private showSingleLine(rawData = this.rawData){
 
     let sentimentResults = ['overall']; // Will store final chart data
@@ -80,8 +89,7 @@ export class TimeChartComponent implements OnInit {
         sentimentResults.push(String(dayScore));
     });
 
-    console.log(sentimentResults);
-
+    // Load the new data in
     this.chart.load({
       columns: [ sentimentResults ],
       unload: ['good', 'average', 'bad']
@@ -110,7 +118,7 @@ export class TimeChartComponent implements OnInit {
         })
 
     });
-console.log(sentimentResults );
+
     // Load the new data into the chart :)
     this.chart.load({
       columns: sentimentResults,
