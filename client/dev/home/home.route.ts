@@ -4,6 +4,7 @@ import {
 } from "@angular/router";
 
 import { HomeComponent } from "./home.component";
+import {TeamComponent} from "../team/team.component";
 
 const homeRoutes:Routes = [
 	{
@@ -13,7 +14,7 @@ const homeRoutes:Routes = [
 	},
   {
 		path: ":teamName",
-		component: HomeComponent,
+		component: TeamComponent,
 	},
 ];
 
