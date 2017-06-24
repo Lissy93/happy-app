@@ -19,16 +19,37 @@ export class TeamService {
   ) { }
 
 
+  /**
+   * Set the currently selected team locally
+   * @param currentTeam
+   */
   setTeam(currentTeam){
     this.currentTeam  = currentTeam;
     this.fetchTeamSentimentData();
   }
 
+  /**
+   * Get the currently selected local team
+   * @returns {string}
+   */
   getTeam(){
     return this.currentTeam;
   }
 
+  /**
+   * Returns team sentiment data
+   * (which will have already been fetched, when team was set)
+   * @returns {Object}
+   */
+  getTeamSentimentData(){
+    return this.teamSentimentData;
+  }
 
+  /**
+   * Request to the API
+   * Called whenever team changes
+   * Fetches sentiment data for any given team
+   */
   fetchTeamSentimentData(){
     this.http.get('/api/team-sentiment/'+this.currentTeam)
       .map(res => res.json())
@@ -39,9 +60,7 @@ export class TeamService {
       );
   }
 
-  getTeamSentimentData(){
-    return this.teamSentimentData;
-  }
+
 
 
 
