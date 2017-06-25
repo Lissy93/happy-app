@@ -2,6 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../team.service";
+import {AllTeamsService} from "../all-teams.service";
 
 @Component({
   selector: "navbar",
@@ -18,20 +19,19 @@ export class NavbarComponent {
     private http: Http,
     private route: ActivatedRoute,
     router: Router,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private allTeamsService: AllTeamsService
   ) {
     this.router = router;
   }
 
   ngOnInit(){
 
-    // Fetch list of teams
-    this.http.get('/api/teams')
-      .map(res => res.json())
-      .subscribe(teams =>
-      this.teams = teams
+    // Get the teams, and keep them updated
+    this.teams = this.allTeamsService.getTeams();
+    this.allTeamsService.teamListUpdated.subscribe(
+      (teams) => { this.teams  = teams; }
     );
-
 
     // Get requested team name
     this.route.params.subscribe( params =>

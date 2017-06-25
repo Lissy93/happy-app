@@ -1,5 +1,5 @@
 
-import {Injectable, EventEmitter, Output} from '@angular/core';
+import {Injectable, EventEmitter, Output, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Http} from "@angular/http";
 
@@ -11,7 +11,7 @@ export class AllTeamsService {
     teamsSentimentSumamry: Object = []; // An array of latest team results
 
     @Output()
-    sentimentDataUpdated: EventEmitter<any> = new EventEmitter();
+    teamListUpdated: EventEmitter<any> = new EventEmitter();
 
 
     constructor(
@@ -41,10 +41,13 @@ export class AllTeamsService {
      * Fetch all teams, stores to class
      */
     private fetchTeams(){
+      console.log('just going to fetch....');
         this.http.get('/api/teams')
             .map(res => res.json())
-            .subscribe(teams =>
-                this.teams = teams
+            .subscribe(teams =>{
+                this.teams = teams;
+                this.teamListUpdated.emit(this.teams);
+            }
         );
     }
 

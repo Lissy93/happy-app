@@ -19,6 +19,7 @@ import {SharedModule} from "./shared-helpers.module";
 import {LoaderComponent} from "./loader/loader.component";
 import {TeamComponent} from "./team/team.component";
 import {TeamService} from "./team.service";
+import {AllTeamsService} from "./all-teams.service";
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import {TeamService} from "./team.service";
     ],
     providers: [
       HomeService,
-      TeamService
+      TeamService,
+      AllTeamsService
     ],
     bootstrap: [
       App
