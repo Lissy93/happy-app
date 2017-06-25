@@ -142,9 +142,23 @@ Returns an array of all teams referenced to in the datasets
 
 
 ### /team-sentiment
-Returns all recorded sentiment data for any given team
+Returns all recorded sentiment for all teams
 
 - **URL:** `/team-sentiment/`
+- **Method:** `GET`
+- **URL Params:** _none_
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `{}`
+  
+  
+### /team-sentiment/:team-name
+Returns all recorded sentiment data for any given team
+
+- **URL:** `/team-sentiment/:team-name`
 - **Method:** `GET`
 - **URL Params:** `teamName` (the name of the team, as a String)
 - **Success Response:**
