@@ -1,23 +1,4 @@
-<md-card>
-  <div class="pull-right">
-    <button md-button class="mat-icon-button"><md-icon>autorenew</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>open_in_new</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>code</md-icon></button>
-  </div>
+<md-card class="grid-chart" (click)="test()">
 
-  <md-card-header>
-    <md-card-title><h3>Overview Amounts</h3></md-card-title>
-    <md-card-subtitle>Team Happiness Ratio</md-card-subtitle>
-  </md-card-header>
-
-  <md-card-content>
-    <div [hidden]="!chartVisible" id="overview-chart"></div>
-  </md-card-content>
-
-  <md-card-actions>
-    <button md-raised-button color="accent"  (click)="showByToday()">TODAY</button>
-    <button md-raised-button color="accent"  (click)="showByWeek()">THIS WEEK</button>
-    <button md-raised-button color="accent"  (click)="showByMonth()">THIS MONTH</button>
-  </md-card-actions>
 
 </md-card>
