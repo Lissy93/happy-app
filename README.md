@@ -3,11 +3,26 @@
  1. [Development Setup](#development-setup)
  2. [Production Setup](#production-setup)
  3. [Test Environment](#test-environment)
- 4. [Data](#data)
- 5. [API](#api)
+ 4. [Data Structures](#data)
+ 5. [API Reference](#api)
+ 6. [Project Planning](#project-planning)
 
 
 ## Introduction
+
+Happy App finds out how team members are feeling about their project, and visually displays results.
+
+Scheduled emails are sent out to every member at a given time, containing an embedded poll,
+making submitting responses effortless. All responses are anonymised, encouraging team member to be honest.
+The dashboard displays a summary of results in a series of data visualisations, showing:
+
+ - Overall team sentiment for today
+ - Sentiment change over time
+ - Sentiment by team
+
+### Screen Shot
+
+### Tech Stack
 
 ## Development Setup
 Setting up the project for development is done in the standard way.
@@ -24,14 +39,16 @@ The steps are as follows:
 
 ## Test Environment
 
+Read more about the [test strategy](https://github.com/Lissy93/twitter-sentiment-visualisation/blob/dev/docs/test-strategy.md)
+
 ## Data
 
-All data is anonymised, a one-way hash is created from the users email address, 
+All data is anonymised, a one-way hash is created from the users email address,
 which is used by the system to uniquely identify them, but this is not displayed
-to users/ admins. 
+to users/ admins.
 
 
-User data is represented in the [following JSON format](docs/example-json-struct.png): 
+User data is represented in the [following JSON format](/docs/example-json-struct.png):
 ```
 teamName: (String)
 data: (Array)
@@ -43,7 +60,7 @@ data: (Array)
 ```
 
 
-For example: 
+For example:
 
 ```json
 [
@@ -71,7 +88,7 @@ For example:
     ]
   }
 ]
-    
+
 ```
 *[see more...][sample-data]*
 
@@ -111,16 +128,16 @@ To populate the database with either randomly generated data, or exported JSON, 
 ```
 gulp populate-sample-data
 ```
-By default this generates a set of random, but reasonably realistic sample data, 
-the parameters of which were defined in the [populate-demo-db.js](`/tasks/setup/populate-demo-db.js`) file. 
+By default this generates a set of random, but reasonably realistic sample data,
+the parameters of which were defined in the [populate-demo-db.js](/tasks/setup/populate-demo-db.js) file.
 Alternativley, the path of previously generated or exported data can be specified,
-and the database will be populated the that data. 
+and the database will be populated the that data.
 An example filename parameter may look something like this:  [`/tasks/setup/sample-data.json`][sample-data].
 
 
 ## API
 
-The frontend accesses it's data through the set of functions exposed by the backend. 
+The frontend accesses it's data through the set of functions exposed by the backend.
 There are **GET** routes for just returning data, and **POST** routes which update/
 add new data, and require authentication.
 
@@ -153,8 +170,8 @@ Returns all recorded sentiment for all teams
 - **Error Response:**
   - **Code:** `200`
   - **Content:** `{}`
-  
-  
+
+
 ### /team-sentiment/:team-name
 Returns all recorded sentiment data for any given team
 
@@ -171,7 +188,17 @@ Returns all recorded sentiment data for any given team
 
 ## Project Planning
 
+
+### High-Level Flow Chart
+
+![Flowchart](/docs/high-level-flow-chart.png "Flowchart")
+
+
 ### Wireframes
+
+![Wireframes](/docs/Wireframes.png "Wireframes")
+
+
 
 ### High-Level Functional Requirements
 
@@ -210,4 +237,3 @@ _Allows team admin to modify certain application settings and maintain the team 
 
 [1]:http://www.json-generator.com/
 [2]: https://docs.mongodb.com/v3.0/tutorial/getting-started-with-the-mongo-shell/
-
