@@ -196,7 +196,7 @@ Returns all recorded sentiment data for any given team
 
 ### Wireframes
 
-![Wireframes](/docs/Wireframes.png "Wireframes")
+![Wireframes](/docs/wireframes.png "Wireframes")
 
 
 
