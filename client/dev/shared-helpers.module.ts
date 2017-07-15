@@ -166,4 +166,13 @@ export class SharedModule {
     return results;
   }
 
+  /**
+   * Given the raw score, returns percentage happiness (0-100%)
+   * @param score
+   * @returns {number}
+   */
+  getPercentagePositive(score){
+    return Math.round((score+1)*100/2);
+  }
+
 }

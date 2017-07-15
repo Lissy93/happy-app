@@ -1,14 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {SharedModule} from "../shared-helpers.module";
-import {AllTeamsService} from "../all-teams.service";
+import { Component } from '@angular/core';
+import { SharedModule } from '../shared-helpers.module';
+import { AllTeamsService } from '../all-teams.service';
 
-declare const c3, d3;
+declare const d3;
 
 @Component({
-  selector: "grid-chart",
-  templateUrl: "grid-chart/grid-chart.html",
-  styleUrls: ["grid-chart/grid-chart.css"]
+  selector: 'grid-chart',
+  templateUrl: 'grid-chart/grid-chart.html',
+  styleUrls: ['grid-chart/grid-chart.css']
 })
+
 export class GridChartComponent {
 
   gridChartData: object[];
@@ -22,104 +23,135 @@ export class GridChartComponent {
     this.allTeamsService.teamDataUpdated.subscribe(
       (teamData) => {
         this.gridChartData  = SharedModule.getAverageDaySentiment(teamData);
-          this.drawTheChart(this.gridChartData);
+        this.drawTheChart(this.gridChartData);
       }
     );
   }
 
+  /**
+   * Generates and renders the D3 calendar-grid chart!
+   * @param dateData
+   */
   drawTheChart(dateData){
 
+      /* Got to change the date formats, to make it easier with D3 */
       dateData.forEach((obj, index)=>{
           dateData[index].date = new Date(obj.date).toISOString().substring(0, 10);
       });
 
+      /* Calc number of weeks for given month */
       const weeksInMonth = (month)=>{
         let m = d3.timeMonth.floor(month);
         return d3.timeWeeks(d3.timeWeek.floor(m), d3.timeMonth.offset(m,1)).length;
       };
 
-      const minDate = d3.min(dateData, (d) => { return new Date(d.date).getTime() });
-      const maxDate = d3.max(dateData, (d) => { return new Date(d.date).getTime() });
-
+      /* Specify dimensions for grid */
       const cellMargin = 2;
-      const cellSize = 20;
+      const cellSize = 25;
 
-      const day = d3.timeFormat("%w");
-      const week = d3.timeFormat("%U");
-      const format = d3.timeFormat("%Y-%m-%d");
-      const titleFormat = d3.utcFormat("%a, %d-%b");
-      const monthName = d3.timeFormat("%B");
+      /* Get date range */
+      const minDate =
+        d3.min(dateData, (d) => { return new Date(d.date).getTime() });
+      const maxDate =
+        d3.max(dateData, (d) => { return new Date(d.date).getTime() });
+
+      /* Specify D3 date/ time formats */
+      const day = d3.timeFormat('%w');
+      const week = d3.timeFormat('%U');
+      const format = d3.timeFormat('%Y-%m-%d');
+      const titleFormat = d3.utcFormat('%A, %d-%b');
+      const monthName = d3.timeFormat('%B');
       const months = d3.timeMonth.range(d3.timeMonth.floor(minDate), maxDate);
 
-      let svg = d3.select("#grid-chart").selectAll("svg")
+    /* Define colour scale (red, to yellow, to green) for score */
+    const colorScale = d3.scaleLinear()
+      .domain([-1, -0.7, -0.5, -0.3, 0, 0.3, 0.5, -.7, 1])
+      .range(
+        ['#bb5337', '#c06537', '#c47638', '#c88737',  // negative
+          '#bdce37',                                    // neutral
+          '#8dca44', '#7bc947', '#66c74b', '#4dc54e']); // positive
+
+      /* Create SVG, set data, and pass in basic layout attributes */
+      let svg = d3.select('#grid-chart').selectAll('svg')
         .data(months)
-        .enter().append("svg")
-        .attr("class", "month")
-        .attr("height", ((cellSize * 7) + (cellMargin * 8) + 20) ) // the 20 is for the month labels
-        .attr("width", (d) => {
+        .enter().append('svg')
+        .attr('class', 'month')
+        .attr('height', ((cellSize * 7) + (cellMargin * 8) + 20) )
+        .attr('width', (d) => {
           let columns = weeksInMonth(d);
           return ((cellSize * columns) + (cellMargin * (columns + 1)));
         })
-        .append("g");
+        .append('g');
 
-      svg.append("text")
-        .attr("class", "month-name")
-        .attr("y", (cellSize * 7) + (cellMargin * 8) + 15 )
-        .attr("x", (d) => {
+      /* Append month names */
+      svg.append('text')
+        .attr('class', 'month-name')
+        .attr('y', (cellSize * 7) + (cellMargin * 8) + 15 )
+        .attr('x', (d) => {
           let columns = weeksInMonth(d);
           return (((cellSize * columns) + (cellMargin * (columns + 1))) / 2);
         })
-        .attr("text-anchor", "middle")
+        .attr('text-anchor', 'middle')
         .text((d) => { return monthName(d); });
 
-      let rect = svg.selectAll("rect.day")
-        .data((d, i) => { return d3.timeDays(d, new Date(d.getFullYear(), d.getMonth()+1, 1)); })
-        .enter().append("rect")
-        .attr("class", "day")
-        .attr("width", cellSize)
-        .attr("height", cellSize)
-        .attr("rx", 3).attr("ry", 3) // rounded corners
-        .attr("fill", '#eaeaea') // default light grey fill
-        .attr("y", (d) => { return (day(d) * cellSize) + (day(d) * cellMargin) + cellMargin; })
-        .attr("x", (d) => { return +
+      /* Append a square for each day */
+      let rect = svg.selectAll('rect.day')
+        .data((d) => {
+          return d3.timeDays(d, new Date(d.getFullYear(), d.getMonth()+1, 1));
+        })
+        .enter().append('rect')
+        .attr('class', 'day')
+        .attr('width', cellSize)
+        .attr('height', cellSize)
+        .attr('rx', 2).attr('ry', 2) // rounded corners
+        .attr('fill', '#eaeaea') // default light grey fill
+        .attr('y', (d) => { return (day(d) * cellSize) + (day(d) * cellMargin) + cellMargin; })
+        .attr('x', (d) => { return +
                 ((week(d) - week(new Date(d.getFullYear(),d.getMonth(),1))) * cellSize) +
                 ((week(d) - week(new Date(d.getFullYear(),d.getMonth(),1))) * cellMargin) +
                 cellMargin ;
         })
-        .on("mouseover", function (d, i ) {
+        .on('mouseover', function (d, i ) {
           d3.select(this).classed('hover', true);
         })
-        .on("mouseout", function() {
+        .on('mouseout', function() {
           d3.select(this).classed('hover', false);
         })
+        .on('click', (d)=> GridChartComponent.updateDaySummary(d) )
         .datum(format);
 
-      rect.append("title")
-        .text((d) => { return titleFormat(new Date(d)); });
+      /* Set hover title for each day */
+      rect.append('title')
+        .text((d) => { return `${titleFormat(new Date(d))} [no data yet]`; });
 
+      /* Get score (called count) from given date */
       let lookup = d3.nest()
         .key((d) => { return d.date })
         .rollup((leaves) => {
-          return d3.sum(leaves, (d) => { return Math.round(parseFloat(d.count)*1000)/1000; });
+          return d3.sum(leaves, (d) => {
+            return Math.round(parseFloat(d.count)*1000)/1000;
+          });
         })
         .object(dateData);
 
-      let scale = d3.scaleLinear()
-        .domain(d3.extent(dateData, (d) => { return Math.round(parseFloat(d.count)*1000)/1000; }))
-        .range([0.5]); // the interpolate used for color expects a number in the range [0,1] but i don't want the lightest part of the color scheme
-
-     const colorScale = d3.scaleLinear()
-      .domain([-1, -0.7, -0.5, -0.3, 0, 0.3, 0.5, -.7, 1])
-      .range(
-        ['#bb5337', '#c06537', '#c47638', '#c88737',  // negative
-        '#bdce37',                                    // neutral
-        '#8dca44', '#7bc947', '#66c74b', '#4dc54e']); // positive
-
+      /* Set the fill, and the title for the squares with valid data */
       rect.filter((d) => { return d in lookup; })
-        .style("fill", function(d) { return colorScale(lookup[d]); })
-        .select("title")
-        .text((d) => { return titleFormat(new Date(d)) + ":  " + lookup[d]; });
-
+        .style('fill', function(d) { return colorScale(lookup[d]); })
+        .select('title')
+        .text((d) => {
+          return  `${titleFormat(new Date(d))}: `+
+                  `${this.sharedModule.getPercentagePositive(lookup[d])}`+
+                  `% Positive`;
+        });
   }
 
+  /**
+   * Calls a function in the day-summary component, to show detailed day data
+   * @param date
+   */
+  static updateDaySummary(date){
+    //TODO this will call a function in the day-summary component
+    console.log('Date function called');
+    console.log(date);
+  }
 }
