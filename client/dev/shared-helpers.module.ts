@@ -117,7 +117,7 @@ export class SharedModule {
    * @param rawData
    * @returns { bad: 184, average: 177, good: 189 }
    */
-  getOverallSentimentCount(rawData){
+  public getOverallSentimentCount(rawData){
     let sentimentCount = {};
     const dateCountData = this.getSentimentCountPerDay(rawData);
     Object.keys(dateCountData).forEach((date)=>{
@@ -134,7 +134,7 @@ export class SharedModule {
    * @param rawData
    * @returns {Array} of objects, each with a key as date, and a summary as value
    */
-  getSentimentCountPerDay(rawData){
+  public getSentimentCountPerDay(rawData){
     let results = [];
     rawData.data.forEach((dateSet)=>{
       let date = dateSet.date;
@@ -171,8 +171,26 @@ export class SharedModule {
    * @param score
    * @returns {number}
    */
-  getPercentagePositive(score){
+  public static getPercentagePositive(score){
     return Math.round((score+1)*100/2);
+  }
+
+
+  public showLastXDays(rawData, xDays){
+    // Determines if given timestamp was since midnight, today
+    function isWithinRange(then, range){
+      return SharedModule.getNumDaysFromDate(then) <= range;
+    }
+    let newUserData = [];
+    rawData.data.forEach((dateSet)=>{
+      if(isWithinRange(dateSet.date, xDays)){
+        newUserData.push(dateSet)
+      }
+    });
+    let newRawData = JSON.parse(JSON.stringify(rawData));
+    newRawData.data = newUserData;
+
+    return newRawData;
   }
 
 }
