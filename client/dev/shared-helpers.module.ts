@@ -34,6 +34,69 @@ export class SharedModule {
     }
   }
 
+
+  /**
+   * Returns the string sentiment label, for given numeric val, specified in config
+   * @param value
+   * @returns {string}
+   */
+  static convertValueToLabel(value){
+    // TODO: These labels and values should be read from a config file
+    switch(value) {
+      case 1: { return 'good'; }
+      case 0: { return 'average'; }
+      case -1: { return 'bad'; }
+      default: { return 'average'; }
+    }
+  }
+
+  /**
+   *
+   * @param userResults
+   * @returns {number}
+   */
+  static findAverageFromUserResults(userResults){
+    let totalScore = 0;
+    userResults.forEach((userResult)=>{
+      totalScore += this.convertLabelToValue(userResult.score);
+    });
+    return totalScore / userResults.length;
+  }
+
+
+  /**
+   * Rounds the date to nearest day
+   * gets rid of second/ minute/ hour data - allows dates to be compared
+   * @param date
+   * @returns {date}
+   */
+  static roundDate(date){
+    date = new Date(date);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
+  }
+
+  /**
+   * Gets rid of team data, all user results sorted by date instead
+   * @param rawData
+   * @returns {{}}
+   */
+  static combineTeamData(rawData){
+    let results = {};
+    rawData.forEach((team)=>{
+      team.data.forEach((dateSet)=>{
+        const date = this.roundDate(dateSet.date);
+        if(results[date]){ results[date].concat(dateSet.userResults); }
+        else{ results[date] = dateSet.userResults; }
+      });
+    });
+    return results;
+  }
+
+
   /**
    * Returns a string array of each sentiment
    * @param rawData
@@ -82,6 +145,23 @@ export class SharedModule {
         else{sentimentCount[sentiment] = 1}
       });
       results[date] = sentimentCount  ;
+    });
+    return results;
+  }
+
+  /**
+   * Generates a list of average sentiments, for each given date
+   * @param rawData
+   * @returns {Array}
+   */
+  static getAverageDaySentiment(rawData){
+    const combinedTeamData = this.combineTeamData(rawData);
+    let results = [];
+    Object.keys(combinedTeamData).forEach((date)=>{
+        results.push({
+          date: date,
+          count: this.findAverageFromUserResults(combinedTeamData[date])
+        })
     });
     return results;
   }
