@@ -3,3 +3,30 @@
   margin: 0.5em 0;
   min-height: 100%;
 }
+
+/*******************************************\
+|** DYNAMICALLY ADDED STYLES FOR D3 CHART **|
+\*******************************************/
+:host /deep/ {
+
+  #calendar {
+    margin: 20px;
+  }
+  .month {
+    margin-right: 8px;
+  }
+  .month-name {
+    font-size: 85%;
+    fill: #777;
+    font-family: Arial, Helvetica;
+  }
+  .day.hover {
+    stroke: #6d6E70;
+    stroke-width: 2;
+  }
+  .day.focus {
+    stroke: #ffff33;
+    stroke-width: 2;
+  }
+
+}
