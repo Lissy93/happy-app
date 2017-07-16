@@ -1,12 +1,5 @@
 
-$primary-color: #ffd740;
-
-$black: #2e2e35;
-$dark-grey: #383838;
-$med-grey: #808080;
-$light-grey: #dbdbdb;
-$white: #FFFFFF;
-
+@import "../constants.scss";
 
 /* header surrounds whole top-bar */
 header{

@@ -178,9 +178,9 @@ export class SharedModule {
 
   public showLastXDays(rawData, xDays){
     // Determines if given timestamp was since midnight, today
-    function isWithinRange(then, range){
+    const isWithinRange = (then, range)=>{
       return this.getNumDaysFromDate(then) <= range;
-    }
+    };
     let newUserData = [];
     rawData.data.forEach((dateSet)=>{
       if(isWithinRange(dateSet.date, xDays)){

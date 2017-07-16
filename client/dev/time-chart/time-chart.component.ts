@@ -83,7 +83,7 @@ export class TimeChartComponent implements OnInit {
     Object.keys(sentimentPerDay).forEach((date)=>{ // For each day of data...
         let dayScore = 0;
         Object.keys(sentimentPerDay[date]).forEach((label)=>{
-          let labelScore = SharedModule.convertLabelToValue(label);
+          let labelScore = this.sharedModule.convertLabelToValue(label);
           dayScore += (labelScore * sentimentPerDay[date][label]);
         });
         sentimentResults.push(String(dayScore));

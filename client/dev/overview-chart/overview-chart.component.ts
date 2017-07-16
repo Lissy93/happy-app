@@ -64,7 +64,7 @@ export class OverviewChartComponent implements OnInit {
       data: {
         columns: [], type : 'donut',
         colors: {
-          good: '#4DC54E', average: '#D3D030', bad: '#BB5337'
+            good: '#4DC54E', average: '#D3D030', bad: '#BB5337'
         }
       },
       donut: { title: "" }
@@ -78,22 +78,7 @@ export class OverviewChartComponent implements OnInit {
   }
 
   private showLastXDays(xDays){
-    let sharedModule = this.sharedModule;
-
-    // Determines if given timestamp was since midnight, today
-    function isWithinRange(then, range){
-      return SharedModule.getNumDaysFromDate(then) <= range;
-    }
-
-    let newUserData = [];
-    this.rawData.data.forEach((dateSet)=>{
-      if(isWithinRange(dateSet.date, xDays)){
-        newUserData.push(dateSet)
-      }
-    });
-    let newRawData = JSON.parse(JSON.stringify(this.rawData));
-    newRawData.data = newUserData;
-    this.updateChart(newRawData);
+    this.updateChart(this.sharedModule.showLastXDays(this.rawData, xDays));
   }
 
   private showLodader(){

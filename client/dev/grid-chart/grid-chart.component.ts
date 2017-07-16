@@ -22,7 +22,7 @@ export class GridChartComponent {
     // Get raw summary data, and keep up-to-date
     this.allTeamsService.teamDataUpdated.subscribe(
       (teamData) => {
-        this.gridChartData  = SharedModule.getAverageDaySentiment(teamData);
+        this.gridChartData  = this.sharedModule.getAverageDaySentiment(teamData);
         this.drawTheChart(this.gridChartData);
       }
     );
