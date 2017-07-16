@@ -1,7 +1,35 @@
+@import "../constants.scss";
+
 .main-content div{
   margin-top: 1em;
 }
 
 .team-home-link{
   margin: 0.5em 0;
+  padding: 1em;
+  cursor: pointer;
+  
+  &:hover{
+    background: $super-light-grey;
+  }
+
+  h4.team-name{
+    margin: 0;
+    font-weight: 100;
+    font-size: $font-medium;
+  }
+
+  span.average-sentiment{
+    font-size: $font-big;
+    color: $light-grey;
+    font-weight: bold;
+    float: right;
+    top:0;
+    margin: 0.2em;
+  }
+
+  span.response-rate{
+    font-size: $font-small;
+    color: $light-grey;
+  }
 }
