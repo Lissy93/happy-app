@@ -11,7 +11,7 @@ export class SharedModule {
    * @param historicalDate
    * @returns {number}
    */
-  static getNumDaysFromDate(historicalDate){
+  public getNumDaysFromDate(historicalDate){
     const day = 24*60*60*1000;              // The number of milliseconds in one day
     const now = new Date().getTime();       // The time right now
     const then = new Date(historicalDate).getTime();  // The time comparing to
@@ -24,7 +24,7 @@ export class SharedModule {
    * @param label
    * @returns {number}
    */
-  static convertLabelToValue(label){
+  public convertLabelToValue(label){
     // TODO: These labels and values should be read from a config file
     switch(label) {
       case 'good': { return 1; }
@@ -40,7 +40,7 @@ export class SharedModule {
    * @param value
    * @returns {string}
    */
-  static convertValueToLabel(value){
+  private convertValueToLabel(value){
     // TODO: These labels and values should be read from a config file
     switch(value) {
       case 1: { return 'good'; }
@@ -55,7 +55,7 @@ export class SharedModule {
    * @param userResults
    * @returns {number}
    */
-  static findAverageFromUserResults(userResults){
+  public findAverageFromUserResults(userResults){
     let totalScore = 0;
     userResults.forEach((userResult)=>{
       totalScore += this.convertLabelToValue(userResult.score);
@@ -63,14 +63,13 @@ export class SharedModule {
     return totalScore / userResults.length;
   }
 
-
   /**
    * Rounds the date to nearest day
    * gets rid of second/ minute/ hour data - allows dates to be compared
    * @param date
    * @returns {date}
    */
-  static roundDate(date){
+  private roundDate(date){
     date = new Date(date);
     date.setHours(0);
     date.setMinutes(0);
@@ -84,7 +83,7 @@ export class SharedModule {
    * @param rawData
    * @returns {{}}
    */
-  static combineTeamData(rawData){
+  private combineTeamData(rawData){
     let results = {};
     rawData.forEach((team)=>{
       team.data.forEach((dateSet)=>{
@@ -102,7 +101,7 @@ export class SharedModule {
    * @param rawData
    * @returns {Array<string>} e.g. ['good', 'average', 'bad']
    */
-  getAllLabels(rawData){
+  public getAllLabels(rawData){
     let labels: Array<string> = [];
     rawData.data.forEach((dateSet)=> {
       dateSet.userResults.forEach((userResult) => {
@@ -129,6 +128,7 @@ export class SharedModule {
     return sentimentCount;
   }
 
+
   /**
    * Generates an object of dates, with a summary assigned to each
    * @param rawData
@@ -154,7 +154,7 @@ export class SharedModule {
    * @param rawData
    * @returns {Array}
    */
-  static getAverageDaySentiment(rawData){
+  public getAverageDaySentiment(rawData){
     const combinedTeamData = this.combineTeamData(rawData);
     let results = [];
     Object.keys(combinedTeamData).forEach((date)=>{
@@ -171,7 +171,7 @@ export class SharedModule {
    * @param score
    * @returns {number}
    */
-  public static getPercentagePositive(score){
+  public getPercentagePositive(score){
     return Math.round((score+1)*100/2);
   }
 
@@ -179,7 +179,7 @@ export class SharedModule {
   public showLastXDays(rawData, xDays){
     // Determines if given timestamp was since midnight, today
     function isWithinRange(then, range){
-      return SharedModule.getNumDaysFromDate(then) <= range;
+      return this.getNumDaysFromDate(then) <= range;
     }
     let newUserData = [];
     rawData.data.forEach((dateSet)=>{
