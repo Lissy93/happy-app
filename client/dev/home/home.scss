@@ -8,10 +8,6 @@
   margin: 0.5em 0;
   padding: 1em;
   cursor: pointer;
-  
-  &:hover{
-    background: $super-light-grey;
-  }
 
   h4.team-name{
     margin: 0;
@@ -32,4 +28,12 @@
     font-size: $font-small;
     color: $light-grey;
   }
+
+  &:hover{
+    background: $super-light-grey;
+    span.average-sentiment {
+      color: $med-grey !important;
+    }
+  }
+
 }

@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit{
   ) {}
 
 
+  static capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
   ngOnInit() {
 
     // Get the list of teams
@@ -43,7 +45,16 @@ export class HomeComponent implements OnInit{
 
         this.teamSummaryData.forEach((team)=>{ // For each team:
           team['data'].splice(numDaysOfHistory); // Splice to last X days
-          const breakdown = this.sharedModule.getOverallSentimentCount((team)); // Get breakdown object
+
+          // Get breakdown of scores
+          const breakdown = this.sharedModule.getOverallSentimentCount((team));
+          let bdText = '';
+          Object.keys(breakdown).reverse().forEach((label)=>{
+            bdText += `${HomeComponent.capitalize(label)}: ${breakdown[label]}, `
+          });
+          if (bdText){
+            bdText = bdText.substring(0, bdText.length - 1); // Remove trailing comma
+          }
 
           // Get the average score
           let teamTotalScore = 0;
@@ -53,21 +64,32 @@ export class HomeComponent implements OnInit{
           const teamAverageScore =
              this.sharedModule.getPercentagePositive(teamTotalScore / numDaysOfHistory);
 
+          // Calculate text color
+          let textColor = '#DBDBDB';
+          switch(true){
+            case teamAverageScore <= 40:
+              textColor = '#BB5337';
+              break;
+            case teamAverageScore <= 60:
+              textColor = '#D3D030';
+              break;
+            case teamAverageScore <= 100:
+              textColor = '#4DC54E';
+          }
+
           // Create a results object for the homepage
           this.homepageChartData.push({
-            teamName: team['teamName'],
-            breakdown: breakdown,
-            average: teamAverageScore
+            teamName: HomeComponent.capitalize(team['teamName']),
+            breakdown: bdText,
+            average: teamAverageScore,
+            color: textColor
           });
         });
-
-
-        console.log(this.homepageChartData); // Wooo, it's working!
-
       }
 
     );
   }
+
 
 
 
