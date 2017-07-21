@@ -1,11 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-
-import {HomeService } from './home.service';
-
-import {ActivatedRoute} from '@angular/router';
-import {TeamService} from "../team.service";
 import {AllTeamsService} from "../all-teams.service";
 import {SharedModule} from "../shared-helpers.module";
+
+declare const tippy;
 
 @Component({
   selector: "home-page",
@@ -13,6 +10,7 @@ import {SharedModule} from "../shared-helpers.module";
   styleUrls: ["home/home.css"]
 })
 export class HomeComponent implements OnInit{
+
 
   title: string = "happy-app";
   teams: string[] = [];
@@ -24,6 +22,17 @@ export class HomeComponent implements OnInit{
     private sharedModule: SharedModule
   ) {}
 
+
+  /**
+   * Applies fancy tooltip to a given element
+   * @param event
+   */
+  applyTooltip(event){
+    let target = event.target || event.srcElement || event.currentTarget;
+    if(target.attributes.title) {
+      tippy(target, {arrow: true});
+    }
+  }
 
   static capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
@@ -86,12 +95,6 @@ export class HomeComponent implements OnInit{
           });
         });
       }
-
-    );
+  );
   }
-
-
-
-
-
 }
