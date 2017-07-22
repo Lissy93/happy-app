@@ -22,6 +22,7 @@ import {TeamService} from "./team.service";
 import {AllTeamsService} from "./all-teams.service";
 import {GridChartComponent} from "./grid-chart/grid-chart.component";
 import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-chart";
+import {CommonService} from "./sommon.service";
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-ch
     providers: [
       HomeService,
       TeamService,
-      AllTeamsService
+      AllTeamsService,
+      CommonService
     ],
     bootstrap: [
       App

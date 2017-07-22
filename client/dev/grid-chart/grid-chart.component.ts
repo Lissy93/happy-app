@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component } from '@angular/core';
 import { SharedModule } from '../shared-helpers.module';
 import { AllTeamsService } from '../all-teams.service';
+import {CommonService} from "../sommon.service";
 
 declare const d3, tippy;
 
@@ -16,7 +17,8 @@ export class GridChartComponent {
 
   constructor(
     private allTeamsService: AllTeamsService,
-    private sharedModule: SharedModule
+    private sharedModule: SharedModule,
+    private commonService: CommonService
   ){
 
     // Get raw summary data, and keep up-to-date
@@ -118,7 +120,7 @@ export class GridChartComponent {
         .on('mouseout', function() {
           d3.select(this).classed('hover', false);
         })
-        .on('click', (d)=> GridChartComponent.updateDaySummary(d) )
+        .on('click', (d)=> this.updateDaySummary(d) )
         .datum(format);
 
       /* Set hover title for each day */
@@ -148,9 +150,7 @@ export class GridChartComponent {
    * Calls a function in the day-summary component, to show detailed day data
    * @param date
    */
-  static updateDaySummary(date){
-    //TODO this will call a function in the day-summary component
-    console.log('Date function called');
-    console.log(date);
+  updateDaySummary(date){
+    this.commonService.notifyDateSquareClicked(date);
   }
 }
