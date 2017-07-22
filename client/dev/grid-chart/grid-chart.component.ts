@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../shared-helpers.module';
 import { AllTeamsService } from '../all-teams.service';
 
-declare const d3;
+declare const d3, tippy;
 
 @Component({
   selector: 'grid-chart',
@@ -113,6 +113,7 @@ export class GridChartComponent {
         })
         .on('mouseover', function (d, i ) {
           d3.select(this).classed('hover', true);
+          tippy(this, {arrow: true, animation: 'fade', followCursor: true, position: 'left', size: 'small'});
         })
         .on('mouseout', function() {
           d3.select(this).classed('hover', false);
@@ -121,8 +122,7 @@ export class GridChartComponent {
         .datum(format);
 
       /* Set hover title for each day */
-      rect.append('title')
-        .text((d) => { return `${titleFormat(new Date(d))} [no data yet]`; });
+      rect.attr('title',(d) => { return `${titleFormat(new Date(d))} [no data yet]`; });
 
       /* Get score (called count) from given date */
       let lookup = d3.nest()
@@ -137,11 +137,10 @@ export class GridChartComponent {
       /* Set the fill, and the title for the squares with valid data */
       rect.filter((d) => { return d in lookup; })
         .style('fill', function(d) { return colorScale(lookup[d]); })
-        .select('title')
-        .text((d) => {
+        .attr('title', (d) => {
           return  `${titleFormat(new Date(d))}: `+
-                  `${this.sharedModule.getPercentagePositive(lookup[d])}`+
-                  `% Positive`;
+            `${this.sharedModule.getPercentagePositive(lookup[d])}`+
+            `% Positive`;
         });
   }
 
