@@ -21,6 +21,7 @@ import {TeamComponent} from "./team/team.component";
 import {TeamService} from "./team.service";
 import {AllTeamsService} from "./all-teams.service";
 import {GridChartComponent} from "./grid-chart/grid-chart.component";
+import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-chart";
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import {GridChartComponent} from "./grid-chart/grid-chart.component";
       OverviewChartComponent,
       CalendarChartComponent,
       GridChartComponent,
+      DayBreakdownChartComponent,
       LoaderComponent
     ],
     providers: [
