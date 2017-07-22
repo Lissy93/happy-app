@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { SharedModule } from '../shared-helpers.module';
 import { AllTeamsService } from '../all-teams.service';
-import {CommonService} from "../sommon.service";
+import {CommonService} from "../common.service";
 import {Subscription} from "rxjs";
 
 declare const d3, tippy;
