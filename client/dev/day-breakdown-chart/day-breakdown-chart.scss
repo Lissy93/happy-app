@@ -3,4 +3,14 @@
 
 .day-breakdown-chart{
   margin: 0.5em 0;
+
+  #bar-chart{
+
+    .chart {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 0 auto;
+    }
+
+  }
 }
