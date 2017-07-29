@@ -1,5 +1,5 @@
 <header class="row mat-elevation-z6">
-  <div class="col-xs-12 col-md-4 title-container">
+  <div class="col-xs-9 col-sm-6 col-md-3 title-container">
     <i class="material-icons">sentiment_very_satisfied</i>
     <h1>
       <ng-content select="[project-name]"></ng-content>
@@ -7,7 +7,7 @@
     <h2>{{teamName}}</h2>
   </div>
 
-  <div class="col-xs-12 col-md-8">
+  <div class="col-xs-12 col-md-8 team-tabs">
     <nav md-tab-nav-bar select="[teamTabs]">
       <a md-tab-link
          *ngFor="let team of teams"
@@ -19,6 +19,47 @@
         {{team}}
       </a>
     </nav>
+
+  </div>
+
+  <div class="col-xs-3 col-sm-6 col-md-1 team-drop-down">
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+      <span class="show-only-on-mobile site-navigation-text">Site Navigation</span><md-icon>more_vert</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+      <div class="show-only-on-mobile">
+        <button disabled md-menu-item class="highlighted-button">
+          <md-icon>people</md-icon>
+          <span>Teams</span>
+        </button>
+        <button
+          class="team-dropdown-button"
+          md-menu-item
+          *ngFor="let team of teams"
+          routerLinkActive = "routerLinkActive"
+          [class.highlighted-button]="teamName == team"
+          (click)="navigateToTeam(team)">
+          <md-icon>label_outline</md-icon>
+          <span>{{team}}</span>
+        </button>
+      </div>
+      <button md-menu-item>
+        <md-icon>home</md-icon>
+        <span>Home</span>
+      </button>
+      <button md-menu-item>
+        <md-icon>file_download</md-icon>
+        <span>Download Data</span>
+      </button>
+      <button md-menu-item>
+        <md-icon>security</md-icon>
+        <span>Admin Panel</span>
+      </button>
+      <button md-menu-item>
+        <md-icon>feedback</md-icon>
+        <span>App Feedback</span>
+      </button>
+    </md-menu>
   </div>
 </header>
 

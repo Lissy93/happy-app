@@ -29,8 +29,35 @@ header{
 
   }
 
+  .team-tabs{
+    @include tablet-landscape-and-below{ display: none; }
+
+    /deep/ .mat-tab-links a{ min-width: 120px; }
+  }
+
+  .team-drop-down{
+    button{
+      float: right;
+      width: auto;
+      padding: 0.25em;
+    }
+
+    /deep/ .highlighted-button{ background: $light-grey;}
+    /deep/ .team-dropdown-button{
+      background: $primary-light !important;
+    }
+
+  }
+
 }
 
+.show-only-on-mobile{
+  @include desktop-and-up{ display: none; }
+}
+
+.site-navigation-text{
+  @include mobile-landscape-and-below{ display: none; }
+}
 
 
 .isActivatedTab{
