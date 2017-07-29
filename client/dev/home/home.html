@@ -6,7 +6,7 @@
 
   <div class="main-content row">
 
-      <div class="col col-xs-12 col-sm-3 col-md-3 col-lg-2 ">
+      <div class="col col-xs-12 col-sm-3 col-md-3 col-lg-2">
 
         <md-card *ngFor="let team of homepageChartData" class="team-home-link" [title]="team.breakdown" (mouseover)="applyTooltip($event)">
             <span class="average-sentiment" [style.color]="team.color">{{team.average}}%</span>
@@ -16,13 +16,13 @@
 
       </div>
 
-      <div class="col col-xs-12 col-sm-6">
+      <div class="col col-xs-12 col-sm-6 col-md-5 col-lg-5">
 
         <grid-chart></grid-chart>
 
       </div>
 
-      <div class="col col-xs-12 col-sm-3">
+      <div class="col col-xs-12 col-sm-3 col-md-4 col-lg-5">
 
         <day-breakdown-chart></day-breakdown-chart>
 
