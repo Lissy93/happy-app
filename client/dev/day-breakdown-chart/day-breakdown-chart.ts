@@ -5,7 +5,7 @@ import {CommonService} from "../common.service";
 import {Subscription} from "rxjs";
 import {Http} from "@angular/http";
 
-declare const d3, tippy;
+declare const d3, tippy, moment;
 
 @Component({
   selector: 'day-breakdown-chart',
@@ -19,13 +19,15 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
 
   date: Date;
   dateData: Object;
+  formatedDate: String = '';
 
   dateDataUpdated: EventEmitter<any> = new EventEmitter();
 
 
   constructor(
     private http: Http,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private sharedModule: SharedModule
   ){}
 
   ngOnInit() {
@@ -34,6 +36,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       this.date = res; // Set date in class
       this.fetchDateTeamData(this.date); // Initiate the fetching of new date data
+      this.formatedDate = moment(this.date).format('MMMM Do YYYY');
     });
 
     // Subscribe to listen for when new date data comes in
@@ -59,70 +62,144 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
 
   private renderChart(rawDateData){
 
-    let initStackedBarChart = {
-      draw: function(config) {
-        let me = this,
-          domEle = config.element,
-          stackKey = config.key,
-          data = config.data,
-          margin = {top: 20, right: 20, bottom: 30, left: 50},
-          parseDate = d3.timeParse("%m/%Y"),
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom,
-          xScale = d3.scaleLinear().rangeRound([0, width]),
-          yScale = d3.scaleBand().rangeRound([height, 0]).padding(0.1),
-          color = d3.scaleOrdinal(d3.schemeCategory20),
-          xAxis = d3.axisBottom(xScale),
-          yAxis =  d3.axisLeft(yScale).tickFormat(d3.timeFormat("%b")),
-          svg = d3.select("#"+domEle).append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    /* Format the data for the chart */
+    const data = this.makeChartData(rawDateData);
 
-        var stack = d3.stack()
-          .keys(stackKey)
-          /*.order(d3.stackOrder)*/
-          .offset(d3.stackOffsetNone);
+    /* Reset the SVG */
+    d3.select("#bar-chart svg").remove(); // Remove old SVG
+    let parent = d3.select("#bar-chart"); // Get parent
+    let svg = parent.append("svg"); // Add new SVG
 
-        var layers= stack(data);
-        data.sort(function(a, b) { return b.total - a.total; });
-        yScale.domain(data.map(function(d) { return parseDate(d.date); }));
-        xScale.domain([0, d3.max(layers[layers.length - 1], function(d) { return d[0] + d[1]; }) ]).nice();
+    /* Set dimensions */
+    let margin = { top: 20, right: 60, bottom: 30, left: 40 };
+    let width = parseInt(parent.style("width")) - margin.left - margin.right;
+    let height = parseInt(parent.style("height")) - margin.top - margin.bottom;
+    svg.attr("width", width).attr("height", height+40);
+    let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        var layer = svg.selectAll(".layer")
-          .data(layers)
-          .enter().append("g")
-          .attr("class", "layer")
-          .style("fill", function(d, i) { return color(i); });
+    /* Define scales */
+    const y = d3.scaleBand()
+      .rangeRound([0, height])
+      .padding(0.1)
+      .align(0.1);
 
-        layer.selectAll("rect")
-          .data(function(d) { return d; })
-          .enter().append("rect")
-          .attr("y", function(d) { return yScale(parseDate(d.data.date)); })
-          .attr("x", function(d) { return xScale(d[0]); })
-          .attr("height", yScale.bandwidth())
-          .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]) });
+    const x = d3.scaleLinear()
+      .rangeRound([0, width]);
 
-        svg.append("g")
-          .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + (height+5) + ")")
-          .call(xAxis);
+    const z = d3.scaleOrdinal()
+      .range(["#4DC54E", "#D3D030", "#BB5337"]);
 
-        svg.append("g")
-          .attr("class", "axis axis--y")
-          .attr("transform", "translate(0,0)")
-          .call(yAxis);
-      }
+    /* Sort data by highest total first */
+    data.sort(function(a, b) { return b['total'] - a['total']; });
+
+    /* Map the data against domains */
+    y.domain(data.map(function(d) {
+      return d.teamName;
+    }));
+    z.domain(["good", "average", "bad"]);
+    x.domain([0, d3.max(data, function(d) { return d.total; })]).nice();
+
+    /* Create the serries */
+    const series = g.selectAll(".serie")
+      .data(d3.stack().keys(["good", "average", "bad"])(data))
+      .enter().append("g")
+      .attr("class", "serie")
+      .attr("fill", function(d) {
+        return z(d.key);
+      });
+
+    series.selectAll("rect")
+      .data(function(d) {
+        return d;
+      })
+      .enter().append("rect")
+      .attr("y", function(d) {
+        return y(d.data.teamName);
+      })
+      .attr("x", function(d) {
+        return x(d[0]);
+      })
+      .attr("width", function(d) {
+        const w = x(d[1]) - x(d[0]);
+        if(isNaN(w)){return 0; }
+        return w;
+      })
+      .attr("height", y.bandwidth());
+
+    g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).ticks(10, "%"));
+
+    g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y));
+
+    const legend = series.append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d) {
+        d = d[0];
+        if(!d){ return 0; }
+        return "translate(" +  ((x(d[0]) + x(d[1])) / 2) + ", " +(y(d.data.teamName) - y.bandwidth())+ ")";
+      });
+
+    legend.append("line")
+      .attr("y1", 5)
+      .attr("x1", 15)
+      .attr("x2", 15)
+      .attr("y2", 12)
+      .attr("stroke", "#000");
+
+    legend.append("text")
+      .attr("x", 9)
+      .attr("dy", "0.35em")
+      .attr("fill", "#000")
+      .style("font", "10px sans-serif")
+      .text(function(d) {
+        return d.key;
+      });
+
+    function type(d, i, columns) {
+      let t = 0;
+      for (let i = 1; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
+      d.total = t;
+      return d;
     }
-    var data = [{"date":"4/1854","total":8571,"disease":1,"wounds":0,"other":5},{"date":"5/1854","total":23333,"disease":12,"wounds":0,"other":9},{"date":"6/1854","total":28333,"disease":11,"wounds":0,"other":6},{"date":"7/1854","total":28772,"disease":359,"wounds":0,"other":23},{"date":"8/1854","total":30246,"disease":828,"wounds":1,"other":30},{"date":"9/1854","total":30290,"disease":788,"wounds":81,"other":70},{"date":"10/1854","total":30643,"disease":503,"wounds":132,"other":128},{"date":"11/1854","total":29736,"disease":844,"wounds":287,"other":106},{"date":"12/1854","total":32779,"disease":1725,"wounds":114,"other":131},{"date":"1/1855","total":32393,"disease":2761,"wounds":83,"other":324},{"date":"2/1855","total":30919,"disease":2120,"wounds":42,"other":361},{"date":"3/1855","total":30107,"disease":1205,"wounds":32,"other":172},{"date":"4/1855","total":32252,"disease":477,"wounds":48,"other":57},{"date":"5/1855","total":35473,"disease":508,"wounds":49,"other":37},{"date":"6/1855","total":38863,"disease":802,"wounds":209,"other":31},{"date":"7/1855","total":42647,"disease":382,"wounds":134,"other":33},{"date":"8/1855","total":44614,"disease":483,"wounds":164,"other":25},{"date":"9/1855","total":47751,"disease":189,"wounds":276,"other":20},{"date":"10/1855","total":46852,"disease":128,"wounds":53,"other":18},{"date":"11/1855","total":37853,"disease":178,"wounds":33,"other":32},{"date":"12/1855","total":43217,"disease":91,"wounds":18,"other":28},{"date":"1/1856","total":44212,"disease":42,"wounds":2,"other":48},{"date":"2/1856","total":43485,"disease":24,"wounds":0,"other":19},{"date":"3/1856","total":46140,"disease":15,"wounds":0,"other":35}];
-    var key = ["wounds", "other", "disease"];
-    initStackedBarChart.draw({
-      data: data,
-      key: key,
-      element: 'bar-chart'
-    });
-
 
   }
+
+  private makeChartData(rawData){
+
+    function formatData(data){
+      let newData = [];
+      data.forEach((barObject)=>{
+
+        let total = 0;
+        Object.keys(barObject.scores).forEach((key)=>{
+          total += barObject.scores[key];
+        });
+
+        let newBarObject = barObject.scores;
+        newBarObject['teamName'] = barObject.teamName;
+        newBarObject.total = total;
+        newData.push(newBarObject);
+      });
+
+      return newData;
+    }
+
+    let chartData = [];
+    rawData.forEach((teamObject)=>{
+      let bar = {};
+      let scores = this.sharedModule.getOverallSentimentCount(teamObject);
+      bar['teamName'] = teamObject.teamName;
+      bar['scores'] = scores;
+      chartData.push(bar);
+    });
+
+    return formatData(chartData);
+
+  }
+
+
 }
