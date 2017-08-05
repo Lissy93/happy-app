@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+declare const moment;
+
 @NgModule({
 
 
@@ -76,6 +78,15 @@ export class SharedModule {
     date.setSeconds(0);
     date.setMilliseconds(0);
     return date;
+  }
+
+  public makeFormattedDate(date){
+    let daysSinceDate = this.getNumDaysFromDate(date);
+    let formatedDate = moment(date).format('MMMM Do YYYY');
+    if(daysSinceDate == 0){ formatedDate = 'today' }
+    else if(daysSinceDate == 1){ formatedDate = 'yesterday' }
+    else if(daysSinceDate == -1){ formatedDate = 'tomorrow' }
+    return formatedDate;
   }
 
   /**
