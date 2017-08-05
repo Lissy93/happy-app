@@ -36,7 +36,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       this.date = res; // Set date in class
       this.fetchDateTeamData(this.date); // Initiate the fetching of new date data
-      this.formatedDate = moment(this.date).format('MMMM Do YYYY');
+      this.formatedDate = this.sharedModule.makeFormattedDate(this.date)
     });
 
     // Subscribe to listen for when new date data comes in
@@ -74,7 +74,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     let margin = { top: 20, right: 60, bottom: 30, left: 40 };
     let width = parseInt(parent.style("width")) - margin.left - margin.right;
     let height = parseInt(parent.style("height")) - margin.top - margin.bottom;
-    svg.attr("width", width).attr("height", height+40);
+    svg.attr("width", width+40).attr("height", height+40);
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     /* Define scales */
@@ -129,7 +129,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(10, "%"));
+      .call(d3.axisBottom(x).ticks(width/30));
 
     g.append("g")
       .attr("class", "axis axis--y")
@@ -141,22 +141,6 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
         d = d[0];
         if(!d){ return 0; }
         return "translate(" +  ((x(d[0]) + x(d[1])) / 2) + ", " +(y(d.data.teamName) - y.bandwidth())+ ")";
-      });
-
-    legend.append("line")
-      .attr("y1", 5)
-      .attr("x1", 15)
-      .attr("x2", 15)
-      .attr("y2", 12)
-      .attr("stroke", "#000");
-
-    legend.append("text")
-      .attr("x", 9)
-      .attr("dy", "0.35em")
-      .attr("fill", "#000")
-      .style("font", "10px sans-serif")
-      .text(function(d) {
-        return d.key;
       });
 
     function type(d, i, columns) {
