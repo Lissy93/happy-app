@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AllTeamsService} from "../all-teams.service";
 import {SharedModule} from "../shared-helpers.module";
+import {CommonService} from "../common.service";
 
 declare const tippy;
 
@@ -11,7 +12,6 @@ declare const tippy;
 })
 export class HomeComponent implements OnInit{
 
-
   title: string = "happy-app";
   teams: string[] = [];
   teamSummaryData: object[] = [];
@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit{
 
   constructor(
     private allTeamsService: AllTeamsService,
-    private sharedModule: SharedModule
+    private sharedModule: SharedModule,
+    private commonService: CommonService
   ) {}
 
 
@@ -34,8 +35,17 @@ export class HomeComponent implements OnInit{
     }
   }
 
+  /**
+   * Capitalize first letter
+   * @param str
+   * @returns {string}
+   */
   static capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
+  /**
+   * Lol just does everything in the init, cos why not
+   * TODO refactor into smaller, more readable functions
+   */
   ngOnInit() {
 
     // Get the list of teams
@@ -48,6 +58,10 @@ export class HomeComponent implements OnInit{
     this.teamSummaryData = this.allTeamsService.getTeamSummary();
     this.allTeamsService.teamDataUpdated.subscribe(
       (teamData) => { // okay, team data has arrived....
+
+        // Call to render the day breakdown chart
+        let dateForBreadkwonChart = this.wereThereAnyResultsForYesterdayButNotToday(teamData);
+        this.commonService.notifyDateSquareClicked(dateForBreadkwonChart);
 
         const numDaysOfHistory = 7; // How many days back to go?
         this.teamSummaryData  = teamData; // Assign to class
@@ -96,5 +110,23 @@ export class HomeComponent implements OnInit{
         });
       }
   );
+  }
+
+  /**
+   * Lol objective-C style function name
+   * If there weren't no results for today, we just return yesterdays date
+   * e.g. for when the app is being used in the morning
+   * @param rawData
+   * @returns {Date}
+   */
+  private wereThereAnyResultsForYesterdayButNotToday(rawData){
+    let dateToReturn = new Date(); // today, by default
+   if(this.sharedModule.showLastXDays(rawData[0], 0).data.length == 0){ // If there's no data for today
+     if(this.sharedModule.showLastXDays(rawData[1], 1).data.length > 1){ // But there is data for yesterday
+       let d = new Date();
+       dateToReturn = new Date(d.setDate(d.getDate() - 1)); // Then find the date of yesterday, and use theat
+       }
+   }
+   return dateToReturn;
   }
 }
