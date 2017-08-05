@@ -80,9 +80,15 @@ export class SharedModule {
     return date;
   }
 
+  /**
+   * Uses moment for return a date in the tesxt format
+   * we would like it in for the charts
+   * @param date
+   * @returns {any}
+   */
   public makeFormattedDate(date){
     let daysSinceDate = this.getNumDaysFromDate(date);
-    let formatedDate = moment(date).format('MMMM Do YYYY');
+    let formatedDate = moment(date).format('dddd Do MMMM YY');
     if(daysSinceDate == 0){ formatedDate = 'today' }
     else if(daysSinceDate == 1){ formatedDate = 'yesterday' }
     else if(daysSinceDate == -1){ formatedDate = 'tomorrow' }
