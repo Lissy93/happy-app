@@ -3,6 +3,10 @@
     <md-card-title><h3>Day Details</h3></md-card-title>
     <md-card-subtitle>Breakdown of team results for {{formatedDate}}</md-card-subtitle>
   </md-card-header>
-  <div id="bar-chart"></div>
-
+  <div  id="bar-chart">
+    <div *ngIf="!showChart" class="no-data-message">
+      <h3>{{noDataMessage}}</h3>
+      <p>Select a different date to view, by clicking a day on the chart to the left</p>
+    </div>
+  </div>
 </md-card>

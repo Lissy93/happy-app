@@ -20,6 +20,8 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
   date: Date;
   dateData: Object;
   formatedDate: String = '';
+  noDataMessage: String = '';
+  showChart: Boolean = true;
 
   dateDataUpdated: EventEmitter<any> = new EventEmitter();
 
@@ -69,6 +71,14 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     d3.select("#bar-chart svg").remove(); // Remove old SVG
     let parent = d3.select("#bar-chart"); // Get parent
     let svg = parent.append("svg"); // Add new SVG
+
+    if(data.length == 0){
+      this.showNoDataMessage(this.date);
+      return false;
+    }
+    else{ // We assume there is valid data for today:
+      this.showChart = true;
+    }
 
     /* Set dimensions */
     let margin = { top: 20, right: 60, bottom: 30, left: 40 };
@@ -149,7 +159,6 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
       d.total = t;
       return d;
     }
-
   }
 
   private makeChartData(rawData){
@@ -184,6 +193,12 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     return formatData(chartData);
 
   }
+
+  private showNoDataMessage(date){
+    this.showChart = false;
+    this.noDataMessage = `No data recorded for ${this.sharedModule.makeFormattedDate(date)}`
+  }
+
 
 
 }
