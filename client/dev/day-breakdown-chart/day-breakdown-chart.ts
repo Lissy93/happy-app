@@ -114,27 +114,25 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
       .data(d3.stack().keys(["good", "average", "bad"])(data))
       .enter().append("g")
       .attr("class", "serie")
-      .attr("fill", function(d) {
-        return z(d.key);
-      });
+      .attr("fill", (d)=> { return z(d.key); });
 
     series.selectAll("rect")
-      .data(function(d) {
-        return d;
-      })
+      .data((d) => { return d; })
       .enter().append("rect")
-      .attr("y", function(d) {
-        return y(d.data.teamName);
-      })
-      .attr("x", function(d) {
-        return x(d[0]);
-      })
+      .attr("y", (d) => { return y(d.data.teamName); })
+      .attr("x", (d) => { return x(d[0]); })
       .attr("width", function(d) {
         const w = x(d[1]) - x(d[0]);
         if(isNaN(w)){return 0; }
         return w;
       })
-      .attr("height", y.bandwidth());
+      .attr("height", y.bandwidth())
+      .attr("title", (d, i)=>{
+        return this.getBreakdownText(d.data);
+      })
+      .on('mouseover', function (d, i ) {
+        tippy(this, {arrow: true, animation: 'perspective', followCursor: false, position: 'bottom', size: 'small'});
+      });
 
     g.append("g")
       .attr("class", "axis axis--x")
@@ -197,6 +195,11 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
   private showNoDataMessage(date){
     this.showChart = false;
     this.noDataMessage = `No data recorded for ${this.sharedModule.makeFormattedDate(date)}`
+  }
+
+  private getBreakdownText(barData){
+    function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+    return `${capitalize(barData.teamName)}: ${ Math.round(barData.good / barData.total * 100)}% positive (${this.formatedDate})`;
   }
 
 
