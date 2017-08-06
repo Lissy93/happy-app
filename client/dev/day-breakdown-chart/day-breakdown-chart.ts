@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy, EventEmitter} from '@angular/core';
 import { SharedModule } from '../shared-helpers.module';
-import { AllTeamsService } from '../all-teams.service';
 import {CommonService} from "../common.service";
 import {Subscription} from "rxjs";
 import {Http} from "@angular/http";
@@ -22,7 +21,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
   formatedDate: String = '';
   noDataMessage: String = '';
   showChart: Boolean = true;
-
+  rawData: Object;
   dateDataUpdated: EventEmitter<any> = new EventEmitter();
 
 
@@ -43,7 +42,10 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
 
     // Subscribe to listen for when new date data comes in
     this.dateDataUpdated.subscribe(
-      (rawDateData) => { this.renderChart(rawDateData); }
+      (rawDateData) => {
+        this.rawData = rawDateData;
+        this.renderChart(rawDateData);
+      }
     );
 
   }
@@ -138,7 +140,6 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x).ticks(width/30));
-
     g.append("g")
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(y));
@@ -203,5 +204,13 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
   }
 
 
+  public onWindowResize(event){
+    let resizeTimer = undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      return resizeTimer = setTimeout((() => this.renderChart(this.rawData) ), 250);
+    });
+  }
 
 }
+
