@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit{
   private wereThereAnyResultsForYesterdayButNotToday(rawData){
     let dateToReturn = new Date(); // today, by default
    if(this.sharedModule.showLastXDays(rawData[0], 0).data.length == 0){ // If there's no data for today
-     if(this.sharedModule.showLastXDays(rawData[1], 1).data.length > 1){ // But there is data for yesterday
+     if(this.sharedModule.showLastXDays(rawData[0], 1).data.length > 0){ // But there is data for yesterday
        let d = new Date();
        dateToReturn = new Date(d.setDate(d.getDate() - 1)); // Then find the date of yesterday, and use theat
        }
