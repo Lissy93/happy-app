@@ -40,10 +40,12 @@ export class NavbarComponent {
 
   }
 
-
-
   navigateToTeam(teamName) {
     this.router.navigate([`./${teamName}`]);
+  }
+
+  navigateToHome(){
+    this.router.navigate(['./']);
   }
 
 
