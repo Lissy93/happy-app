@@ -48,8 +48,7 @@ header{
     }
 
   }
-
-}
+  }
 
 .show-only-on-mobile{
   @include desktop-and-up{ display: none; }
@@ -57,6 +56,12 @@ header{
 
 .site-navigation-text{
   @include mobile-landscape-and-below{ display: none; }
+}
+
+/* Where a tag is used instead of button on the drop-down */
+a.link-button{
+  font-weight: normal;
+  &:hover{ color: $black; }
 }
 
 
