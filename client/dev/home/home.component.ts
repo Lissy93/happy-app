@@ -121,6 +121,7 @@ export class HomeComponent implements OnInit{
    */
   private wereThereAnyResultsForYesterdayButNotToday(rawData){
     let dateToReturn = new Date(); // today, by default
+    if(rawData.length == 0){ return dateToReturn; } // If there isn't actually any data, lets just give up
    if(this.sharedModule.showLastXDays(rawData[0], 0).data.length == 0){ // If there's no data for today
      if(this.sharedModule.showLastXDays(rawData[0], 1).data.length > 0){ // But there is data for yesterday
        let d = new Date();

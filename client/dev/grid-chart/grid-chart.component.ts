@@ -14,6 +14,7 @@ declare const d3, tippy;
 export class GridChartComponent {
 
   gridChartData: object[];
+  showChart: boolean = true;
 
   constructor(
     private allTeamsService: AllTeamsService,
@@ -25,9 +26,23 @@ export class GridChartComponent {
     this.allTeamsService.teamDataUpdated.subscribe(
       (teamData) => {
         this.gridChartData  = this.sharedModule.getAverageDaySentiment(teamData);
-        this.drawTheChart(this.gridChartData);
+        if(this.checkThereIsEnoughData(teamData)){ // If there is enough data for chart
+          this.drawTheChart(this.gridChartData); // Then call to render the chart
+        }
+        else{
+          this.showChart = false; // Else hide chart, and show message
+        }
       }
     );
+  }
+
+  /**
+   * Checks that there is enough data to display the chart
+   * @param rawData
+   * @returns {boolean}
+   */
+  private checkThereIsEnoughData(rawData){
+      return rawData.length > 0;
   }
 
   /**
@@ -144,6 +159,8 @@ export class GridChartComponent {
             `${this.sharedModule.getPercentagePositive(lookup[d])}`+
             `% Positive`;
         });
+
+    this.showChart = true; // Should be true
   }
 
   /**
