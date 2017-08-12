@@ -44,7 +44,14 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     this.dateDataUpdated.subscribe(
       (rawDateData) => {
         this.rawData = rawDateData;
-        this.renderChart(rawDateData);
+        const chartData = this.makeChartData(rawDateData);
+
+        if(this.checkThereIsEnoughData(chartData)){
+          this.renderChart(chartData);
+        }
+        else{
+          this.showNoDataMessage(this.date);
+        }
       }
     );
 
@@ -64,28 +71,30 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
       );
   }
 
-  private renderChart(rawDateData){
+  private checkThereIsEnoughData(chartData){
+    return chartData.length >= 1;
+  }
 
-    /* Format the data for the chart */
-    const data = this.makeChartData(rawDateData);
+  private renderChart(data){
 
     /* Reset the SVG */
     d3.select("#bar-chart svg").remove(); // Remove old SVG
     let parent = d3.select("#bar-chart"); // Get parent
     let svg = parent.append("svg"); // Add new SVG
 
-    if(data.length == 0){
+    /* Ensure there is enough data available */
+    if(!this.checkThereIsEnoughData(data)){
       this.showNoDataMessage(this.date);
       return false;
     }
-    else{ // We assume there is valid data for today:
+    else{ // We assume there is valid data for the given date
       this.showChart = true;
     }
 
     /* Set dimensions */
     let margin = { top: 20, right: 20, bottom: 20, left: 35 };
     let width = parseInt(parent.style("width")) - margin.left - margin.right;
-    let height = parseInt(parent.style("height")) - margin.top - margin.bottom;
+    let height = 320;
     svg.attr("width", width+40).attr("height", height+40);
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -111,7 +120,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     z.domain(["good", "average", "bad"]);
     x.domain([0, d3.max(data, function(d) { return d.total; })]).nice();
 
-    /* Create the serries */
+    /* Create the series */
     const series = g.selectAll(".serie")
       .data(d3.stack().keys(["good", "average", "bad"])(data))
       .enter().append("g")
@@ -195,7 +204,8 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
 
   private showNoDataMessage(date){
     this.showChart = false;
-    this.noDataMessage = `No data recorded for ${this.sharedModule.makeFormattedDate(date)}`
+    this.noDataMessage = `No data recorded for ${this.sharedModule.makeFormattedDate(date)}`;
+    d3.select("#bar-chart svg").remove();
   }
 
   private getBreakdownText(barData){
@@ -208,7 +218,8 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     let resizeTimer = undefined;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      return resizeTimer = setTimeout((() => this.renderChart(this.rawData) ), 250);
+      return resizeTimer = setTimeout((() =>
+        this.renderChart(this.makeChartData(this.rawData)) ), 250);
     });
   }
 

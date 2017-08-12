@@ -2,11 +2,9 @@
 @import "../constants.scss";
 
 .day-breakdown-chart{
-  margin: 0.5em 0;
 
   #bar-chart{
     width: 100%;
-    min-height: 20em;
 
     /deep/ text{ fill: $med-grey; font-size: $font-normal; }
     /deep/ path{ stroke: $med-grey; }

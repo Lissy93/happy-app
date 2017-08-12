@@ -2,38 +2,44 @@
 
 .main-content {
   margin: 1em;
-  div{ margin-top: 1em; } // For each card to not touch on mobile view
+  div{ margin-top: 1em; } // So that cards have gaps between them, on mobile/ stacked view
 }
 
+md-list{ padding-top: 0; } // Remove default gap, at start of team list
+
 .team-home-link{
-  margin: 0.5em 0;
-  padding: 1em;
+  margin: 0 !important;
+  padding: 0;
   cursor: pointer;
 
-  h4.team-name{
-    margin: 0;
-    font-weight: 100;
-    font-size: $font-medium;
-  }
+  &:last-child md-divider{ display: none; } // Hide the last divider, as not needed
 
-  span.average-sentiment{
-    font-size: $font-big;
-    color: $light-grey;
-    font-weight: bold;
-    float: right;
-    top:0;
-    margin: 0.2em;
-  }
+  md-list-item{
+    h4.team-name{
+      margin: 0;
+      font-weight: 100;
+      font-size: $font-medium;
+    }
 
-  span.response-rate{
-    font-size: $font-small;
-    color: $light-grey;
-  }
+    span.average-sentiment{
+      font-size: $font-big;
+      color: $light-grey;
+      font-weight: bold;
+      float: right;
+      top:0;
+      margin: 0.2em;
+    }
 
-  &:hover{
-    background: $super-light-grey;
-    span.average-sentiment {
-      color: $med-grey !important;
+    span.response-rate{
+      font-size: $font-small;
+      color: $light-grey;
+    }
+
+    &:hover{
+      background: $super-light-grey;
+      span.average-sentiment {
+        color: $med-grey !important;
+      }
     }
   }
 
