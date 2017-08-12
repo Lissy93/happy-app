@@ -83,7 +83,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     }
 
     /* Set dimensions */
-    let margin = { top: 20, right: 60, bottom: 30, left: 40 };
+    let margin = { top: 20, right: 20, bottom: 20, left: 35 };
     let width = parseInt(parent.style("width")) - margin.left - margin.right;
     let height = parseInt(parent.style("height")) - margin.top - margin.bottom;
     svg.attr("width", width+40).attr("height", height+40);
