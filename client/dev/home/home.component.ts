@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit{
   teams: string[] = [];
   teamSummaryData: object[] = [];
   homepageChartData: object[] = [];
+  dataReturned: boolean = false;
 
   constructor(
     private allTeamsService: AllTeamsService,
@@ -61,6 +62,9 @@ export class HomeComponent implements OnInit{
     this.teamSummaryData = this.allTeamsService.getTeamSummary();
     this.allTeamsService.teamDataUpdated.subscribe(
       (teamData) => { // okay, team data has arrived....
+
+        // Hide the splash screen
+        this.dataReturned = true;
 
         // Call to render the day breakdown chart
         let dateForBreadkwonChart = this.wereThereAnyResultsForYesterdayButNotToday(teamData);

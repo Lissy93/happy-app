@@ -11,6 +11,5 @@ export class LoaderComponent {
   color = 'accent';
   mode = 'indeterminate';
   value = 50;
-
 }
 

@@ -4,7 +4,9 @@
     <div team-name>{{teamName}}</div>
   </navbar>
 
-  <div class="main-content row">
+  <splash-screen *ngIf="!dataReturned"></splash-screen>
+
+  <div [hidden]="!dataReturned" class="main-content row">
 
       <div class="col col-xs-12 col-sm-4 col-md-3">
 

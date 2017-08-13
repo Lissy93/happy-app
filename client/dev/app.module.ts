@@ -23,6 +23,7 @@ import {AllTeamsService} from "./all-teams.service";
 import {GridChartComponent} from "./grid-chart/grid-chart.component";
 import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-chart";
 import {CommonService} from "./common.service";
+import {SplashScreenComponent} from "./splash-screen/splash-screen";
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import {CommonService} from "./common.service";
       CalendarChartComponent,
       GridChartComponent,
       DayBreakdownChartComponent,
-      LoaderComponent
+      LoaderComponent,
+      SplashScreenComponent
     ],
     providers: [
       HomeService,
