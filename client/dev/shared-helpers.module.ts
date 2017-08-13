@@ -138,7 +138,7 @@ export class SharedModule {
     const dateCountData = this.getSentimentCountPerDay(rawData);
     Object.keys(dateCountData).forEach((date)=>{
         Object.keys(dateCountData[date]).forEach((sentimentName)=>{
-          if(!sentimentCount[sentimentName]){  sentimentCount[sentimentName] = 1; }
+          if(!sentimentCount[sentimentName]){  sentimentCount[sentimentName] = dateCountData[date][sentimentName]; }
           else{ sentimentCount[sentimentName] += dateCountData[date][sentimentName]; }
         });
     });
