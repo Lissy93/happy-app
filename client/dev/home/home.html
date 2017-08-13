@@ -16,7 +16,7 @@
 
           <md-list>
             <div class="team-home-link" *ngFor="let team of homepageChartData" >
-              <md-list-item [title]="team.breakdown" (mouseover)="applyTooltip($event)">
+              <md-list-item [title]="team.breakdown" class="has-tooltip" (mouseenter)="applyTooltip()">
                 <span class="average-sentiment" [style.color]="team.color">{{team.average}}%</span>
                 <h4 md-line class="team-name">{{team.teamName}}</h4>
                 <span md-line class="response-rate">80% Response Rate</span>

@@ -28,10 +28,13 @@ export class HomeComponent implements OnInit{
    * Applies fancy tooltip to a given element
    * @param event
    */
-  applyTooltip(event){
-    let target = event.target || event.srcElement || event.currentTarget;
-    if(target.attributes.title) {
-      tippy(target, {arrow: true});
+  applyTooltip(event?){
+    tippy('.has-tooltip', {arrow: true});
+    if(event){
+      let target = event.target || event.srcElement || event.currentTarget;
+      if(target.attributes.title) {
+        tippy(target, {arrow: true});
+      }
     }
   }
 
@@ -107,6 +110,10 @@ export class HomeComponent implements OnInit{
             average: teamAverageScore,
             color: textColor
           });
+
+          // Initiate tooltips for homepage elements
+          this.applyTooltip();
+
         });
       }
   );

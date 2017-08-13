@@ -76,7 +76,6 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
   }
 
   private renderChart(data){
-
     /* Reset the SVG */
     d3.select("#bar-chart svg").remove(); // Remove old SVG
     let parent = d3.select("#bar-chart"); // Get parent
@@ -94,7 +93,7 @@ export class DayBreakdownChartComponent implements OnInit, OnDestroy {
     /* Set dimensions */
     let margin = { top: 20, right: 20, bottom: 20, left: 35 };
     let width = parseInt(parent.style("width")) - margin.left - margin.right;
-    let height = 320;
+    let height = 270;
     svg.attr("width", width+40).attr("height", height+40);
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

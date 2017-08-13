@@ -23,3 +23,7 @@
   margin: $top-margin-home-tile 0;
   @include tablet-landscape-and-up{ min-height: $min-height-home-tile; }
 }
+
+body{
+  overflow-x: hidden;
+}
