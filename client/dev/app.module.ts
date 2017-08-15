@@ -24,6 +24,7 @@ import {GridChartComponent} from "./grid-chart/grid-chart.component";
 import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-chart";
 import {CommonService} from "./common.service";
 import {SplashScreenComponent} from "./splash-screen/splash-screen";
+import {AppFeedbackComponent} from "./app-feedback/app-feedback";
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import {SplashScreenComponent} from "./splash-screen/splash-screen";
       GridChartComponent,
       DayBreakdownChartComponent,
       LoaderComponent,
-      SplashScreenComponent
+      SplashScreenComponent,
+      AppFeedbackComponent
     ],
     providers: [
       HomeService,
@@ -57,5 +59,6 @@ import {SplashScreenComponent} from "./splash-screen/splash-screen";
     bootstrap: [
       App
     ],
+  entryComponents: [AppFeedbackComponent]
 })
 export class AppModule {}

@@ -1,7 +1,10 @@
 
 @import "constants.scss";
 
+/* Common properties */
 .overflow-hidden{ overflow: hidden; }
+.no-padding{ padding: 0 !important; }
+.no-margin{ margin: 0;}
 .pull-right{ float: right; }
 .pull-left{ float: left; }
 .hide{ display: none; }
@@ -9,7 +12,7 @@
 .full-height{ height: 100%; }
 .full-width{ width: 100%; }
 
-
+/* The div displaying the no data error message*/
 .no-data-message{
   background: $super-light-grey;
   padding: 1em 0.5em;
@@ -19,11 +22,14 @@
   p{  }
 }
 
+/* The card that each chart sits in */
 .chart-card{
   margin: $top-margin-home-tile 0;
   @include tablet-landscape-and-up{ min-height: $min-height-home-tile; }
 }
 
-body{
-  overflow-x: hidden;
-}
+
+/* Global adjustments */
+body{ overflow-x: hidden; }
+
+.mat-dialog-container { @extend .no-padding; }
