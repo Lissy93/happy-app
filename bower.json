@@ -21,6 +21,7 @@
     "d3": "^4.8.0",
     "tippy-js": "https://raw.githubusercontent.com/atomiks/tippyjs/master/dist/tippy.min.js",
     "tippy-css": "https://raw.githubusercontent.com/atomiks/tippyjs/master/dist/tippy.css",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "hammerjs": "^2.0.8"
   }
 }
