@@ -2,12 +2,8 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'app-feedback',
-  templateUrl: 'app-feedback/app-feedback.html',
-  styleUrls: ['app-feedback/app-feedback.css']
+  selector: 'app-help',
+  templateUrl: 'app-help/app-help.html',
+  styleUrls: ['app-help/app-help.css']
 })
-export class AppFeedbackComponent {
-  constructor() {
-    console.log('constructor called');
-  }
-}
+export class AppHelpComponent {}

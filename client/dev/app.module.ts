@@ -25,6 +25,7 @@ import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-ch
 import {CommonService} from "./common.service";
 import {SplashScreenComponent} from "./splash-screen/splash-screen";
 import {AppFeedbackComponent} from "./app-feedback/app-feedback";
+import {AppHelpComponent} from "./app-help/app-help";
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ import {AppFeedbackComponent} from "./app-feedback/app-feedback";
       DayBreakdownChartComponent,
       LoaderComponent,
       SplashScreenComponent,
-      AppFeedbackComponent
+      AppFeedbackComponent,
+      AppHelpComponent
     ],
     providers: [
       HomeService,
@@ -59,6 +61,6 @@ import {AppFeedbackComponent} from "./app-feedback/app-feedback";
     bootstrap: [
       App
     ],
-  entryComponents: [AppFeedbackComponent]
+  entryComponents: [AppFeedbackComponent, AppHelpComponent]
 })
 export class AppModule {}

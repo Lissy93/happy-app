@@ -5,6 +5,7 @@ import {TeamService} from "../team.service";
 import {AllTeamsService} from "../all-teams.service";
 import {MdDialog} from "@angular/material";
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
+import {AppHelpComponent} from "../app-help/app-help";
 
 @Component({
   selector: "navbar",
@@ -45,11 +46,11 @@ export class NavbarComponent {
   }
 
   openFeedbackDialog(){
-    console.log('Dialog should open here....');
-    let dialogRef = this.dialog.open(AppFeedbackComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog has been closed....');
-    });
+    this.dialog.open(AppFeedbackComponent);
+  }
+
+  openHelpDialog(){
+    this.dialog.open(AppHelpComponent);
   }
 
   navigateToTeam(teamName) {

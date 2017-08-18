@@ -7,7 +7,7 @@
     <h2>{{teamName}}</h2>
   </div>
 
-  <div class="col-xs-12 col-md-8 team-tabs">
+  <div class="col-xs-12 col-md-8 team-tabs dont-print">
     <nav md-tab-nav-bar select="[teamTabs]">
       <a md-tab-link
          *ngFor="let team of teams"
@@ -22,7 +22,7 @@
 
   </div>
 
-  <div class="col-xs-3 col-sm-6 col-md-1 team-drop-down">
+  <div class="col-xs-3 col-sm-6 col-md-1 team-drop-down dont-print">
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <span class="show-only-on-mobile site-navigation-text">Site Navigation</span><md-icon>more_vert</md-icon>
     </button>
@@ -68,7 +68,7 @@
         <md-icon>feedback</md-icon>
         <span>App Feedback</span>
       </button>
-      <button md-menu-item>
+      <button md-menu-item (click)="openHelpDialog()">
         <md-icon>help</md-icon>
         <span>About/ Help</span>
       </button>
