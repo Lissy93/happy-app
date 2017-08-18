@@ -1,5 +1,10 @@
+/**
+This file contains reusable styles for common elements
+that are performed throughout the application.
+ */
+//@import "../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-@import "constants.scss";
+@import "constants.scss"; // All hardcoded reused values, must be defined as a constant
 
 /* Common properties */
 .overflow-hidden{ overflow: hidden; }
@@ -11,6 +16,13 @@
 .show{ display: block; }
 .full-height{ height: 100%; }
 .full-width{ width: 100%; }
+
+/* Styles specific for printing */
+@media print {
+  .dont-print {
+    display: none;
+  }
+}
 
 /* The div displaying the no data error message*/
 .no-data-message{
@@ -30,6 +42,10 @@
 
 
 /* Global adjustments */
-body{ overflow-x: hidden; }
+body{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  @include desktop-and-up{ overflow-y: hidden; }
+}
 
 .mat-dialog-container { @extend .no-padding; }
