@@ -11,7 +11,8 @@
     "test-client": "gulp client.unit_test",
     "test-server": "mocha 'tests/server/**/*_test.js' --recursive --check-leaks --reporter min --compilers js:babel-register",
     "coverage-server": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'tests/server/**/*_test.js' --compilers js:babel-register",
-    "coveralls-server": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'tests/server/**/*_test.js' --compilers js:babel-register --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls-server": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'tests/server/**/*_test.js' --compilers js:babel-register --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "populate-with-sample-data": "gulp delete-database && gulp populate-sample-data"
   },
   "dependencies": {
     "@angular/animations": "^4.1.1",
@@ -34,6 +35,7 @@
     "compression": "^1.6.2",
     "express": "~4.14.0",
     "express-content-length-validator": "1.0.0",
+    "hammerjs": "^2.0.8",
     "helmet": "^2.1.1",
     "lodash": "^4.6.1",
     "mongoose": "^4.4.7",
