@@ -18,6 +18,7 @@ export class NavbarComponent {
 
   @Input() teams: string[];
   router: Router;
+  teamName = '';
 
   constructor(
     private http: Http,
@@ -55,10 +56,12 @@ export class NavbarComponent {
 
   navigateToTeam(teamName) {
     this.router.navigate([`./${teamName}`]);
+    this.teamName = teamName;
   }
 
   navigateToHome(){
     this.router.navigate(['./']);
+    this.teamName = '';
   }
 
 
