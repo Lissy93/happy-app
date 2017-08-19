@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {TeamService} from "../team.service";
 import {SharedModule} from "../shared-helpers.module";
-declare const c3, d3;
+declare const d3;
 
 @Component({
   selector: "time-chart",
@@ -51,21 +51,6 @@ export class TimeChartComponent implements OnInit {
 
   private generateChart(){
 
-    this.chart =  c3.generate({
-      bindto: '#time-chart',
-      data: {
-        columns: []
-      },
-      color: {
-        pattern: ['#4DC54E', '#D3D030', '#BB5337']
-      },
-      axis: {
-        x: {
-          type: 'category',
-          categories: this.makeAxisData()
-        }
-      }
-    });
 
     this.showMultiLines();
   }
@@ -89,11 +74,7 @@ export class TimeChartComponent implements OnInit {
         sentimentResults.push(String(dayScore));
     });
 
-    // Load the new data in
-    this.chart.load({
-      columns: [ sentimentResults ],
-      unload: ['good', 'average', 'bad']
-  });
+
   }
 
   /**
@@ -120,10 +101,7 @@ export class TimeChartComponent implements OnInit {
     });
 
     // Load the new data into the chart :)
-    this.chart.load({
-      columns: sentimentResults,
-      unload: ['overall']
-    });
+
   }
 
 }
