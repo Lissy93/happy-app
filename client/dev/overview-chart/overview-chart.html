@@ -1,6 +1,6 @@
-<md-card>
+<md-card class="chart-card">
   <div class="pull-right">
-    <button md-button class="mat-icon-button"><md-icon>autorenew</md-icon></button>
+    <button md-button class="mat-icon-button" (click)="updateChart()"><md-icon>autorenew</md-icon></button>
     <button md-button class="mat-icon-button"><md-icon>open_in_new</md-icon></button>
     <button md-button class="mat-icon-button"><md-icon>code</md-icon></button>
   </div>
@@ -11,13 +11,22 @@
   </md-card-header>
 
   <md-card-content>
-    <div [hidden]="!chartVisible" id="overview-chart"></div>
+    <loader *ngIf="loading" class="loading-spinner"></loader>
+
+    <div  id="overview-chart" (window:resize)="onWindowResize($event)">
+      <div *ngIf="!chartVisible && !loading" class="no-data-message">
+        <h3>Not enough data to display results</h3>
+        <p>The pie chart will appear here when there is more data in the system</p>
+      </div>
+    </div>
   </md-card-content>
 
   <md-card-actions>
-    <button md-raised-button color="accent"  (click)="showByToday()">TODAY</button>
-    <button md-raised-button color="accent"  (click)="showByWeek()">THIS WEEK</button>
-    <button md-raised-button color="accent"  (click)="showByMonth()">THIS MONTH</button>
+    <md-select placeholder="Change Date Range" class="pull-right">
+      <md-option (click)="showByToday()">Today</md-option>
+      <md-option (click)="showByWeek()">Last week</md-option>
+      <md-option (click)="showByMonth()">Last month</md-option>
+    </md-select>
   </md-card-actions>
 
 </md-card>

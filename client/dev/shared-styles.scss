@@ -48,4 +48,9 @@ body{
   @include desktop-and-up{ overflow-y: hidden; }
 }
 
+.page-container{
+  margin: 1em;
+  div{ margin-top: 1em; } // So that cards have gaps between them, on mobile/ stacked view
+}
+
 .mat-dialog-container { @extend .no-padding; }

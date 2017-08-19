@@ -1,11 +1,11 @@
 import {
   Component,
-  OnInit
+  OnInit, OnChanges
 } from "@angular/core";
 import {TeamService} from "../team.service";
 import {SharedModule} from "../shared-helpers.module";
 
-declare const c3, d3;
+declare const d3, tippy;
 
 @Component({
   selector: "overview-chart",
@@ -14,9 +14,9 @@ declare const c3, d3;
 })
 export class OverviewChartComponent implements OnInit {
 
-  chart: any; // Stores the actual C3 chart
   rawData: any = {}; // The returned, un-formatted team data
   chartVisible: boolean; // If true chart will show
+  loading: boolean = true;
 
   constructor(
     private teamService: TeamService,
@@ -24,22 +24,28 @@ export class OverviewChartComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.generateChart();
+    this.loading = true;
+
     this.teamService.sentimentDataUpdated.subscribe(
       (teamSentimentData) => {
         this.rawData = teamSentimentData;
-        this.generateChart();
-        this.updateChart();
+        setTimeout(()=>{ this.updateChart(); }, 1000)
       }
     );
   }
 
+
   updateChart(rawData = this.rawData){
     const chartData = this.makeChartData(rawData);
     this.chartVisible = this.isThereEnoughData(chartData);
+    this.loading = false;
     if(this.chartVisible){
-      this.setChartData(chartData);
+      this.renderChart(this.makeChartData(rawData));
     }
+    else{
+      this.removeOldChart();
+    }
+
   }
 
   private isThereEnoughData(chartData){
@@ -47,34 +53,83 @@ export class OverviewChartComponent implements OnInit {
   }
 
   private makeChartData(rawData){
-    const sentimentCount = this.sharedModule.getOverallSentimentCount(rawData);
-
     let chartData = [];
+    const sentimentCount = this.sharedModule.getOverallSentimentCount(rawData);
     Object.keys(sentimentCount).forEach((sentimentName)=>{
-      chartData.push([sentimentName, sentimentCount[sentimentName]]);
+      chartData.push({name: sentimentName, value: sentimentCount[sentimentName]})
     });
     return chartData;
+  }
 
+  private removeOldChart(){
+    d3.select("#overview-chart").select('svg').remove();
   }
 
 
-  private generateChart(){
-    this.chart = c3.generate({
-      bindto: '#overview-chart',
-      data: {
-        columns: [], type : 'donut',
-        colors: {
-            good: '#4DC54E', average: '#D3D030', bad: '#BB5337'
-        }
-      },
-      donut: { title: "" }
-    });
+  private renderChart(chartData){
+
+    /* Reset the SVG */
+    this.removeOldChart();  // Remove old SVG
+    let parent = d3.select("#overview-chart"); // Get parent
+
+    /* Dimensions */
+    let margin = {top: 10, right: 10, bottom: 10, left: 10};
+    let width = parseInt(parent.style("width")) - margin.left - margin.right;
+    if(isNaN(width)){ width = 400; }
+    let height = width - margin.top - margin.bottom;
+
+    /* Create the new SVG */
+    let svg = d3.select("#overview-chart")
+      .append('svg')
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + ((width/2)+margin.left) + "," + ((height/2)+margin.top) + ")");
+
+    let radius = Math.min(width, height) / 2;
+
+    let color = d3.scaleOrdinal()
+      .domain(['good', 'average', 'bad'])
+      .range(["#4DC54E", "#D3D030", "#BB5337"]);
+
+    let arc = d3.arc()
+      .outerRadius(radius)
+      .innerRadius(radius - 35);
+
+    let pie = d3.pie()
+      .sort(null)
+      .startAngle(1.1*Math.PI)
+      .endAngle(3.1*Math.PI)
+      .value(function(d) { return d.value; });
+
+    let g = svg.selectAll(".arc")
+      .data(pie(chartData))
+      .enter().append("g")
+      .attr("class", "arc")
+      .attr('title', (d)=> makeTitle(d.data))
+      .on('mouseover', function (d, i ) {
+        tippy(this, {arrow: false, followCursor: true, position: 'bottom', delay: [0, 300]});
+      });
+
+    g.append("path")
+      .attr("fill", (d)=> { return color(d.data.name); })
+      .transition()
+      .duration(1000)
+      .ease(d3.easeBounce)
+      .attrTween("d", (b)=>{
+        let i = d3.interpolate({startAngle: 1.1*Math.PI, endAngle: 1.1*Math.PI}, b);
+        return function(t) { return arc(i(t)); };
+      } );
+
+    function makeTitle(d){
+      return `<b style="color: ${color(d.name)}">${d.name}</b> (${d.value} votes)`
+    }
+
+
   }
 
   private setChartData(chartData){
-    this.chart.load({
-      columns: chartData
-    });
+
   }
 
   private showLastXDays(xDays){
@@ -95,6 +150,15 @@ export class OverviewChartComponent implements OnInit {
 
   showByMonth(){
     this.showLastXDays(30);
+  }
+
+  public onWindowResize(event){
+    let resizeTimer = undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      return resizeTimer = setTimeout((() =>
+        this.updateChart() ), 250);
+    });
   }
 
 }

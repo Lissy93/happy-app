@@ -1,36 +1,35 @@
 <!doctype html>
 <html>
-  <head>
-    <base href="/" >
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <link rel="shortcut icon" type="image/ico" href="favicon.png" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/flexboxgrid/css/index.min.css" type="text/css">
-    <link rel="stylesheet" href="bower_components/tippy-css/index.css" type="text/css">
-    <link href="shared-styles.css" rel="stylesheet">
+<head>
+  <base href="/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="shortcut icon" type="image/ico" href="favicon.png" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css" >
+  <link rel="stylesheet" type="text/css" href="bower_components/flexboxgrid/css/index.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/tippy-css/index.css">
+  <link rel="stylesheet" type="text/css" href="shared-styles.css" >
 
-    <title>happy-team</title>
-  </head>
-  <body>
+  <title>happy-team</title>
+</head>
+<body>
 
-    <app></app>
+<app></app>
 
+<script src="./systemjs/dist/system.js?rev=@@hash"></script>
+<script src="./reflect-metadata/Reflect.js?rev=@@hash"></script>
+<script src="./zone.js/dist/zone.js?rev=@@hash"></script>
+<script src="./config.js?rev=@@hash"></script>
+<script src="bower_components/hammerjs/hammer.min.js"></script>
+<script src="bower_components/d3/d3.min.js"></script>
+<script src="bower_components/tippy-js/index.js"></script>
+<script src="bower_components/moment/min/moment-with-locales.min.js"></script>
 
-    <script src="./systemjs/dist/system.js?rev=@@hash"></script>
-    <script src="./reflect-metadata/Reflect.js?rev=@@hash"></script>
-    <script src="./zone.js/dist/zone.js?rev=@@hash"></script>
-    <script src="./config.js?rev=@@hash"></script>
-    <script src="bower_components/d3/d3.min.js"></script>
-    <script src="bower_components/tippy-js/index.js"></script>
-    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+  System.import("./index.js");
+</script>
 
-    <script>
-      System.import("./index.js");
-    </script>
-
-  </body>
+</body>
 </html>
