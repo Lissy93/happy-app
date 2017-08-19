@@ -53,4 +53,15 @@ body{
   div{ margin-top: 1em; } // So that cards have gaps between them, on mobile/ stacked view
 }
 
+.loading-spinner{
+  width: 100px;
+  display: block;
+  margin: 1em auto;
+}
+
 .mat-dialog-container { @extend .no-padding; }
+
+md-card-actions{
+  padding: 1em;
+  min-height: 3em;
+}
