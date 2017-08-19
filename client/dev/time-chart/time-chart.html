@@ -9,9 +9,13 @@
     <md-card-subtitle>Team Happiness over Time</md-card-subtitle>
   </md-card-header>
   <md-card-content>
-
-    <div id="time-chart"></div>
-
+    <loader *ngIf="loading" class="loading-spinner"></loader>
+    <div id="time-chart" (window:resize)="onWindowResize($event)">
+      <div *ngIf="!chartVisible && !loading" class="no-data-message">
+        <h3>Not enough data to display results</h3>
+        <p>The line chart will appear here when there is more data in the system</p>
+      </div>
+    </div>
   </md-card-content>
 
 </md-card>
