@@ -17,5 +17,11 @@
       </div>
     </div>
   </md-card-content>
+  <md-card-actions>
+    <md-radio-group class="pull-right" [(ngModel)]="typeOfChart">
+      <md-radio-button value="breakdown" (click)="changeChartType('breakdown')">Breakdown</md-radio-button>
+      <md-radio-button value="aggregate" (click)="changeChartType('aggregate')">Aggregate</md-radio-button>
+    </md-radio-group>
+  </md-card-actions>
 
 </md-card>
