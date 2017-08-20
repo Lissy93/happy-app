@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
-import { FormsModule, FormBuilder } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { BrowserModule  } from "@angular/platform-browser";
 import { App }   from "./app";
 
@@ -26,6 +26,7 @@ import {CommonService} from "./common.service";
 import {SplashScreenComponent} from "./splash-screen/splash-screen";
 import {AppFeedbackComponent} from "./app-feedback/app-feedback";
 import {AppHelpComponent} from "./app-help/app-help";
+import {MessageChartComponent} from "./message-chart/message-chart";
 
 @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import {AppHelpComponent} from "./app-help/app-help";
       LoaderComponent,
       SplashScreenComponent,
       AppFeedbackComponent,
-      AppHelpComponent
+      AppHelpComponent,
+      MessageChartComponent
     ],
     providers: [
       HomeService,
