@@ -48,7 +48,7 @@
         <md-icon>home</md-icon>
         <span>Home</span>
       </button>
-      <button md-menu-item>
+      <button md-menu-item (click)="showFeatureUnavailableToast()">
         <md-icon>send</md-icon>
         <span>Submit Response</span>
       </button>
@@ -60,7 +60,11 @@
         <md-icon>print</md-icon>
         <span>Print Results</span>
       </button>
-      <button md-menu-item>
+      <button md-menu-item (click)="showFeatureUnavailableToast()">
+        <md-icon>picture_as_pdf</md-icon>
+        <span>PDF Report</span>
+      </button>
+      <button md-menu-item (click)="showFeatureUnavailableToast()">
         <md-icon>security</md-icon>
         <span>Admin Panel</span>
       </button>

@@ -3,7 +3,7 @@ import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../team.service";
 import {AllTeamsService} from "../all-teams.service";
-import {MdDialog} from "@angular/material";
+import {MdDialog, MdSnackBar} from "@angular/material";
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
 import {AppHelpComponent} from "../app-help/app-help";
 
@@ -27,6 +27,7 @@ export class NavbarComponent {
     router: Router,
     private teamService: TeamService,
     private allTeamsService: AllTeamsService,
+    public snackBar: MdSnackBar
   ) {
     this.router = router;
   }
@@ -64,6 +65,10 @@ export class NavbarComponent {
     this.teamName = '';
   }
 
+  showFeatureUnavailableToast() {
+    this.snackBar.open('Feature still under development, or not available on demo', 'Got it');
+  }
 
 }
+
 
