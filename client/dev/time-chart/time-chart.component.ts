@@ -31,6 +31,10 @@ export class TimeChartComponent implements OnInit {
     );
   }
 
+  /**
+   * Refreshes the chart content
+   * @param rawData
+   */
   public updateChart(rawData = this.rawData){
     this.removeOldChart();
     let chartData = [];
@@ -43,6 +47,10 @@ export class TimeChartComponent implements OnInit {
     }
   }
 
+  /**
+   * Called when aggregate or breakdown is clicked
+   * @param newChartType
+   */
   public changeChartType(newChartType?){
     if(newChartType){this.typeOfChart = newChartType;}
     this.removeOldChart();
@@ -50,15 +58,27 @@ export class TimeChartComponent implements OnInit {
     setTimeout(()=>{ this.updateChart(); }, 400)
   }
 
+  /**
+   * Checks if theres actually enough results to render a chart
+   * @param chartData
+   * @returns {boolean}
+   */
   private isThereEnoughData(chartData){
     return  (chartData.length > 0);
   }
 
+  /**
+   * Does what it says on the tin really
+   */
   private removeOldChart(){
     d3.select("#time-chart").select('svg').remove();
   }
 
 
+  /**
+   * Renders the chart
+   * @param data
+   */
   private renderChart(data){
 
     let parent = d3.select("#time-chart"); // Get parent
@@ -89,7 +109,15 @@ export class TimeChartComponent implements OnInit {
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.temperature); });
 
-      let cities = ['good',	'average',	'bad'].map(function(id) {
+    let values = [];
+    if (this.typeOfChart == 'breakdown'){
+      values = ['good', 'average', 'bad']
+    }
+    else{
+      values = ['overall']
+    }
+
+      let cities = values.map(function(id) {
         return {
           id: id,
           values: data.map(function(d) {
@@ -177,7 +205,6 @@ export class TimeChartComponent implements OnInit {
       newObject['date']= moment(date).valueOf();
       sentimentResults.push(newObject);
     });
-    console.log(sentimentResults);
     return sentimentResults;
   }
 
@@ -202,6 +229,11 @@ export class TimeChartComponent implements OnInit {
     return sentimentResults;
   }
 
+  /**
+   * Called when window is resized.
+   * Updating the chart was easier than trying to make it responsive...
+   * @param event
+   */
   public onWindowResize(event){
     let resizeTimer = undefined;
     window.addEventListener('resize', () => {
