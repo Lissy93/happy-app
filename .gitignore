@@ -18,3 +18,4 @@ client/dev/**/*.js
 client/dev/**/*.map
 !client/dev/config.js
 
+client/dist/**/*
