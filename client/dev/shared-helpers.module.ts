@@ -153,6 +153,7 @@ export class SharedModule {
    */
   public getSentimentCountPerDay(rawData){
     let results = [];
+    if(!rawData.data){ return []; }
     rawData.data.forEach((dateSet)=>{
       let date = dateSet.date;
       let sentimentCount = {};
