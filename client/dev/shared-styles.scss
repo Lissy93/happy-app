@@ -17,6 +17,11 @@ that are performed throughout the application.
 .full-height{ height: 100%; }
 .full-width{ width: 100%; }
 
+.small-grey-text{
+  font-size: $font-small;
+  color: $med-grey;
+}
+
 /* Styles specific for printing */
 @media print {
   .dont-print {
