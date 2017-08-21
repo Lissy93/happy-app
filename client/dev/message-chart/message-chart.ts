@@ -14,6 +14,8 @@ export class MessageChartComponent implements OnInit {
   rawData: any = {};      // The returned, un-formatted team data
   chartVisible: boolean;  // If true chart will show
   loading: boolean = true;// Show to loading spinner
+  comments: any = [];
+  show: number = 5;
 
   constructor(
     private teamService: TeamService,
@@ -34,14 +36,13 @@ export class MessageChartComponent implements OnInit {
    * @param rawData
    */
   public updateChart(rawData = this.rawData){
-    let chartData = [];
+    const chartData = this.formatData(rawData);
     this.chartVisible = this.isThereEnoughData(chartData);
     this.loading = false;
     if(this.chartVisible){
-      this.renderChart(chartData);
+      this.comments = chartData;
     }
   }
-
 
   /**
    * Checks if theres actually enough results to render a chart
@@ -52,16 +53,22 @@ export class MessageChartComponent implements OnInit {
     return  (chartData.length > 0);
   }
 
-
-  /**
-   * Renders the chart
-   * @param data
-   */
-  private renderChart(data){
-
-
+  private formatData(rawData = this.rawData){
+    let comments = [];
+    rawData.data.forEach((dateObject)=>{
+      let date = dateObject.date;
+      dateObject.userResults.forEach((userResult)=>{
+        if(userResult.comment != ""){
+          comments.push({
+              comment: userResult.comment,
+              score: userResult.score,
+              date: moment(date).format("h a ddd (MMMM Do 'YY)")
+            });
+        }
+      });
+    });
+    return comments;
   }
-
 
 }
 
