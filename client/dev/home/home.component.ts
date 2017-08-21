@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit{
         let dateForBreadkwonChart = this.wereThereAnyResultsForYesterdayButNotToday(teamData);
         this.commonService.notifyDateSquareClicked(dateForBreadkwonChart);
 
-        const numDaysOfHistory = 7; // How many days back to go?
+        const numDaysOfHistory = 3; // How many days back to go?
         this.teamSummaryData  = teamData; // Assign to class
 
         this.teamSummaryData.forEach((team)=>{ // For each team:

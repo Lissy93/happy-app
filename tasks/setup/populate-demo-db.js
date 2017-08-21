@@ -81,7 +81,7 @@ function cleanUp(){
 function generateSomeRandomSampleData(){
 
   // Define some random string data
-  const moods = ['good', 'average', 'bad'];
+  const moods = ['good', 'good', 'good', 'average', 'bad', 'bad'];
   const teamNames = ['atlanta', 'brisbane', 'budapest', 'chicago', 'delhi',
     'detroit', 'istanbul', 'lisbon', 'london', 'mexico', 'mumbai', 'paris',
     'rio', 'rome', 'san-francisco', 'tokyo', 'vancouver', 'vienna'];
