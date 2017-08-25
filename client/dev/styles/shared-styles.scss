@@ -4,7 +4,7 @@ that are performed throughout the application.
  */
 //@import "../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-@import "styles/constants"; // All hardcoded reused values, must be defined as a constant
+@import "constants"; // All hardcoded reused values, must be defined as a constant
 
 /* Common properties */
 .overflow-hidden{ overflow: hidden; }
