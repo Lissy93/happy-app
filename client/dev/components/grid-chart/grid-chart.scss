@@ -1,0 +1,30 @@
+
+@import "../../constants.scss";
+
+
+/*******************************************\
+|** DYNAMICALLY ADDED STYLES FOR D3 CHART **|
+\*******************************************/
+:host /deep/ {
+
+  #calendar {
+    margin: 20px;
+  }
+  .month {
+    margin-right: 1em;
+  }
+  .month-name {
+    font-size: 85%;
+    fill: $med-grey;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  .day.hover {
+    stroke: $dark-grey;
+    stroke-width: 2;
+  }
+  .day.focus {
+    stroke: #ffff33;
+    stroke-width: 2;
+  }
+
+}

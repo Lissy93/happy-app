@@ -1,0 +1,53 @@
+<div class="home-container">
+  <navbar [teams]="teams">
+    <div project-name>{{title}}</div>
+    <div team-name>{{teamName}}</div>
+  </navbar>
+
+  <splash-screen *ngIf="!dataReturned"></splash-screen>
+
+  <div [hidden]="!dataReturned" class="main-content row">
+
+      <div class="col col-xs-12 col-sm-4 col-md-3">
+
+        <md-card class="home-page-team-list chart-card">
+          <md-card-header>
+            <md-card-title><h3>Teams</h3></md-card-title>
+            <md-card-subtitle>Average mood of each team</md-card-subtitle>
+          </md-card-header>
+
+          <md-list>
+            <div class="team-home-link" *ngFor="let team of homepageChartData" >
+              <md-list-item [title]="team.breakdown" class="has-tooltip" (mouseenter)="applyTooltip()">
+                <span class="average-sentiment" [style.color]="team.color">{{team.average}}%</span>
+                <h4 md-line class="team-name">{{team.teamName}}</h4>
+                <span md-line class="response-rate">80% Response Rate</span>
+              </md-list-item>
+              <md-divider></md-divider>
+            </div>
+          </md-list>
+
+          <div class="no-data-message" *ngIf="homepageChartData.length < 1">
+            <h3>No Teams Found</h3>
+            <p>No teams have been configured yet, or there was an error fetching them</p>
+          </div>
+
+        </md-card>
+
+      </div>
+
+      <div class="col col-xs-12 col-sm-4 col-md-5">
+
+        <grid-chart></grid-chart>
+
+      </div>
+
+      <div class="col col-xs-12 col-sm-4 col-md-4 overflow-hidden">
+
+        <day-breakdown-chart></day-breakdown-chart>
+
+      </div>
+
+  </div>
+
+</div>

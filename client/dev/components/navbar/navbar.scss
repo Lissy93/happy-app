@@ -1,0 +1,85 @@
+
+@import "../../constants.scss";
+
+/* header surrounds whole top-bar */
+header{
+  background: $primary-color;
+  margin: 0;
+
+  /* Surrounds both the h1 and h2 in top-left */
+  .title-container{
+
+    padding: 0.5em 1em;
+    cursor: default;
+
+    h1, h2, i{
+      font-weight: 100;
+      margin: 0;
+      display: inline-block;
+    }
+
+    h1{
+      color: $black;
+    }
+
+    h2{
+      font-size: 1em;
+      margin-top: 0.2em;
+      opacity: 0.6;
+    }
+
+  }
+
+  .team-tabs{
+    @include tablet-landscape-and-below{ display: none; }
+
+    /deep/ .mat-tab-links a{ min-width: 120px; }
+  }
+
+  .team-drop-down{
+    button{
+      float: right;
+      width: auto;
+      padding: 0.25em;
+    }
+
+    /deep/ .highlighted-button{ background: $light-grey;}
+    /deep/ .team-dropdown-button{
+      background: $primary-light !important;
+    }
+
+  }
+  }
+
+.show-only-on-mobile{
+  @include desktop-and-up{ display: none; }
+}
+
+.site-navigation-text{
+  @include mobile-landscape-and-below{ display: none; }
+}
+
+/* Where a tag is used instead of button on the drop-down */
+a.link-button{
+  font-weight: normal;
+  &:hover{ color: $black; }
+}
+
+
+.isActivatedTab{
+  font-weight: 600;
+  color: #000;
+  background: darken($primary-color, 20%);
+}
+
+
+nav{
+  border: none;
+
+  /deep/.mat-tab-links{ text-align: right; }
+
+  a:hover{
+    color: $black;
+    background: darken($primary-color, 20%);
+  }
+}

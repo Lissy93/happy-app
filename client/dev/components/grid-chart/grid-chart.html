@@ -1,0 +1,12 @@
+<md-card class="grid-chart chart-card">
+  <md-card-header>
+    <md-card-title><h3>Average Sentiment Calendar</h3></md-card-title>
+    <md-card-subtitle>Click a day for more stats</md-card-subtitle>
+  </md-card-header>
+  <div id="grid-chart">
+    <div *ngIf="!showChart" class="no-data-message">
+      <h3>Not enough data to display results</h3>
+      <p>The calendar grid chart will appear here when there is more data in the system</p>
+    </div>
+  </div>
+</md-card>

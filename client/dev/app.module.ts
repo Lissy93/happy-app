@@ -6,27 +6,27 @@ import { App }   from "./app";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HomeComponent }   from "./home/home.component";
-import { homeRouting } from "./home/home.route";
-import { HomeService }   from "./home/home.service";
+import { HomeComponent }   from "./pages/home/home.component";
+import { homeRouting } from "./pages/home/home.route";
+import { HomeService }   from "./pages/home/home.service";
 
-import { NavbarComponent } from './navbar/navbar.component';
-import { TimeChartComponent } from './time-chart/time-chart.component';
-import { CalendarChartComponent } from './calendar-chart/calendar-chart.component';
-import {OverviewChartComponent } from './overview-chart/overview-chart.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { TimeChartComponent } from './components/time-chart/time-chart.component';
+import { CalendarChartComponent } from './components/calendar-chart/calendar-chart.component';
+import {OverviewChartComponent } from './components/overview-chart/overview-chart.component';
 import {MaterialModule} from "@angular/material";
 import {SharedModule} from "./shared-helpers.module";
-import {LoaderComponent} from "./loader/loader.component";
-import {TeamComponent} from "./team/team.component";
+import {LoaderComponent} from "./components/loader/loader.component";
+import {TeamComponent} from "./pages/team/team.component";
 import {TeamService} from "./team.service";
 import {AllTeamsService} from "./all-teams.service";
-import {GridChartComponent} from "./grid-chart/grid-chart.component";
-import {DayBreakdownChartComponent} from "./day-breakdown-chart/day-breakdown-chart";
+import {GridChartComponent} from "./components/grid-chart/grid-chart.component";
+import {DayBreakdownChartComponent} from "./components/day-breakdown-chart/day-breakdown-chart";
 import {CommonService} from "./common.service";
-import {SplashScreenComponent} from "./splash-screen/splash-screen";
-import {AppFeedbackComponent} from "./app-feedback/app-feedback";
-import {AppHelpComponent} from "./app-help/app-help";
-import {MessageChartComponent} from "./message-chart/message-chart";
+import {SplashScreenComponent} from "./components/splash-screen/splash-screen";
+import {AppFeedbackComponent} from "./components/app-feedback/app-feedback";
+import {AppHelpComponent} from "./components/app-help/app-help";
+import {MessageChartComponent} from "./components/message-chart/message-chart";
 
 @NgModule({
     imports: [

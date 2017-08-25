@@ -1,0 +1,24 @@
+<div>
+  <navbar [teams]="teams">
+    <div project-name>{{title}}</div>
+    <div team-name>{{teamName}}</div>
+  </navbar>
+
+  <div class="page-container row">
+
+
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <overview-chart></overview-chart>
+    </div>
+
+    <div class="col-xs-12 col-sm-8 col-lg-4">
+      <time-chart></time-chart>
+    </div>
+
+    <div class="col-xs-12 col-lg-4">
+      <message-chart></message-chart>
+    </div>
+
+  </div>
+
+</div>
