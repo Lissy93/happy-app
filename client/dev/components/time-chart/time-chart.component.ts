@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {TeamService} from "../../team.service";
+import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
 declare const d3, moment, tippy;
 

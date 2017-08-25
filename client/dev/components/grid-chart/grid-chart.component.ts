@@ -1,7 +1,7 @@
 import {Component } from '@angular/core';
 import { SharedModule } from '../../shared-helpers.module';
-import { AllTeamsService } from '../../all-teams.service';
-import {CommonService} from "../../common.service";
+import { AllTeamsService } from '../../services/all-teams.service';
+import {CommonService} from "../../services/common.service";
 
 declare const d3, tippy;
 

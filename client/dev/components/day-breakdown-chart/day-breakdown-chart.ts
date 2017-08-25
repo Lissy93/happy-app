@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, EventEmitter} from '@angular/core';
 import { SharedModule } from '../../shared-helpers.module';
-import {CommonService} from "../../common.service";
+import {CommonService} from "../../services/common.service";
 import {Subscription} from "rxjs";
 import {Http} from "@angular/http";
 

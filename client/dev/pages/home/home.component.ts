@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {AllTeamsService} from "../../all-teams.service";
+import {AllTeamsService} from "../../services/all-teams.service";
 import {SharedModule} from "../../shared-helpers.module";
-import {CommonService} from "../../common.service";
+import {CommonService} from "../../services/common.service";
 
 declare const tippy;
 

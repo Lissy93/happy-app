@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
-import {TeamService} from "../../team.service";
-import {AllTeamsService} from "../../all-teams.service";
+import {TeamService} from "../../services/team.service";
+import {AllTeamsService} from "../../services/all-teams.service";
 import {MdDialog, MdSnackBar} from "@angular/material";
 import {AppFeedbackComponent} from "../../components/app-feedback/app-feedback";
 import {AppHelpComponent} from "../../components/app-help/app-help";
