@@ -14,6 +14,7 @@ that are performed throughout the application.
 .pull-left{ float: left; }
 .hide{ display: none; }
 .show{ display: block; }
+.auto-height{ height: auto !important; }
 .full-height{ height: 100%; }
 .full-width{ width: 100%; }
 
@@ -44,7 +45,6 @@ that are performed throughout the application.
   margin: $top-margin-home-tile 0;
   @include tablet-landscape-and-up{ min-height: $min-height-home-tile; }
 }
-
 
 /* Global adjustments */
 body{

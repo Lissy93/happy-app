@@ -1,3 +1,11 @@
 .main-content div{
   margin-top: 1em;
 }
+
+.page-container{
+  position: fixed;
+  overflow-y: auto;
+  height: 90%;
+  margin: 0;
+  padding: 0.5em 1em;
+}
