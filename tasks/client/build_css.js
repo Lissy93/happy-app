@@ -1,6 +1,5 @@
 import gulp from "gulp";
 import cssmin from "gulp-clean-css";
-import {join} from "path";
 import {base, tasks} from "./const";
 
 
@@ -19,13 +18,10 @@ const SASS = [
 
 
 gulp.task(tasks.CLIENT_COMPILE_TO_CSS, () => {
-  
-  
   return gulp.src(SASS)
              .pipe(sass())
              .on("error", sass.logError)
              .pipe(gulp.dest(base.DEV));
-  
 });
 
 

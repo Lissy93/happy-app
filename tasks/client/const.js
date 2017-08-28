@@ -3,7 +3,7 @@ export const base = {
   DEV: "./client/dev/",
   DIST: "./client/dist/",
   TEST: "./tests/"
-}
+};
 
 export const tasks = {
   CLIENT_BUILD_DEV: "client.build:dev",
@@ -26,9 +26,9 @@ export const tasks = {
 
   CLIENT_BUILD_TS: "client.build_ts",
 
-  
-  CLIENT_COMPILE_TO_CSS: "client.compile_from_sass_to_css:dev"
-  
 
-  
+  CLIENT_COMPILE_TO_CSS: "client.compile_from_sass_to_css:dev"
+
+
+
 }
