@@ -75,7 +75,7 @@ export class OverviewChartComponent implements OnInit {
     /* Dimensions */
     let margin = {top: 10, right: 10, bottom: 10, left: 10};
     let width = parseInt(parent.style("width")) - margin.left - margin.right;
-    if(isNaN(width)){ width = 400; }
+    if(isNaN(width) || width > 300 || width < 0 ){ width = 300; } // width must be valid int, between 0 and 300. Default 300.
     let height = width - margin.top - margin.bottom;
 
     /* Create the new SVG */
@@ -83,6 +83,7 @@ export class OverviewChartComponent implements OnInit {
       .append('svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("class", "center-block")
       .append("g")
       .attr("transform", "translate(" + ((width/2)+margin.left) + "," + ((height/2)+margin.top) + ")");
 

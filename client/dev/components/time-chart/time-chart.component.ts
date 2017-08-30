@@ -26,7 +26,7 @@ export class TimeChartComponent implements OnInit {
     this.teamService.sentimentDataUpdated.subscribe(
         (teamSentimentData) => {
           this.rawData = teamSentimentData;
-          setTimeout(()=>{ this.updateChart(teamSentimentData); }, 1000)
+         this.updateChart(teamSentimentData);
         }
     );
   }
