@@ -1,4 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
 declare const d3, moment, tippy;
@@ -9,13 +11,14 @@ declare const d3, moment, tippy;
   styleUrls: ["components/time-chart/time-chart.css"]
 })
 
-export class TimeChartComponent implements OnInit {
+export class TimeChartComponent implements OnInit, OnDestroy {
 
   chart: any;             // Stores the actual C3 chart
   rawData: any = {};      // The returned, un-formatted team data
   chartVisible: boolean;  // If true chart will show
   loading: boolean = true;// Show to loading spinner
   typeOfChart: string = 'breakdown'; // 'breakdown' | 'aggregate'
+  ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
 
   constructor(
       private teamService: TeamService,
@@ -23,12 +26,17 @@ export class TimeChartComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.teamService.sentimentDataUpdated.subscribe(
+    this.teamService.sentimentDataUpdated .takeUntil(this.ngUnsubscribe).subscribe(
         (teamSentimentData) => {
           this.rawData = teamSentimentData;
          this.updateChart(teamSentimentData);
         }
     );
+  }
+
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   /**

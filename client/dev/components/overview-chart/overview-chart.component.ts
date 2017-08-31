@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit, OnChanges
+  OnInit, OnChanges, OnDestroy
 } from "@angular/core";
 import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
@@ -12,7 +12,7 @@ declare const d3, tippy;
   templateUrl: "components/overview-chart/overview-chart.html",
   styleUrls: ["components/overview-chart/overview-chart.css"]
 })
-export class OverviewChartComponent implements OnInit {
+export class OverviewChartComponent implements OnInit, OnDestroy {
 
   rawData: any = {}; // The returned, un-formatted team data
   chartVisible: boolean; // If true chart will show
@@ -32,6 +32,10 @@ export class OverviewChartComponent implements OnInit {
         setTimeout(()=>{ this.updateChart(); }, 1000)
       }
     );
+  }
+
+  ngOnDestroy(){
+    // this.teamService.sentimentDataUpdated.unsubscribe();
   }
 
 

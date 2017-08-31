@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 
 import {ActivatedRoute} from '@angular/router';
 import {TeamService} from "../../services/team.service";
@@ -8,7 +8,7 @@ import {TeamService} from "../../services/team.service";
   templateUrl: "pages/team/team.html",
   styleUrls: ["pages/team/team.css"]
 })
-export class TeamComponent implements OnInit{
+export class TeamComponent implements OnInit, OnDestroy {
 
   title: string = "happy-app";
 
@@ -19,5 +19,9 @@ export class TeamComponent implements OnInit{
 
 
   ngOnInit() {}
+
+  ngOnDestroy(){
+    console.log("D E S T R O Y E D ! ! ! !");
+  }
 
 }

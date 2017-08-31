@@ -1,4 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
 declare const  moment, tippy;
@@ -9,13 +11,15 @@ declare const  moment, tippy;
   styleUrls: ["components/message-chart/message-chart.css"]
 })
 
-export class MessageChartComponent implements OnInit {
+export class MessageChartComponent implements OnInit, OnDestroy {
 
   rawData: any = {};      // The returned, un-formatted team data
   chartVisible: boolean;  // If true chart will show
   loading: boolean = true;// Show to loading spinner
   comments: any = [];
   show: number = 5;
+  ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
+
 
   constructor(
     private teamService: TeamService,
@@ -23,12 +27,17 @@ export class MessageChartComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.teamService.sentimentDataUpdated.subscribe(
+    this.teamService.sentimentDataUpdated.takeUntil(this.ngUnsubscribe).subscribe(
       (teamSentimentData) => {
         this.rawData = teamSentimentData;
         this.updateChart(teamSentimentData);
       }
     );
+  }
+
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   /**
