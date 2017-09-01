@@ -19,3 +19,7 @@ client/dev/**/*.map
 !client/dev/config.js
 
 client/dist/**/*
+
+.env
+**.log
+yarn.lock
