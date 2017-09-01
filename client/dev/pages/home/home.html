@@ -1,10 +1,10 @@
+<splash-screen [shouldDisplaySplash]="!dataReturned"></splash-screen>
+
 <div class="home-container">
   <navbar [teams]="teams">
     <div project-name>{{title}}</div>
     <div team-name>{{teamName}}</div>
   </navbar>
-
-  <splash-screen *ngIf="!dataReturned"></splash-screen>
 
   <div [hidden]="!dataReturned" class="main-content row">
 

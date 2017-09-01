@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {MdProgressSpinnerModule} from '@angular/material';
 
 
@@ -8,8 +8,8 @@ import {MdProgressSpinnerModule} from '@angular/material';
 })
 
 export class LoaderComponent {
-  color = 'accent';
-  mode = 'indeterminate';
-  value = 50;
+  @Input() color = 'accent';
+  @Input() mode = 'indeterminate';
+  @Input() value = 0;
 }
 

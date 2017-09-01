@@ -57,6 +57,11 @@ export class HomeComponent implements OnInit, OnDestroy{
    */
   ngOnInit() {
 
+    // Constants for hiding the splash screen at right time
+    const startTime = Date.now();
+    const minSplashTime = 1000;
+    const splashHideTime = startTime + minSplashTime;
+
     // Get the list of teams
     this.teams = this.allTeamsService.getTeams();
     this.allTeamsService.teamListUpdated.takeUntil(this.ngUnsubscribe).subscribe(
@@ -72,8 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy{
         this.renderBreakdownChart(teamData);
 
         // Hide the splash screen
-        this.dataReturned = true;
-
+        setTimeout(()=>{ this.dataReturned = true; }, splashHideTime - Date.now());
       }
   );
   }
