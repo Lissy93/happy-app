@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit, OnChanges, OnDestroy
+  OnInit
 } from "@angular/core";
 import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
@@ -12,7 +12,7 @@ declare const d3, tippy;
   templateUrl: "components/overview-chart/overview-chart.html",
   styleUrls: ["components/overview-chart/overview-chart.css"]
 })
-export class OverviewChartComponent implements OnInit, OnDestroy {
+export class OverviewChartComponent implements OnInit {
 
   rawData: any = {}; // The returned, un-formatted team data
   chartVisible: boolean; // If true chart will show
@@ -23,22 +23,24 @@ export class OverviewChartComponent implements OnInit, OnDestroy {
     private sharedModule: SharedModule
   ){}
 
+  /**
+   * On chart initialised, show loader, fetch data, call to render
+   */
   ngOnInit() {
     this.loading = true;
 
     this.teamService.sentimentDataUpdated.subscribe(
       (teamSentimentData) => {
         this.rawData = teamSentimentData;
-        setTimeout(()=>{ this.updateChart(); }, 1000)
+        this.updateChart();
       }
     );
   }
 
-  ngOnDestroy(){
-    // this.teamService.sentimentDataUpdated.unsubscribe();
-  }
-
-
+  /**
+   * Called whenever data is modified, re-renders the chart with the new data
+   * @param rawData
+   */
   updateChart(rawData = this.rawData){
     const chartData = this.makeChartData(rawData);
     this.chartVisible = this.isThereEnoughData(chartData);
@@ -52,10 +54,21 @@ export class OverviewChartComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * Determines if there is enough data to make showing chart worthwhile
+   * If not enough data, a message will show instead
+   * @param chartData
+   * @returns {boolean}
+   */
   private isThereEnoughData(chartData){
     return chartData.length > 0;
   }
 
+  /**
+   * Generates the chart data, from the raw data that was in mongo
+   * @param rawData
+   * @returns {Array}
+   */
   private makeChartData(rawData){
     let chartData = [];
     const sentimentCount = this.sharedModule.getOverallSentimentCount(rawData);
@@ -65,11 +78,18 @@ export class OverviewChartComponent implements OnInit, OnDestroy {
     return chartData;
   }
 
+  /**
+   * You'll never guess.... removeOldChart() removes the old chart
+   */
   private removeOldChart(){
     d3.select("#overview-chart").select('svg').remove();
   }
 
 
+  /**
+   * The actual D3 code to render the pie chart!
+   * @param chartData
+   */
   private renderChart(chartData){
 
     /* Reset the SVG */
@@ -130,33 +150,41 @@ export class OverviewChartComponent implements OnInit, OnDestroy {
       return `<b style="color: ${color(d.name)}">${d.name}</b> (${d.value} votes)`
     }
 
-
   }
 
-  private setChartData(chartData){
-
-  }
-
+  /**
+   * Updates the chart with a different set of date data
+   * @param xDays
+   */
   private showLastXDays(xDays){
     this.updateChart(this.sharedModule.showLastXDays(this.rawData, xDays));
   }
 
-  private showLodader(){
-
-  }
-
+  /**
+   * Just shows todays data in the chart
+   */
   showByToday(){
     this.showLastXDays(0);
   }
 
+  /**
+   * Just shows the last weeks data in the chart
+   */
   showByWeek(){
     this.showLastXDays(7);
   }
 
+  /**
+   * Just shows the last months data in the chart
+   */
   showByMonth(){
     this.showLastXDays(30);
   }
 
+  /**
+   * Work-around to make the chart work on all (most) screen sizes
+   * @param event
+   */
   public onWindowResize(event){
     let resizeTimer = undefined;
     window.addEventListener('resize', () => {
