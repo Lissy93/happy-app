@@ -1,4 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
+
 import {AllTeamsService} from "../../services/all-teams.service";
 import {SharedModule} from "../../shared-helpers.module";
 import {CommonService} from "../../services/common.service";
@@ -10,13 +13,15 @@ declare const tippy;
   templateUrl: "pages/home/home.html",
   styleUrls: ["pages/home/home.css"]
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
 
   title: string = "happy-app";
   teams: string[] = [];
   teamSummaryData: object[] = [];
   homepageChartData: object[] = [];
   dataReturned: boolean = false;
+  ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
+
 
   constructor(
     private allTeamsService: AllTeamsService,
@@ -48,79 +53,98 @@ export class HomeComponent implements OnInit{
 
   /**
    * Lol just does everything in the init, cos why not
-   * TODO refactor into smaller, more readable functions
+   * TODO refactor into smaller, more readable functions - (partially done now)
    */
   ngOnInit() {
 
     // Get the list of teams
     this.teams = this.allTeamsService.getTeams();
-    this.allTeamsService.teamListUpdated.subscribe(
+    this.allTeamsService.teamListUpdated.takeUntil(this.ngUnsubscribe).subscribe(
       (teams) => { this.teams  = teams; }
     );
 
     // Get the team summary data (to display homepage visualisations)
     this.teamSummaryData = this.allTeamsService.getTeamSummary();
-    this.allTeamsService.teamDataUpdated.subscribe(
+    this.allTeamsService.teamDataUpdated.takeUntil(this.ngUnsubscribe).subscribe(
       (teamData) => { // okay, team data has arrived....
+
+        // Call to render home page charts
+        this.renderBreakdownChart(teamData);
 
         // Hide the splash screen
         this.dataReturned = true;
 
-        // Call to render the day breakdown chart
-        let dateForBreadkwonChart = this.wereThereAnyResultsForYesterdayButNotToday(teamData);
-        this.commonService.notifyDateSquareClicked(dateForBreadkwonChart);
-
-        const numDaysOfHistory = 3; // How many days back to go?
-        this.teamSummaryData  = teamData; // Assign to class
-
-        this.teamSummaryData.forEach((team)=>{ // For each team:
-          team['data'].splice(numDaysOfHistory); // Splice to last X days
-
-          // Get breakdown of scores
-          const breakdown = this.sharedModule.getOverallSentimentCount((team));
-          let bdText = '';
-          Object.keys(breakdown).reverse().forEach((label)=>{
-            bdText += `${HomeComponent.capitalize(label)}: ${breakdown[label]}, `
-          });
-          if (bdText){
-            bdText = bdText.substring(0, bdText.length - 1); // Remove trailing comma
-          }
-
-          // Get the average score
-          let teamTotalScore = 0;
-          team['data'].forEach((dateObject)=>{
-            teamTotalScore += this.sharedModule.findAverageFromUserResults(dateObject.userResults);
-          });
-          const teamAverageScore =
-             this.sharedModule.getPercentagePositive(teamTotalScore / numDaysOfHistory);
-
-          // Calculate text color
-          let textColor = '#DBDBDB';
-          switch(true){
-            case teamAverageScore <= 40:
-              textColor = '#BB5337';
-              break;
-            case teamAverageScore <= 60:
-              textColor = '#D3D030';
-              break;
-            case teamAverageScore <= 100:
-              textColor = '#4DC54E';
-          }
-
-          // Create a results object for the homepage
-          this.homepageChartData.push({
-            teamName: HomeComponent.capitalize(team['teamName']),
-            breakdown: bdText,
-            average: teamAverageScore,
-            color: textColor
-          });
-
-          // Initiate tooltips for homepage elements
-          this.applyTooltip();
-
-        });
       }
   );
+  }
+
+  /**
+   * Unsubscribe to stuff
+   */
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+
+  /**
+   * Renders the team summary list on the homepage
+   * @param teamData
+   */
+  renderBreakdownChart(teamData){
+    // Call to render the day breakdown chart
+    let dateForBreadkwonChart = this.wereThereAnyResultsForYesterdayButNotToday(teamData);
+    this.commonService.notifyDateSquareClicked(dateForBreadkwonChart);
+
+    const numDaysOfHistory = 3; // How many days back to go?
+    this.teamSummaryData  = teamData; // Assign to class
+
+    this.teamSummaryData.forEach((team)=>{ // For each team:
+      team['data'].splice(numDaysOfHistory); // Splice to last X days
+
+      // Get breakdown of scores
+      const breakdown = this.sharedModule.getOverallSentimentCount((team));
+      let bdText = '';
+      Object.keys(breakdown).reverse().forEach((label)=>{
+        bdText += `${HomeComponent.capitalize(label)}: ${breakdown[label]}, `
+      });
+      if (bdText){
+        bdText = bdText.substring(0, bdText.length - 1); // Remove trailing comma
+      }
+
+      // Get the average score
+      let teamTotalScore = 0;
+      team['data'].forEach((dateObject)=>{
+        teamTotalScore += this.sharedModule.findAverageFromUserResults(dateObject.userResults);
+      });
+      const teamAverageScore =
+        this.sharedModule.getPercentagePositive(teamTotalScore / numDaysOfHistory);
+
+      // Calculate text color
+      let textColor = '#DBDBDB';
+      switch(true){
+        case teamAverageScore <= 40:
+          textColor = '#BB5337';
+          break;
+        case teamAverageScore <= 60:
+          textColor = '#D3D030';
+          break;
+        case teamAverageScore <= 100:
+          textColor = '#4DC54E';
+      }
+
+      // Create a results object for the homepage
+      this.homepageChartData.push({
+        teamName: HomeComponent.capitalize(team['teamName']),
+        breakdown: bdText,
+        average: teamAverageScore,
+        color: textColor
+      });
+
+      // Initiate tooltips for homepage elements
+      this.applyTooltip();
+
+    });
   }
 
   /**

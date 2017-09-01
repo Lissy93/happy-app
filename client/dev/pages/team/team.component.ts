@@ -1,27 +1,14 @@
-import {Component, OnInit, OnDestroy} from "@angular/core";
-
-import {ActivatedRoute} from '@angular/router';
-import {TeamService} from "../../services/team.service";
+import {Component } from "@angular/core";
 
 @Component({
   selector: "team-page",
   templateUrl: "pages/team/team.html",
   styleUrls: ["pages/team/team.css"]
 })
-export class TeamComponent implements OnInit, OnDestroy {
+export class TeamComponent {
 
   title: string = "happy-app";
 
-  constructor(
-    private teamService: TeamService,
-    private route:ActivatedRoute,
-  ) {}
-
-
-  ngOnInit() {}
-
-  ngOnDestroy(){
-    console.log("D E S T R O Y E D ! ! ! !");
-  }
+  constructor() {}
 
 }

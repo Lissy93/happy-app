@@ -1,5 +1,5 @@
 
-import {Injectable, EventEmitter, Output, OnInit} from '@angular/core';
+import {Injectable, EventEmitter, Output } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Http} from "@angular/http";
 
@@ -24,6 +24,7 @@ export class AllTeamsService {
      */
     getTeams(){
         if(this.teams.length < 1) this.fetchTeams(); // fetch if not yet fetched
+        else {this.teamListUpdated.emit(this.teams); } // Else, just emit current data
         return this.teams;
     }
 
@@ -31,7 +32,7 @@ export class AllTeamsService {
      * Returns currently stored team data
      */
     getTeamSummary(){
-      if(this.teamsSentimentSummary.length < 1) this.fetchTeamSummary();
+      this.fetchTeamSummary();
       return this.teamsSentimentSummary;
     }
 
