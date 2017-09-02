@@ -24,6 +24,53 @@ The dashboard displays a summary of results in a series of data visualisations, 
 
 ### Tech Stack
 
+
+![TechStack](/docs/tech-stack.png "TechStack")
+
+The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts, 
+and [Angular Universal] for the isomorphic rendering.
+
+The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS), 
+[Babel] (for server-side JS) and [handlebars] (for non-Angular HTML).
+ 
+Several utilities proved to be a vital help, when carrying out common tasks, mostly [Bluebird] and [Q] (for promises),
+[dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose] 
+for making [Mongo] super easy to work with.
+ 
+ Testing the app, was made possible using combination of frameworks and libraries. [Cucumber] (for specifying BHD tests),
+[Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests), 
+[Chai] (for writing the server side tests), [Istanbul] (for checking test coverage), [Code Climate] (for checking code
+quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom] 
+(was initially used for headless browser testing).
+ 
+[MEAN]: http://mean.io/
+[Mongo]: https://www.mongodb.com/
+[Express]: https://expressjs.com/
+[Angular 4]: https://angular.io/
+[D3.js]: https://d3js.org/
+[Angular Universal]: https://universal.angular.io/
+[SASS]: http://sass-lang.com/
+[SCSS]: http://sass-lang.com/
+[TypeScript]: https://www.typescriptlang.org/
+[Babel]: https://babeljs.io/
+[handlebars]: http://handlebarsjs.com/
+[Bluebird]: http://bluebirdjs.com
+[Q]: https://github.com/kriskowal/q
+[dotenv]: https://github.com/motdotla/dotenv
+[RxJS]: http://reactivex.io/
+[Mongoose]: http://mongoosejs.com/
+[Cucumber]: https://github.com/cucumber/cucumber-js
+[Protractor]: http://www.protractortest.org/#/
+[Karma]: https://karma-runner.github.io
+[Mocha]: https://mochajs.org/
+[Chai]: http://chaijs.com/
+[Istanbul]: https://github.com/istanbuljs/istanbuljs
+[Code Climate]: https://codeclimate.com/
+[Sinnon.js]: http://sinonjs.org/
+[Davis DM]: https://david-dm.org/
+[Phantom]: http://phantomjs.org/
+
+
 ## Development Setup
 Setting up the project for development is done in the standard way.
 
