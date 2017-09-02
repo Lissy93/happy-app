@@ -30,18 +30,25 @@ The dashboard displays a summary of results in a series of data visualisations, 
 The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts, 
 and [Angular Universal] for the isomorphic rendering.
 
+<details> 
+<summary>Show Full Tech Stack: </summary>
+<p>
+  
+  
 The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS), 
 [Babel] (for server-side JS) and [handlebars] (for non-Angular HTML).
- 
+
 Several utilities proved to be a vital help, when carrying out common tasks, mostly [Bluebird] and [Q] (for promises),
 [dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose] 
 for making [Mongo] super easy to work with.
- 
+
  Testing the app, was made possible using combination of frameworks and libraries. [Cucumber] (for specifying BHD tests),
 [Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests), 
 [Chai] (for writing the server side tests), [Istanbul] (for checking test coverage), [Code Climate] (for checking code
 quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom] 
 (was initially used for headless browser testing).
+</p> 
+</details>
  
 [MEAN]: http://mean.io/
 [Mongo]: https://www.mongodb.com/
