@@ -114,7 +114,11 @@ data: (Array)
 ```
 
 
-For example:
+<details> 
+<summary>For example (click to expand)</summary>
+<p>
+
+Example JSON:
 
 ```json
 [
@@ -177,6 +181,10 @@ For development, a random set of data can be generated (using a tool such as [js
   }
 ]
 ```
+
+</p>
+</details> 
+
 
 To populate the database with either randomly generated data, or exported JSON, run:
 ```
