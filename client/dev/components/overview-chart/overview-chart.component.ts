@@ -95,6 +95,7 @@ export class OverviewChartComponent implements OnInit {
     /* Reset the SVG */
     this.removeOldChart();  // Remove old SVG
     let parent = d3.select("#overview-chart"); // Get parent
+    if(parent == null) return; // Okay, somethings gone very wrong, lets not even bother going any further with this...
 
     /* Dimensions */
     let margin = {top: 10, right: 10, bottom: 10, left: 10};
