@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy{
 
     // Constants for hiding the splash screen at right time
     const startTime = Date.now();
-    const minSplashTime = 1000;
+    const minSplashTime = 1500;
     const splashHideTime = startTime + minSplashTime;
 
     // Get the list of teams
