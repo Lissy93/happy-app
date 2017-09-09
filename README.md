@@ -28,11 +28,28 @@ The dashboard displays a summary of results in a series of data visualisations, 
 #### Homepage
 ![Homepage](/docs/screen-shot-1.png "Homepage")
 
+<details> 
+<summary>Team Page Screenshots (click to show)</summary>
+<p>
+
 #### Team Page
 ![TeamPage](/docs/screen-shot-2.png "TeamPage")
+</p>
+</details>
+
+
+
+<details> 
+<summary>Mobile View Screenshots (click to show)</summary>
+<p>
 
 #### Mobile Views
 ![Mobile](/docs/screen-shot-mobile.png "Mobile")
+</p>
+</details>
+
+
+
 
 
 ### Tech Stack
