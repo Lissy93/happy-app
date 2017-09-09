@@ -20,7 +20,12 @@ The dashboard displays a summary of results in a series of data visualisations, 
  - Sentiment change over time
  - Sentiment by team
 
-### Screen Shot
+### Screen Shots
+
+![Homepage](/docs/screen-shot-1.png "Homepage")
+![TeamPage](/docs/screen-shot-2.png "TeamPage")
+![Mobile](/docs/screen-shot-mobile.png "Mobile")
+
 
 ### Tech Stack
 
