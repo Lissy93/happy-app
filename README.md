@@ -23,6 +23,15 @@ The dashboard displays a summary of results in a series of data visualisations, 
  - Sentiment change over time
  - Sentiment by team
 
+
+### Demo
+
+Live demo at: [happy-app-demo.as93.net](http://happy-app-demo.as93.net/)
+
+The demo uses automatically generated sample data (where teams have been given random city names), and scores are totally random.
+
+
+
 ### Screen Shots
 
 #### Homepage
