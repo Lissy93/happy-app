@@ -22,8 +22,13 @@ The dashboard displays a summary of results in a series of data visualisations, 
 
 ### Screen Shots
 
+#### Homepage
 ![Homepage](/docs/screen-shot-1.png "Homepage")
+
+#### Team Page
 ![TeamPage](/docs/screen-shot-2.png "TeamPage")
+
+#### Mobile Views
 ![Mobile](/docs/screen-shot-mobile.png "Mobile")
 
 
