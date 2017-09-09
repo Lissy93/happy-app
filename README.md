@@ -1,3 +1,6 @@
+![IntroImage](/docs/app-intro.png "HappyApp")
+
+
 ## Contents
  1. [Project Introduction](#introduction)
  1. [Development Setup](#development-setup)
