@@ -1,0 +1,80 @@
+
+@import "constants.scss";
+
+/* Set default visibility for the Angular and non-Angyular splash screens */
+.initial-splash-screen{
+  z-index: -1;
+  opacity: 0;
+}
+
+#splash-screen{
+  z-index: 10;
+  opacity: 1;
+}
+
+/* The shared basic styles for both splash screens */
+#splash-screen, .initial-splash-screen {
+  transition: opacity .8s ease-in-out;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: $white;
+
+  loader, .fake-loader{ // Loading spinner
+    width: 100px;
+    min-height: 100px;
+    margin: 5em auto;
+    display: block;
+  }
+
+  h4{ // Happy-App sub-title
+    text-align: center;
+    color: $primary-dark;
+    margin-top: 10%;
+  }
+
+  h2{ // Loading... Title
+    text-align: center;
+    color: $primary-dark;
+    font-size: $font-giant;
+  }
+
+  span.status-message{ // Current load status
+    text-align: center;
+    display: block;
+  }
+
+  div.error-occurred{ // Error container
+    display: block;
+    text-align: center;
+    button{ margin: 0 auto; }
+  }
+
+}
+/* Hide non-Angular splash when Angular content exists */
+app:empty + .initial-splash-screen {
+  opacity: 1;
+  z-index: 100;
+}
+
+
+/* Mobile-only splash screen */
+@include tablet-portrait-and-below{
+
+  #splash-screen, .initial-splash-screen {
+    h2, h4{ color: $black; }
+  }
+
+  #splash-screen, .initial-splash-screen {
+    background: rgba(255,179,0,1);
+    background: -moz-linear-gradient(-45deg, rgba(255,179,0,1) 0%, rgba(255,214,64,1) 22%, rgba(255,214,64,1) 80%, rgba(255,252,152,1) 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255,179,0,1)), color-stop(22%, rgba(255,214,64,1)), color-stop(80%, rgba(255,214,64,1)), color-stop(100%, rgba(255,252,152,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(255,179,0,1) 0%, rgba(255,214,64,1) 22%, rgba(255,214,64,1) 80%, rgba(255,252,152,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(255,179,0,1) 0%, rgba(255,214,64,1) 22%, rgba(255,214,64,1) 80%, rgba(255,252,152,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(255,179,0,1) 0%, rgba(255,214,64,1) 22%, rgba(255,214,64,1) 80%, rgba(255,252,152,1) 100%);
+    background: linear-gradient(135deg, rgba(255,179,0,1) 0%, rgba(255,214,64,1) 22%, rgba(255,214,64,1) 80%, rgba(255,252,152,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#fffc98', GradientType=1 );
+  }
+}
