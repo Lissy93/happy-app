@@ -29,6 +29,10 @@
     display: block;
   }
 
+  .fake-loader{
+    background: url('../graphics/loading.gif') no-repeat center center;
+  }
+
   h4{ // Happy-App sub-title
     text-align: center;
     color: $primary-dark;
@@ -62,6 +66,10 @@ app:empty + .initial-splash-screen {
 
 /* Mobile-only splash screen */
 @include tablet-portrait-and-below{
+
+  .initial-splash-screen .fake-loader{
+    background: url('../graphics/loading-dark.gif') no-repeat center center !important;
+  }
 
   #splash-screen, .initial-splash-screen {
     h2, h4{ color: $black; }
