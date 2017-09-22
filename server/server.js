@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-if (process.env.NODE_ENV === "production")
-    require("newrelic");
+// if (process.env.NODE_ENV === "production")
+    // require("newrelic");
 
 const PORT = process.env.PORT || 3333;
 
