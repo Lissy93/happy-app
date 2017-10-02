@@ -23,8 +23,12 @@ System.config({
     '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
     '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
     '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
+    'angulartics2': 'npm:angulartics2/dist/core.umd.js',
 
     // other libraries
     'rxjs':                       'npm:rxjs'
+  },
+  packages: {
+    "/angulartics2": {"defaultExtension": "js"}
   }
 });

@@ -27,6 +27,7 @@ import {SplashScreenComponent} from "./components/splash-screen/splash-screen";
 import {AppFeedbackComponent} from "./components/app-feedback/app-feedback";
 import {AppHelpComponent} from "./components/app-help/app-help";
 import {MessageChartComponent} from "./components/message-chart/message-chart";
+import { Angulartics2Module, Angulartics2GoogleTagManager } from "angulartics2";
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import {MessageChartComponent} from "./components/message-chart/message-chart";
       homeRouting,
       BrowserAnimationsModule,
       MaterialModule,
-      SharedModule
+      SharedModule,
+      Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
     ],
     declarations: [
       App,

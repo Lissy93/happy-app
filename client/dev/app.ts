@@ -1,3 +1,4 @@
+import { Angulartics2GoogleTagManager } from 'angulartics2';
 import { Component } from "@angular/core";
 
 @Component({
@@ -6,4 +7,6 @@ import { Component } from "@angular/core";
 		<router-outlet></router-outlet>
 	`
 })
-export class App { }
+export class App {
+  constructor(angulartics2GoogleTagManager: Angulartics2GoogleTagManager) {}
+}
