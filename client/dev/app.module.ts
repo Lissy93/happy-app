@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler, Injectable, Injector } from "@angular/core";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule  } from "@angular/platform-browser";
@@ -28,43 +28,66 @@ import {AppFeedbackComponent} from "./components/app-feedback/app-feedback";
 import {AppHelpComponent} from "./components/app-help/app-help";
 import {MessageChartComponent} from "./components/message-chart/message-chart";
 import { Angulartics2Module, Angulartics2GoogleTagManager } from "angulartics2";
+import * as Rollbar from 'rollbar';
+
+const rollbarConfig = {
+  accessToken: 'e4289419268448dfb7752adb5d35b050',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+};
+
+@Injectable()
+export class RollbarErrorHandler implements ErrorHandler {
+  constructor(private injector: Injector) { }
+  handleError(err:any) : void {
+    this.injector.get(Rollbar);
+    let rollbar = this.injector.get(Rollbar);
+    rollbar.error(err.originalError || err);
+  }
+}
 
 @NgModule({
-    imports: [
-      BrowserModule,
-      FormsModule,
-      HttpModule,
-      homeRouting,
-      BrowserAnimationsModule,
-      MaterialModule,
-      SharedModule,
-      Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
-    ],
-    declarations: [
-      App,
-      HomeComponent,
-      TeamComponent,
-      NavbarComponent,
-      TimeChartComponent,
-      OverviewChartComponent,
-      CalendarChartComponent,
-      GridChartComponent,
-      DayBreakdownChartComponent,
-      LoaderComponent,
-      SplashScreenComponent,
-      AppFeedbackComponent,
-      AppHelpComponent,
-      MessageChartComponent
-    ],
-    providers: [
-      HomeService,
-      TeamService,
-      AllTeamsService,
-      CommonService
-    ],
-    bootstrap: [
-      App
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    homeRouting,
+    BrowserAnimationsModule,
+    MaterialModule,
+    SharedModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
+  ],
+  declarations: [
+    App,
+    HomeComponent,
+    TeamComponent,
+    NavbarComponent,
+    TimeChartComponent,
+    OverviewChartComponent,
+    CalendarChartComponent,
+    GridChartComponent,
+    DayBreakdownChartComponent,
+    LoaderComponent,
+    SplashScreenComponent,
+    AppFeedbackComponent,
+    AppHelpComponent,
+    MessageChartComponent
+  ],
+  providers: [
+    HomeService,
+    TeamService,
+    AllTeamsService,
+    CommonService,
+    { provide: ErrorHandler, useClass: RollbarErrorHandler },
+    { provide: Rollbar,
+      useFactory: () => {
+        return new Rollbar(rollbarConfig)
+      }
+    }
+  ],
+  bootstrap: [
+    App
+  ],
   entryComponents: [AppFeedbackComponent, AppHelpComponent]
 })
 export class AppModule {}
