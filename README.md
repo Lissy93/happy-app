@@ -2,13 +2,28 @@
 
 
 ## Contents
- 1. [Project Introduction](#introduction)
- 1. [Development Setup](#development-setup)
- 2. [Production Setup](#production-setup)
- 3. [Test Environment](#test-environment)
- 4. [Data Structures](#data)
- 5. [API Reference](#api)
+ 1. [About](#introduction)
+    * [Introduction](#introduction)
+    * [Demo](#demo)
+    * [Screenshots](#screen-shots)
+    * [Tech Stack](#tech-stack)
+ 2. [Technical Documentation](#technical-documentation)
+    * [Development Setup](#development-setup)
+    * [Production Setup](#production-setup)
+    * [App Customisation](#app-customisation)
+    * [Data Structures](#data)
+    * [API Reference](#api)
+    * [File Structure]()
+    * [Test Environment](#test-environment)
+    * [Error Handling]()
+    * [Analytics and Tracking]()
+    * [Mobile App](#mobile-app)
+    * [Server-side Rendering](#server-side-rendering)
+    * [D3 Charts Info](#chart-documentation)
  6. [Project Planning](#project-planning)
+    * [User Flow](#high-level-flow-chart)
+    * [Wireframes](#wireframes)
+    * [Functional Requirements](#high-level-functional-requirements)
 
 
 ## Introduction
@@ -34,14 +49,13 @@ The demo uses automatically generated sample data (where teams have been given r
 
 ### Screen Shots
 
-#### Homepage
 ![Homepage](/docs/screen-shot-1.png "Homepage")
 
 <details> 
 <summary>Team Page Screenshots (click to show)</summary>
 <p>
 
-#### Team Page
+
 ![TeamPage](/docs/screen-shot-2.png "TeamPage")
 </p>
 </details>
@@ -52,7 +66,7 @@ The demo uses automatically generated sample data (where teams have been given r
 <summary>Mobile View Screenshots (click to show)</summary>
 <p>
 
-#### Mobile Views
+
 ![Mobile](/docs/screen-shot-mobile.png "Mobile")
 </p>
 </details>
@@ -117,7 +131,10 @@ quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checkin
 [Phantom]: http://phantomjs.org/
 
 
-## Development Setup
+## Technical Documentation
+
+
+### Development Setup
 Setting up the project for development is done in the standard way.
 
 The steps are as follows:
@@ -128,13 +145,17 @@ The steps are as follows:
  5. Start the development server, `npm run dev`. This watches, compiles and refreshes appropriate server and client components.
 
 
-## Production Setup
+### Production Setup
 
-## Test Environment
+
+### App Customisation
+
+
+### Test Environment
 
 Read more about the [test strategy](https://github.com/Lissy93/twitter-sentiment-visualisation/blob/dev/docs/test-strategy.md)
 
-## Data
+### Data
 
 All data is anonymised, a one-way hash is created from the users email address,
 which is used by the system to uniquely identify them, but this is not displayed
@@ -236,7 +257,7 @@ and the database will be populated the that data.
 An example filename parameter may look something like this:  [`/tasks/setup/sample-data.json`][sample-data].
 
 
-## API
+### API
 
 The frontend accesses it's data through the set of functions exposed by the backend.
 There are **GET** routes for just returning data, and **POST** routes which update/
@@ -245,7 +266,7 @@ add new data, and require authentication.
 All API calls are made from `BASE_URL/api/`, where `BASE_URL` is the URI of the app
 root *(e.g. 'localhost', IP address or the domain pointing to main app)*
 
-### /teams
+#### /teams
 Returns an array of all teams referenced to in the datasets
 
 - **URL:** `/teams/`
@@ -259,7 +280,7 @@ Returns an array of all teams referenced to in the datasets
   - **Content:** `[]`
 
 
-### /team-sentiment
+#### /team-sentiment
 Returns all recorded sentiment for all teams
 
 - **URL:** `/team-sentiment/`
@@ -273,7 +294,7 @@ Returns all recorded sentiment for all teams
   - **Content:** `{}`
 
 
-### /team-sentiment/:team-name
+#### /team-sentiment/:team-name
 Returns all recorded sentiment data for any given team
 
 - **URL:** `/team-sentiment/:team-name`
@@ -285,6 +306,25 @@ Returns all recorded sentiment data for any given team
 - **Error Response:**
   - **Code:** `200`
   - **Content:** `{}`
+
+
+### File Structure
+
+
+### Error Handling
+
+
+### Analytics and Tracking
+
+
+### Mobile App
+
+
+### Server-side Rendering
+
+
+### D3 Charts Info
+
 
 
 ## Project Planning
