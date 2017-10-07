@@ -1,7 +1,17 @@
 require('dotenv').config();
 
-// if (process.env.NODE_ENV === "production")
-    // require("newrelic");
+/* In production mode, start tracking */
+if (process.env.NODE_ENV === "production") {
+  // New Relic
+  require("newrelic");
+
+  // Rollbar
+  const Rollbar = require("rollbar");
+  const rollbar = new Rollbar(process.env.ROLLBAR_KEY);
+  rollbar.log("Application Started");
+
+}
+
 
 const PORT = process.env.PORT || 3333;
 
@@ -25,9 +35,3 @@ http.createServer(app)
     });
 
 
-// include and initialize the rollbar library with your access token
-const Rollbar = require("rollbar");
-const rollbar = new Rollbar("1b476045b935405488389a635cf0e471");
-
-// record a generic message and send it to Rollbar
-rollbar.log("Hello world!");
