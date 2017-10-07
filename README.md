@@ -51,7 +51,7 @@ The demo uses automatically generated sample data (where teams have been given r
 
 ![Homepage](/docs/screen-shot-1.png "Homepage")
 
-<details> 
+<details>
 <summary>Team Page Screenshots (click to show)</summary>
 <p>
 
@@ -62,7 +62,7 @@ The demo uses automatically generated sample data (where teams have been given r
 
 
 
-<details> 
+<details>
 <summary>Mobile View Screenshots (click to show)</summary>
 <p>
 
@@ -80,29 +80,31 @@ The demo uses automatically generated sample data (where teams have been given r
 
 ![TechStack](/docs/tech-stack.png "TechStack")
 
-The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts, 
-and [Angular Universal] for the isomorphic rendering.
+The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts,
+and isomorphic rendering with [Angular Universal].
 
-<details> 
+<details>
 <summary>Show Full Tech Stack: </summary>
 <p>
-  
-  
-The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS), 
+
+
+The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS),
 [Babel] (for server-side JS) and [handlebars] (for non-Angular HTML).
 
 Several utilities proved to be a vital help, when carrying out common tasks, mostly [Bluebird] and [Q] (for promises),
-[dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose] 
+[dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose]
 for making [Mongo] super easy to work with.
 
  Testing the app, was made possible using combination of frameworks and libraries. [Cucumber] (for specifying BHD tests),
-[Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests), 
+[Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests),
 [Chai] (for writing the server side tests), [Istanbul] (for checking test coverage), [Code Climate] (for checking code
-quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom] 
+quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom]
 (was initially used for headless browser testing).
-</p> 
+
+Detailed analytics are collected with [Google Tag Manager (GTM)], and application errors and warnings are tracked with [Rollbar].
+</p>
 </details>
- 
+
 [MEAN]: http://mean.io/
 [Mongo]: https://www.mongodb.com/
 [Express]: https://expressjs.com/
@@ -129,6 +131,8 @@ quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checkin
 [Sinnon.js]: http://sinonjs.org/
 [Davis DM]: https://david-dm.org/
 [Phantom]: http://phantomjs.org/
+[Google Tag Manager]: https://www.google.com/analytics/tag-manager/
+[Rollbar]: https://rollbar.com/
 
 
 ## Technical Documentation
@@ -174,7 +178,7 @@ data: (Array)
 ```
 
 
-<details> 
+<details>
 <summary>For example (click to expand)</summary>
 <p>
 
@@ -243,7 +247,7 @@ For development, a random set of data can be generated (using a tool such as [js
 ```
 
 </p>
-</details> 
+</details>
 
 
 To populate the database with either randomly generated data, or exported JSON, run:
