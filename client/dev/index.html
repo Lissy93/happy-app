@@ -1,57 +1,105 @@
 <!doctype html>
+
+<!----------------------------------
+        WELCOME TO HAPPY APP
+------------------------------------
+
+            .-'"""""'-.
+          .'           `.
+         /   .      .    \
+        :                 :
+        |                 |
+        :   \        /    :
+         \   `.____.'    /
+          `.           .'
+            `-._____.-'
+
+------------------------------------
+       (C) Alicia Sykes, 2017
+------------------------------------
+https://github.com/Lissy93/happy-app
+----------------------------------->
+
 <html>
-<head>
-  <base href="/" >
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" href="graphics/favicon/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="graphics/favicon/favicon-16x16.png" sizes="16x16" />
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="styles/deeppurple-amber.css" >
-  <link rel="stylesheet" type="text/css" href="bower_components/flexboxgrid/css/index.min.css">
-  <link rel="stylesheet" type="text/css" href="bower_components/tippy-css/index.css">
-  <link rel="stylesheet" type="text/css" href="styles/shared-styles.css" >
-  <link rel="stylesheet" type="text/css" href="styles/splash-screen.css" >
 
-  <title>happy-team</title>
-</head>
-<body>
+  <head>
 
-<app></app>
+    <!-- Basic Meta -->
+    <base href="/" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>happy-team</title>
 
+    <!-- Theme Colours -->
+    <meta name="theme-color" content="#ffd740">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<div class="initial-splash-screen">
-    <h4><i class="material-icons">sentiment_very_satisfied</i> Happy App</h4>
-    <h2>Loading</h2>
-    <div class="fake-loader"></div>
-    <span class="status-message">App is preparing to initialise</span>
-</div>
+    <!-- App Icons and Favicons -->
+    <link rel="icon" sizes="240x240" href="graphics/icon-main-md.png">
+    <link rel="apple-touch-icon" href="graphics/icon-main-md.png">
+    <meta name="msapplication-square240x240logo" content="graphics/icon-main-md.png">
+    <link rel="apple-touch-startup-image" href="graphics/icon-main-md.png">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="graphics/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="graphics/favicon/favicon-16x16.png" sizes="16x16" />
 
-<script src="./systemjs/dist/system.js?rev=@@hash"></script>
-<script src="./reflect-metadata/Reflect.js?rev=@@hash"></script>
-<script src="./zone.js/dist/zone.js?rev=@@hash"></script>
-<script src="./config.js?rev=@@hash"></script>
-<script src="bower_components/hammerjs/hammer.min.js"></script>
-<script src="bower_components/d3/d3.min.js"></script>
-<script src="bower_components/tippy-js/index.js"></script>
-<script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <!-- Manifest for Progressive App -->
+    <link rel="manifest" href="manifest.json">
 
-<!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-85884477-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-  gtag('config', 'UA-85884477-2');
-</script>
+    <!-- Pre-built fonts, icons and themes -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="styles/deeppurple-amber.css" >
 
+    <!-- Bower Libraries -->
+    <link rel="stylesheet" type="text/css" href="bower_components/flexboxgrid/css/index.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/tippy-css/index.css">
 
-<script>
-  System.import("./index.js");
-</script>
+    <!-- Basic (non-Angular) Styles -->
+    <link rel="stylesheet" type="text/css" href="styles/shared-styles.css" >
+    <link rel="stylesheet" type="text/css" href="styles/splash-screen.css" >
 
-</body>
+  </head>
+
+  <body>
+
+    <!-- The tag for the actual app -->
+    <app></app>
+
+    <!-- Non-Angular Splash Screen -->
+    <div class="initial-splash-screen">
+        <h4><i class="material-icons">sentiment_very_satisfied</i> Happy App</h4>
+        <h2>Loading</h2>
+        <div class="fake-loader"></div>
+        <span class="status-message">App is preparing to initialise</span>
+    </div>
+
+    <!-- Core Angular Libraries -->
+    <script src="./systemjs/dist/system.js?rev=@@hash"></script>
+    <script src="./reflect-metadata/Reflect.js?rev=@@hash"></script>
+    <script src="./zone.js/dist/zone.js?rev=@@hash"></script>
+    <script src="./config.js?rev=@@hash"></script>
+
+    <!-- JavaScript Libraries -->
+    <script src="bower_components/hammerjs/hammer.min.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <script src="bower_components/tippy-js/index.js"></script>
+    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-85884477-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-85884477-2');
+    </script>
+
+    <!-- The actual application! -->
+    <script>
+      System.import("./index.js");
+    </script>
+
+  </body>
+
 </html>
