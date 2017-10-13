@@ -18,12 +18,19 @@
     * [Error Handling]()
     * [Analytics and Tracking]()
     * [Mobile App](#mobile-app)
+    * [Offline Functionality](#offline-functionality)
     * [Server-side Rendering](#server-side-rendering)
+    * [Translations and Text Changes](#translations-and-text-changes)
     * [D3 Charts Info](#chart-documentation)
- 6. [Project Planning](#project-planning)
+ 3. [Project Planning](#project-planning)
     * [User Flow](#high-level-flow-chart)
     * [Wireframes](#wireframes)
     * [Functional Requirements](#high-level-functional-requirements)
+ 4. Research
+ 5. Legal
+    * License
+    * Accessibility
+    * Contributing
 
 
 ## Introduction
@@ -143,13 +150,30 @@ Setting up the project for development is done in the standard way.
 
 The steps are as follows:
  1. Clone the repo, and `cd` into it
- 2. `npm install` the node dependencies
+ 2. `yarn install` the npm node dependencies, and frontend dependencies
  3. Connect to mongo, `mongod`. See the [Getting Started page on MongoDB documentation][2].
  4. Populate the database with some sample data (optional). `gulp populate-sample-data` (*See [Data](#data) section for more info*)
  5. Start the development server, `npm run dev`. This watches, compiles and refreshes appropriate server and client components.
 
 
 ### Production Setup
+ 1. Clone or upload the files to your server directory
+ 2. Run `yarn`, to install the npm and frontend modules
+ 3. Create a `.env` file in the project root, and populate it like the example below
+ 4. Setup and start a mongo instance, and configure the port appropriately in the .env
+ 5. Build the produciton version, with `npm run buil:prod`
+ 6. Run `npm run test` to verify that everything is working as expected
+ 7. Start the app (using a `forever` or `pm2` to keep it alive), `forever start node server`
+ 8. Set up a cron job or similar to start the app on server reboot    
+
+Example `.env` file. Will need populating with valid API keys.
+```
+NODE_ENV=production
+PORT=3001
+ROLLBAR_KEY=123abc
+NEW_RELIC_APP_NAME=happy-app
+NEW_RELIC_LICENSE_KEY=123abc
+```
 
 
 ### App Customisation
@@ -314,6 +338,45 @@ Returns all recorded sentiment data for any given team
 
 ### File Structure
 
+```
+happy-app
+│   README.md
+│   package.json    
+│
+└───client
+│   └───dev
+│       │───components
+│       │───pages
+│       │───services
+│       │───styles
+│       │───graphics
+|       |   app.module.js
+|       |   app.ts
+|       |   config.js
+|       |   index.html
+|       |   index.html
+|       |   index.ts
+|    ___|   manifest.json
+|   |   
+│   └───dist
+│       │─── ...     
+│   
+└───server
+|   │───api
+|   │───auth
+|   │───commons
+|   │───config
+|   │───constants
+|   │───routes
+|   │   error-tracking.js
+|   │   index.js
+|   |   server.js
+|
+└───tasks
+|
+└───tests
+
+```
 
 ### Error Handling
 
@@ -322,6 +385,19 @@ Returns all recorded sentiment data for any given team
 
 
 ### Mobile App
+
+There is no mobile app companion for happy-app.
+
+Though it was built following Google's Progressive Web App guidelines.
+It aims to be reliable, fast and engaging. And this is achieved through
+making use of service workers for basic offline Functionality, and the Google
+[`manifest.json`](/client/manifest.json), to allow for custom splash screens,
+icons and colours once it to be added to the users home screen. It is, of course
+fully responsive, and every effort has been made to support all modern browsers and
+devices, as best as possible.
+
+
+### Offline Functionality
 
 
 ### Server-side Rendering

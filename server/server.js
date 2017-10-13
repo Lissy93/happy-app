@@ -13,7 +13,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-const PORT = process.env.PORT || 3333;
+// const PORT = process.env.PORT || 3333;
+const PORT = 3333;
 
 import os from "os";
 import express from "express";
