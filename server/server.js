@@ -3,14 +3,14 @@ require('dotenv').config();
 /* In production mode, start tracking */
 if (process.env.NODE_ENV === "production") {
   // New Relic
-  require("newrelic");
+  // require("newrelic");
 
-  // Rollbar
-  const Rollbar = require("rollbar");
-  const rollbar = new Rollbar(process.env.ROLLBAR_KEY);
-  rollbar.log("Application Started");
 
 }
+
+// Rollbar
+const rollbar = require("./commons/tracking/error-tracking");
+rollbar.logMessage("App Started");
 
 
 // const PORT = process.env.PORT || 3333;
