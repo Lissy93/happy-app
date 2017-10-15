@@ -4,8 +4,9 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../../services/team.service";
 import {AllTeamsService} from "../../services/all-teams.service";
 import {MdDialog, MdSnackBar} from "@angular/material";
-import {AppFeedbackComponent} from "../../components/app-feedback/app-feedback";
-import {AppHelpComponent} from "../../components/app-help/app-help";
+import {AppFeedbackComponent} from "../app-feedback/app-feedback";
+import {AppHelpComponent} from "../app-help/app-help";
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: "navbar",
@@ -13,6 +14,7 @@ import {AppHelpComponent} from "../../components/app-help/app-help";
   styleUrls: ["components/navbar/navbar.css"],
   providers: [AppFeedbackComponent]
 })
+
 
 export class NavbarComponent {
 
@@ -27,7 +29,8 @@ export class NavbarComponent {
     router: Router,
     private teamService: TeamService,
     private allTeamsService: AllTeamsService,
-    public snackBar: MdSnackBar
+    public snackBar: MdSnackBar,
+    private angulartics2: Angulartics2
   ) {
     this.router = router;
   }
@@ -47,28 +50,39 @@ export class NavbarComponent {
 
   }
 
+  trackNavigationAnalyticEvents(action, properties = {}){
+    this.angulartics2.eventTrack.next({ action: action, properties: properties});
+  }
+
   openFeedbackDialog(){
     this.dialog.open(AppFeedbackComponent);
+    this.trackNavigationAnalyticEvents('FeedbackDialogOpened');
   }
 
   openHelpDialog(){
     this.dialog.open(AppHelpComponent);
+    this.trackNavigationAnalyticEvents('HelpDialogOpened');
   }
 
   navigateToTeam(teamName) {
     this.router.navigate([`./${teamName}`]);
     this.teamName = teamName;
+    this.trackNavigationAnalyticEvents('NavigatedToTeam', {teamName: teamName});
   }
 
   navigateToHome(){
     this.router.navigate(['./']);
     this.teamName = '';
+    this.trackNavigationAnalyticEvents('NavigatedBackToHome');
   }
 
   showFeatureUnavailableToast() {
     this.snackBar.open('Feature still under development, or not available on demo', 'Got it');
+    this.trackNavigationAnalyticEvents('TriedToAccessAlphaComponent');
   }
 
 }
+
+
 
 
