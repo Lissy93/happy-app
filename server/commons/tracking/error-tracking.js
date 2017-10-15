@@ -11,15 +11,18 @@ class RollbarTracking{
     // Get API key, check it was there, then create a new rollbar instance
     const rollbarApiKey = process.env.ROLLBAR_KEY;
     this.keySupplied = (!!rollbarApiKey);
-    this.rollbar = new Rollbar(rollbarApiKey);
 
-    // Set params
-    this.rollbar.captureUncaught = true;
-    // this.rollbar.configure({logLevel: "warning"}); // Uncomment to log only warnings, and up
+    if(this.keySupplied) {
+      this.rollbar = new Rollbar(rollbarApiKey);
 
-    // Don't track if tracking is disabled
-    if (!this.shouldBeTracking){
-      this.rollbar.configure({enabled: false});
+      // Set params
+      this.rollbar.captureUncaught = true;
+      // this.rollbar.configure({logLevel: "warning"}); // Uncomment to log only warnings, and up
+
+      // Don't track if tracking is disabled
+      if (!this.shouldBeTracking) {
+        this.rollbar.configure({enabled: false});
+      }
     }
 
   }
@@ -39,8 +42,8 @@ class RollbarTracking{
    * @param details
    */
   logMessage(message, details = null){
-    if (!this.shouldBeTracking) return;
-    this.rollbar.info(message, details);
+    if (!this.shouldBeTracking()){ return null; }
+    else { this.rollbar.info(message, details); }
   }
 
   /**
@@ -49,7 +52,7 @@ class RollbarTracking{
    * @param details
    */
   logWarning(warning, details = null){
-    if (!this.shouldBeTracking) return;
+    if (!this.shouldBeTracking()) return;
     this.rollbar.warning(warning, details);
   }
 
