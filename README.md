@@ -20,6 +20,7 @@
     * [Mobile App](#mobile-app)
     * [Offline Functionality](#offline-functionality)
     * [Server-side Rendering](#server-side-rendering)
+    * [AOT](#aot)
     * [Translations and Text Changes](#translations-and-text-changes)
     * [D3 Charts Info](#chart-documentation)
  3. [Project Planning](#project-planning)
@@ -403,8 +404,10 @@ devices, as best as possible.
 ### Server-side Rendering
 
 
-### D3 Charts Info
+### AOT
 
+
+### D3 Charts Info
 
 
 ## Project Planning
