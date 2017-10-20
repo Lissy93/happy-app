@@ -6,29 +6,34 @@
     * [Introduction](#introduction)
     * [Demo](#demo)
     * [Screenshots](#screen-shots)
-    * [Tech Stack](#tech-stack)
- 2. [Technical Documentation](#technical-documentation)
+ 2. [User Documentation](#user-documentation)
+    * [Initial Configuration](#initial-configuration)
+    * [Adding Results](#adding-results)
+    * [Displaying Results](#displaying-results)
+    * [Mobile](#mobile)
+ 3. [Technical Documentation](#technical-documentation)
     * [Development Setup](#development-setup)
     * [Production Setup](#production-setup)
     * [App Customisation](#app-customisation)
     * [Data Structures](#data)
     * [API Reference](#api)
-    * [File Structure]()
+    * [File Structure](#file-structure)
     * [Test Environment](#test-environment)
-    * [Error Handling]()
-    * [Analytics and Tracking]()
+    * [Error Handling](#error-handling)
+    * [Analytics and Tracking](#analytics-and-tracking)
     * [Mobile App](#mobile-app)
     * [Offline Functionality](#offline-functionality)
     * [Server-side Rendering](#server-side-rendering)
     * [AOT](#aot)
     * [Translations and Text Changes](#translations-and-text-changes)
     * [D3 Charts Info](#chart-documentation)
- 3. [Project Planning](#project-planning)
+    * [Tech Stack](#tech-stack)
+ 4. [Project Planning](#project-planning)
     * [User Flow](#high-level-flow-chart)
     * [Wireframes](#wireframes)
     * [Functional Requirements](#high-level-functional-requirements)
- 4. Research
- 5. Legal
+ 5. Research
+ 6. Legal
     * License
     * Accessibility
     * Contributing
@@ -82,65 +87,28 @@ The demo uses automatically generated sample data (where teams have been given r
 
 
 
-
-### Tech Stack
-
-
-![TechStack](/docs/tech-stack.png "TechStack")
-
-The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts,
-and isomorphic rendering with [Angular Universal].
-
-<details>
-<summary>Show Full Tech Stack: </summary>
-<p>
+## User Documentation
 
 
-The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS),
-[Babel] (for server-side JS) and [handlebars] (for non-Angular HTML).
+### Initial Configuration
 
-Several utilities proved to be a vital help, when carrying out common tasks, mostly [Bluebird] and [Q] (for promises),
-[dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose]
-for making [Mongo] super easy to work with.
+// todo
 
- Testing the app, was made possible using combination of frameworks and libraries. [Cucumber] (for specifying BHD tests),
-[Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests),
-[Chai] (for writing the server side tests), [Istanbul] (for checking test coverage), [Code Climate] (for checking code
-quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom]
-(was initially used for headless browser testing).
 
-Detailed analytics are collected with [Google Tag Manager (GTM)], and application errors and warnings are tracked with [Rollbar].
-</p>
-</details>
+### Adding Results
 
-[MEAN]: http://mean.io/
-[Mongo]: https://www.mongodb.com/
-[Express]: https://expressjs.com/
-[Angular 4]: https://angular.io/
-[D3.js]: https://d3js.org/
-[Angular Universal]: https://universal.angular.io/
-[SASS]: http://sass-lang.com/
-[SCSS]: http://sass-lang.com/
-[TypeScript]: https://www.typescriptlang.org/
-[Babel]: https://babeljs.io/
-[handlebars]: http://handlebarsjs.com/
-[Bluebird]: http://bluebirdjs.com
-[Q]: https://github.com/kriskowal/q
-[dotenv]: https://github.com/motdotla/dotenv
-[RxJS]: http://reactivex.io/
-[Mongoose]: http://mongoosejs.com/
-[Cucumber]: https://github.com/cucumber/cucumber-js
-[Protractor]: http://www.protractortest.org/#/
-[Karma]: https://karma-runner.github.io
-[Mocha]: https://mochajs.org/
-[Chai]: http://chaijs.com/
-[Istanbul]: https://github.com/istanbuljs/istanbuljs
-[Code Climate]: https://codeclimate.com/
-[Sinnon.js]: http://sinonjs.org/
-[Davis DM]: https://david-dm.org/
-[Phantom]: http://phantomjs.org/
-[Google Tag Manager]: https://www.google.com/analytics/tag-manager/
-[Rollbar]: https://rollbar.com/
+// todo
+
+
+### Displaying Results
+
+// todo
+
+
+### Mobile
+
+//todo
+
 
 
 ## Technical Documentation
@@ -355,8 +323,8 @@ happy-app
 |       |   app.ts
 |       |   config.js
 |       |   index.html
-|       |   index.html
-|       |   index.ts
+|       |   main-jit.ts
+|       |   main-aot.ts
 |    ___|   manifest.json
 |   |   
 │   └───dist
@@ -381,8 +349,41 @@ happy-app
 
 ### Error Handling
 
+Errors are tracked, monitored and handled using [Rollbar](https://rollbar.com).
+An API key is required, and needs to be added into the [`.env`] file, as `ROLLBAR_KEY`.
+If no key is specified, all Rollbar events will just be skipped.
+
+The error tracking code is in [/server/commons/tracking/error-tracking.js](/server/commons/tracking/error-tracking.js).
+So to swap Rollbar out with something else, such as TrackJS  or ErrLytics,
+this Should be the only file which needs modifying.
+
+To use, first include the above file:
+`const rollbar = require("../../commons/tracking/error-tracking");`
+Then either log a message, like:
+`rollbar.logMessage("Team List returned", teamNames);`
+Or in an error catch block, log the error, like:
+`rollbar.logWarning("Unable to fetch team list", err);`
+
+Rollbar also catches and manages client side errors, and is initialised in
+[client/app.module.ts](/client/dev/app.module.ts).
+
 
 ### Analytics and Tracking
+
+[angulartics2](https://github.com/angulartics/angulartics2) is ued to implement
+[Google Analytics](https://analytics.google.com) and
+[Google Tag Manager](https://www.google.com/analytics/tag-manager/).
+The tracking is managed in
+[analytics-tracking.service.ts](/client/dev/services/analytics-tracking.service.ts).
+A function similar to the one below can be used to track events:
+
+```
+trackAnalyticEvents(action, properties = {}){
+  this.angulartics2.eventTrack.next({ action: action, properties: properties});
+}
+```
+As well as ths, the standard GA / GTAG code snipped it in the
+['client/index.html'](client/dev/index.html).
 
 
 ### Mobile App
@@ -392,7 +393,7 @@ There is no mobile app companion for happy-app.
 Though it was built following Google's Progressive Web App guidelines.
 It aims to be reliable, fast and engaging. And this is achieved through
 making use of service workers for basic offline Functionality, and the Google
-[`manifest.json`](/client/manifest.json), to allow for custom splash screens,
+[`manifest.json`](/client/dev/manifest.json), to allow for custom splash screens,
 icons and colours once it to be added to the users home screen. It is, of course
 fully responsive, and every effort has been made to support all modern browsers and
 devices, as best as possible.
@@ -408,6 +409,83 @@ devices, as best as possible.
 
 
 ### D3 Charts Info
+
+Each [D3.js](http://d3js.org) is in it's own component, so should be able to be
+implemented anywhere in the application, and managed centrally. See
+[overview-chart.component.ts](/client/dev/components/overview-chart/overview-chart.component.ts)
+for an example. Team data is managed centrally in  
+[team.service.ts](/client/dev/services/team.service.ts) and each chart listens
+for changes in this service and updates accordingly. All the D3 chart components
+follow the same structure. There are (currently) six charts:
+
+ * [`calendar-chart`](/client/dev/components/calendar-chart) - Detailed calendar breakdown for a given team
+ * [`day-breakdown-chart`](/client/dev/components/day-breakdown-chart) - Breakdown of sentiment results between teams for a given day
+ * [`grid-chart`](/client/dev/components/grid-chart) - High-level overvier of average sentiment for all teams
+ * [`message-chart`](/client/dev/components/message-chart) - Visual display of annomised team-member comments for each team
+ * [`overview-chart`](/client/dev/components/overview-chart) - Donut chart showing proportions of sentiment for a given team
+ * [`time-chart`](/client/dev/components/time-chart) - Shows sentiment over time, for a given team
+
+
+
+ ### Tech Stack
+
+
+ ![TechStack](/docs/tech-stack.png "TechStack")
+
+ The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts,
+ and isomorphic rendering with [Angular Universal].
+
+ <details>
+ <summary>Show Full Tech Stack: </summary>
+ <p>
+
+
+ The majority of it was written in/ with [SASS]/[SCSS] (for the styles), [TypeScript] (for client-side JS),
+ [Babel] (for server-side JS) and [handlebars] (for non-Angular HTML).
+
+ Several utilities proved to be a vital help, when carrying out common tasks, mostly [Bluebird] and [Q] (for promises),
+ [dotenv] (for managing environmental variables), [RxJS] (mainly for event binding in Angular), and of course [Mongoose]
+ for making [Mongo] super easy to work with.
+
+  Testing the app, was made possible using combination of frameworks and libraries. [Cucumber] (for specifying BHD tests),
+ [Protractor] (for E2E Angular testing), [Karma] (for running the unit tests), [Mocha] (for running server-side tests),
+ [Chai] (for writing the server side tests), [Istanbul] (for checking test coverage), [Code Climate] (for checking code
+ quality is on point), [Sinnon.js] (for stubs and spies), [Davis DM] (for checking dependencies are u2d) and [Phantom]
+ (was initially used for headless browser testing).
+
+ Detailed analytics are collected with [Google Tag Manager (GTM)], and application errors and warnings are tracked with [Rollbar].
+ </p>
+ </details>
+
+ [MEAN]: http://mean.io/
+ [Mongo]: https://www.mongodb.com/
+ [Express]: https://expressjs.com/
+ [Angular 4]: https://angular.io/
+ [D3.js]: https://d3js.org/
+ [Angular Universal]: https://universal.angular.io/
+ [SASS]: http://sass-lang.com/
+ [SCSS]: http://sass-lang.com/
+ [TypeScript]: https://www.typescriptlang.org/
+ [Babel]: https://babeljs.io/
+ [handlebars]: http://handlebarsjs.com/
+ [Bluebird]: http://bluebirdjs.com
+ [Q]: https://github.com/kriskowal/q
+ [dotenv]: https://github.com/motdotla/dotenv
+ [RxJS]: http://reactivex.io/
+ [Mongoose]: http://mongoosejs.com/
+ [Cucumber]: https://github.com/cucumber/cucumber-js
+ [Protractor]: http://www.protractortest.org/#/
+ [Karma]: https://karma-runner.github.io
+ [Mocha]: https://mochajs.org/
+ [Chai]: http://chaijs.com/
+ [Istanbul]: https://github.com/istanbuljs/istanbuljs
+ [Code Climate]: https://codeclimate.com/
+ [Sinnon.js]: http://sinonjs.org/
+ [Davis DM]: https://david-dm.org/
+ [Phantom]: http://phantomjs.org/
+ [Google Tag Manager]: https://www.google.com/analytics/tag-manager/
+ [Rollbar]: https://rollbar.com/
+
 
 
 ## Project Planning
