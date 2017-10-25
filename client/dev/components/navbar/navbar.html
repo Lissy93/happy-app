@@ -8,8 +8,8 @@
   </div>
 
   <div class="col-xs-12 col-md-8 team-tabs dont-print">
-    <nav md-tab-nav-bar select="[teamTabs]">
-      <a md-tab-link
+    <nav mat-tab-nav-bar select="[teamTabs]">
+      <a mat-tab-link
          *ngFor="let team of teams"
          routerLinkActive = "routerLinkActive"
          [attr.active]="(teamName == team)? 'true': null"
@@ -23,60 +23,60 @@
   </div>
 
   <div class="col-xs-3 col-sm-6 col-md-1 team-drop-down dont-print">
-    <button md-icon-button [mdMenuTriggerFor]="menu">
-      <span class="show-only-on-mobile site-navigation-text">Site Navigation</span><md-icon>more_vert</md-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <span class="show-only-on-mobile site-navigation-text">Site Navigation</span><mat-icon>more_vert</mat-icon>
     </button>
-    <md-menu #menu="mdMenu">
+    <mat-menu #menu="matMenu">
       <div class="show-only-on-mobile">
-        <button disabled md-menu-item class="highlighted-button">
-          <md-icon>people</md-icon>
+        <button disabled mat-menu-item class="highlighted-button">
+          <mat-icon>people</mat-icon>
           <span>Teams</span>
         </button>
         <button
           class="team-dropdown-button"
-          md-menu-item
+          mat-menu-item
           *ngFor="let team of teams"
           routerLinkActive = "routerLinkActive"
           [class.highlighted-button]="teamName == team"
           (click)="navigateToTeam(team)">
-          <md-icon>label_outline</md-icon>
+          <mat-icon>label_outline</mat-icon>
           <span>{{team}}</span>
         </button>
-        <md-divider></md-divider>
+        <mat-divider></mat-divider>
       </div>
-      <button md-menu-item (click)="navigateToHome()">
-        <md-icon>home</md-icon>
+      <button mat-menu-item (click)="navigateToHome()">
+        <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
-      <button md-menu-item (click)="showFeatureUnavailableToast()">
-        <md-icon>send</md-icon>
+      <button mat-menu-item (click)="showFeatureUnavailableToast()">
+        <mat-icon>send</mat-icon>
         <span>Submit Response</span>
       </button>
-      <a md-menu-item href="/api/team-sentiment/" download= "all-team-sentiment-data.json" class="link-button">
-        <md-icon>file_download</md-icon>
+      <a mat-menu-item href="/api/team-sentiment/" download= "all-team-sentiment-data.json" class="link-button">
+        <mat-icon>file_download</mat-icon>
         <span>Download Data</span>
       </a>
-      <button md-menu-item onClick="window.print()">
-        <md-icon>print</md-icon>
+      <button mat-menu-item onClick="window.print()">
+        <mat-icon>print</mat-icon>
         <span>Print Results</span>
       </button>
-      <button md-menu-item (click)="showFeatureUnavailableToast()">
-        <md-icon>picture_as_pdf</md-icon>
+      <button mat-menu-item (click)="showFeatureUnavailableToast()">
+        <mat-icon>picture_as_pdf</mat-icon>
         <span>PDF Report</span>
       </button>
-      <button md-menu-item (click)="showFeatureUnavailableToast()">
-        <md-icon>security</md-icon>
+      <button mat-menu-item (click)="showFeatureUnavailableToast()">
+        <mat-icon>security</mat-icon>
         <span>Admin Panel</span>
       </button>
-      <button md-menu-item (click)="openFeedbackDialog()">
-        <md-icon>feedback</md-icon>
+      <button mat-menu-item (click)="openFeedbackDialog()">
+        <mat-icon>feedback</mat-icon>
         <span>App Feedback</span>
       </button>
-      <button md-menu-item (click)="openHelpDialog()">
-        <md-icon>help</md-icon>
+      <button mat-menu-item (click)="openHelpDialog()">
+        <mat-icon>help</mat-icon>
         <span>About/ Help</span>
       </button>
-    </md-menu>
+    </mat-menu>
   </div>
 </header>
 

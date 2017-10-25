@@ -1,9 +1,9 @@
-<md-card class="chart-card team-chart message-chart">
-  <md-card-header>
-    <md-card-title><h3>Comments</h3></md-card-title>
-    <md-card-subtitle>Recent anatomised team cements</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+<mat-card class="chart-card team-chart message-chart">
+  <mat-card-header>
+    <mat-card-title><h3>Comments</h3></mat-card-title>
+    <mat-card-subtitle>Recent anatomised team cements</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
     <loader class="loading-spinner" *ngIf="loading"></loader>
 
       <div class="no-data-message" *ngIf="!chartVisible">
@@ -17,9 +17,9 @@
         <span class="small-grey-text">{{comment.date}}</span>
       </div>
 
-  </md-card-content>
-  <md-card-actions>
-    <button md-button *ngIf="show < comments.length" (click)="show = show + 5">Show More...</button>
-  </md-card-actions>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="show < comments.length" (click)="show = show + 5">Show More...</button>
+  </mat-card-actions>
 
-</md-card>
+</mat-card>

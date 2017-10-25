@@ -1,16 +1,16 @@
-<md-card class="chart-card team-chart">
+<mat-card class="chart-card team-chart">
   <div class="pull-right">
-    <button md-button class="mat-icon-button" (click)="updateChart()"><md-icon>autorenew</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>open_in_new</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>code</md-icon></button>
+    <button mat-button class="mat-icon-button" (click)="updateChart()"><mat-icon>autorenew</mat-icon></button>
+    <button mat-button class="mat-icon-button"><mat-icon>open_in_new</mat-icon></button>
+    <button mat-button class="mat-icon-button"><mat-icon>code</mat-icon></button>
   </div>
 
-  <md-card-header>
-    <md-card-title><h3>Overview Amounts</h3></md-card-title>
-    <md-card-subtitle>Team Happiness Ratio</md-card-subtitle>
-  </md-card-header>
+  <mat-card-header>
+    <mat-card-title><h3>Overview Amounts</h3></mat-card-title>
+    <mat-card-subtitle>Team Happiness Ratio</mat-card-subtitle>
+  </mat-card-header>
 
-  <md-card-content>
+  <mat-card-content>
     <loader *ngIf="loading" class="loading-spinner"></loader>
 
     <div  id="overview-chart" (window:resize)="onWindowResize($event)">
@@ -19,14 +19,14 @@
         <p>The pie chart will appear here when there is more data in the system</p>
       </div>
     </div>
-  </md-card-content>
+  </mat-card-content>
 
-  <md-card-actions>
-    <md-select placeholder="Change Date Range" class="pull-right">
-      <md-option (click)="showByToday()">Today</md-option>
-      <md-option (click)="showByWeek()">Last week</md-option>
-      <md-option (click)="showByMonth()">Last month</md-option>
-    </md-select>
-  </md-card-actions>
+  <mat-card-actions>
+    <mat-select placeholder="Change Date Range" class="pull-right">
+      <mat-option (click)="showByToday()">Today</mat-option>
+      <mat-option (click)="showByWeek()">Last week</mat-option>
+      <mat-option (click)="showByMonth()">Last month</mat-option>
+    </mat-select>
+  </mat-card-actions>
 
-</md-card>
+</mat-card>

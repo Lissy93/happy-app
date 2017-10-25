@@ -15,7 +15,7 @@ var testing_1 = require("@angular/core/testing");
 var Observable_1 = require("rxjs/Observable");
 var todo_cmp_1 = require("../../../../client/dev/todo/todo-cmp");
 var todo_service_1 = require("../../../../client/dev/todo/todo-service");
-var MockTodoService = (function (_super) {
+var MockTodoService = /** @class */ (function (_super) {
     __extends(MockTodoService, _super);
     function MockTodoService() {
         return _super !== null && _super.apply(this, arguments) || this;

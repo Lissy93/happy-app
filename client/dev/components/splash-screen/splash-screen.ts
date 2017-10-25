@@ -3,8 +3,8 @@ import { trigger, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: "splash-screen",
-  templateUrl: "components/splash-screen/splash-screen.html",
-  styleUrls: ["components/splash-screen/splash-screen.css"],
+  templateUrl: "splash-screen.html",
+  styleUrls: ["splash-screen.css"],
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'

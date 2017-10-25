@@ -8,8 +8,8 @@ declare const d3, tippy, moment;
 
 @Component({
   selector: 'day-breakdown-chart',
-  templateUrl: 'components/day-breakdown-chart/day-breakdown-chart.html',
-  styleUrls: ['components/day-breakdown-chart/day-breakdown-chart.css']
+  templateUrl: 'day-breakdown-chart.html',
+  styleUrls: ['day-breakdown-chart.css']
 })
 
 export class DayBreakdownChartComponent implements OnInit, OnDestroy {

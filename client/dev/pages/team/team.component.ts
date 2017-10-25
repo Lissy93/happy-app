@@ -2,8 +2,8 @@ import {Component } from "@angular/core";
 
 @Component({
   selector: "team-page",
-  templateUrl: "pages/team/team.html",
-  styleUrls: ["pages/team/team.css"]
+  templateUrl: "team.html",
+  styleUrls: ["team.css"]
 })
 export class TeamComponent {
 

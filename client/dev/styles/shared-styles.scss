@@ -3,6 +3,8 @@ This file contains reusable styles for common elements
 that are performed throughout the application.
  */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 @import "constants.scss"; // All hardcoded reused values, must be defined as a constant
 
 /* Common properties */

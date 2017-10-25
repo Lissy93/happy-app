@@ -1,14 +1,14 @@
-<md-card class="chart-card team-chart">
+<mat-card class="chart-card team-chart">
   <div class="pull-right">
-    <button md-button class="mat-icon-button" (click)="updateChart()"><md-icon>autorenew</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>open_in_new</md-icon></button>
-    <button md-button class="mat-icon-button"><md-icon>code</md-icon></button>
+    <button mat-button class="mat-icon-button" (click)="updateChart()"><mat-icon>autorenew</mat-icon></button>
+    <button mat-button class="mat-icon-button"><mat-icon>open_in_new</mat-icon></button>
+    <button mat-button class="mat-icon-button"><mat-icon>code</mat-icon></button>
   </div>
-  <md-card-header>
-    <md-card-title><h3>Time Chart</h3></md-card-title>
-    <md-card-subtitle>Team Happiness over Time</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+  <mat-card-header>
+    <mat-card-title><h3>Time Chart</h3></mat-card-title>
+    <mat-card-subtitle>Team Happiness over Time</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
     <loader *ngIf="loading" class="loading-spinner"></loader>
     <div id="time-chart" (window:resize)="onWindowResize($event)">
       <div *ngIf="!chartVisible && !loading" class="no-data-message">
@@ -16,12 +16,12 @@
         <p>The line chart will appear here when there is more data in the system</p>
       </div>
     </div>
-  </md-card-content>
-  <md-card-actions>
-    <md-radio-group class="pull-right" [(ngModel)]="typeOfChart">
-      <md-radio-button value="breakdown" (click)="changeChartType('breakdown')">Breakdown</md-radio-button>
-      <md-radio-button value="aggregate" (click)="changeChartType('aggregate')">Aggregate</md-radio-button>
-    </md-radio-group>
-  </md-card-actions>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-radio-group class="pull-right" [(ngModel)]="typeOfChart">
+      <mat-radio-button value="breakdown" (click)="changeChartType('breakdown')">Breakdown</mat-radio-button>
+      <mat-radio-button value="aggregate" (click)="changeChartType('aggregate')">Aggregate</mat-radio-button>
+    </mat-radio-group>
+  </mat-card-actions>
 
-</md-card>
+</mat-card>

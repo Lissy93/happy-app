@@ -1,10 +1,10 @@
 import {Component, Input} from "@angular/core";
-import {MdProgressSpinnerModule} from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material';
 
 
 @Component({
   selector: "loader",
-  templateUrl: "components/loader/loader.html"
+  templateUrl: "loader.html"
 })
 
 export class LoaderComponent {

@@ -20,8 +20,8 @@ type Todo = {
 
 @Component({
   selector: "todo-cmp",
-  templateUrl: "todo/todo.html",
-  styleUrls: ["todo/todo.css"]
+  templateUrl: "todo.html",
+  styleUrls: ["todo.css"]
 })
 export class TodoCmp implements OnInit {
   title: string = "ng2do";
