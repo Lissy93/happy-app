@@ -37,6 +37,7 @@ System.config({
 
     '@angular/material': 'npm:@angular/material',
     '@angular/material/button': 'npm:@angular/material/bundles/material-button.umd.js',
+    '@angular/material/card': 'npm:@angular/material/bundles/material-card.umd.js',
 
     // Client side analytics and error tracking
     'angulartics2': 'npm:angulartics2/dist/core.umd.js',
