@@ -15,7 +15,7 @@ export class MessageChartComponent implements OnInit, OnDestroy {
 
   rawData: any = {};      // The returned, un-formatted team data
   chartVisible: boolean;  // If true chart will show
-  loading: boolean = true;// Show to loading spinner
+  loadingComments: boolean = true;// Show to loading spinner
   comments: any = [];
   show: number = 5;
   ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
@@ -47,7 +47,7 @@ export class MessageChartComponent implements OnInit, OnDestroy {
   public updateChart(rawData = this.rawData){
     const chartData = this.formatData(rawData);
     this.chartVisible = this.isThereEnoughData(chartData);
-    this.loading = false;
+    this.loadingComments = false;
     if(this.chartVisible){
       this.comments = chartData;
     }
