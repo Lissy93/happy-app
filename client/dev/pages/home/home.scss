@@ -12,9 +12,33 @@ md-list{ padding-top: 0; } // Remove default gap, at start of team list
   padding: 0;
   cursor: pointer;
 
-  &:last-child md-divider{ display: none; } // Hide the last divider, as not needed
+  mat-divider{
+    display: block;
+    border-bottom: 1px solid $light-grey;
+  }
 
-  md-list-item{
+  &:last-child mat-divider{ display: none; } // Hide the last divider, as not needed
+
+  mat-list-item{
+
+    display: flex;
+    align-items: center;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 16px;
+    height: 48px;
+    padding: 9px 16px;
+    position: relative;
+
+    .team-name-and-response-rate {
+      flex: 1;
+      min-width: 50px;
+      h4, span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
     h4.team-name{
       margin: 0;
       font-weight: 100;

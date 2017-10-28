@@ -9,7 +9,7 @@
 
   <div class="col-xs-12 col-md-8 team-tabs dont-print">
     <nav mat-tab-nav-bar select="[teamTabs]">
-      <a mat-tab-link
+      <a class="mat-tab-link"
          *ngFor="let team of teams"
          routerLinkActive = "routerLinkActive"
          [attr.active]="(teamName == team)? 'true': null"
