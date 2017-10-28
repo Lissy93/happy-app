@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
 
     // MatButton,
     // MatToolbarModule,

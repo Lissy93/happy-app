@@ -1,7 +1,5 @@
-import {
-  Component,
-  OnInit
-} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+
 import {TeamService} from "../../services/team.service";
 import {SharedModule} from "../../shared-helpers.module";
 
