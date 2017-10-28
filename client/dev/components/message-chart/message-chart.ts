@@ -7,8 +7,8 @@ declare const  moment, tippy;
 
 @Component({
   selector: "message-chart",
-  templateUrl: "message-chart.html",
-  styleUrls: ["message-chart.css"]
+  templateUrl: "./components/message-chart/message-chart.html",
+  styleUrls: ["./components/message-chart/message-chart.css"]
 })
 
 export class MessageChartComponent implements OnInit, OnDestroy {

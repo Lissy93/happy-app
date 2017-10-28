@@ -1,6 +1,6 @@
 <header class="row mat-elevation-z6">
   <div class="col-xs-9 col-sm-6 col-md-3 title-container">
-    <i class="material-icons">sentiment_very_satisfied</i>
+    <mat-icon class="material-icons">sentiment_very_satisfied</mat-icon>
     <h1  (click)="navigateToHome()">
       <ng-content select="[project-name]"></ng-content>
     </h1>
@@ -23,13 +23,14 @@
   </div>
 
   <div class="col-xs-3 col-sm-6 col-md-1 team-drop-down dont-print">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <span class="show-only-on-mobile site-navigation-text">Site Navigation</span><mat-icon>more_vert</mat-icon>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <span class="show-only-on-mobile site-navigation-text">Site Navigation</span>
+      <mat-icon class="material-icons">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <div class="show-only-on-mobile">
         <button disabled mat-menu-item class="highlighted-button">
-          <mat-icon>people</mat-icon>
+          <mat-icon class="material-icons">people</mat-icon>
           <span>Teams</span>
         </button>
         <button
@@ -39,41 +40,41 @@
           routerLinkActive = "routerLinkActive"
           [class.highlighted-button]="teamName == team"
           (click)="navigateToTeam(team)">
-          <mat-icon>label_outline</mat-icon>
+          <mat-icon class="material-icons">label_outline</mat-icon>
           <span>{{team}}</span>
         </button>
         <mat-divider></mat-divider>
       </div>
       <button mat-menu-item (click)="navigateToHome()">
-        <mat-icon>home</mat-icon>
+        <mat-icon class="material-icons">home</mat-icon>
         <span>Home</span>
       </button>
       <button mat-menu-item (click)="showFeatureUnavailableToast()">
-        <mat-icon>send</mat-icon>
+        <mat-icon class="material-icons">send</mat-icon>
         <span>Submit Response</span>
       </button>
       <a mat-menu-item href="/api/team-sentiment/" download= "all-team-sentiment-data.json" class="link-button">
-        <mat-icon>file_download</mat-icon>
+        <mat-icon class="material-icons">file_download</mat-icon>
         <span>Download Data</span>
       </a>
       <button mat-menu-item onClick="window.print()">
-        <mat-icon>print</mat-icon>
+        <mat-icon class="material-icons">print</mat-icon>
         <span>Print Results</span>
       </button>
       <button mat-menu-item (click)="showFeatureUnavailableToast()">
-        <mat-icon>picture_as_pdf</mat-icon>
+        <mat-icon class="material-icons">picture_as_pdf</mat-icon>
         <span>PDF Report</span>
       </button>
       <button mat-menu-item (click)="showFeatureUnavailableToast()">
-        <mat-icon>security</mat-icon>
+        <mat-icon class="material-icons">security</mat-icon>
         <span>Admin Panel</span>
       </button>
       <button mat-menu-item (click)="openFeedbackDialog()">
-        <mat-icon>feedback</mat-icon>
+        <mat-icon class="material-icons">feedback</mat-icon>
         <span>App Feedback</span>
       </button>
       <button mat-menu-item (click)="openHelpDialog()">
-        <mat-icon>help</mat-icon>
+        <mat-icon class="material-icons">help</mat-icon>
         <span>About/ Help</span>
       </button>
     </mat-menu>

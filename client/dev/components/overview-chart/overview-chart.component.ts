@@ -9,8 +9,8 @@ declare const d3, tippy;
 
 @Component({
   selector: "overview-chart",
-  templateUrl: "overview-chart.html",
-  styleUrls: ["overview-chart.css"]
+  templateUrl: "./components/overview-chart/overview-chart.html",
+  styleUrls: ["./components/overview-chart/overview-chart.css"]
 })
 export class OverviewChartComponent implements OnInit {
 

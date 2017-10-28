@@ -15,8 +15,6 @@ import { TimeChartComponent } from './components/time-chart/time-chart.component
 import { CalendarChartComponent } from './components/calendar-chart/calendar-chart.component';
 import {OverviewChartComponent } from './components/overview-chart/overview-chart.component';
 import { MaterialModule } from './material.module';
-// import {MatNativeDateModule, MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
-// import {MatNativeDateModule, MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import {SharedModule} from "./shared-helpers.module";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {TeamComponent} from "./pages/team/team.component";
@@ -56,7 +54,6 @@ export class RollbarErrorHandler implements ErrorHandler {
     homeRouting,
     BrowserAnimationsModule,
     MaterialModule,
-    // MatNativeDateModule,
     SharedModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
   ],
@@ -86,8 +83,7 @@ export class RollbarErrorHandler implements ErrorHandler {
       useFactory: () => {
         return new Rollbar(rollbarConfig)
       }
-    },
-    // {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+    }
   ],
   bootstrap: [
     App

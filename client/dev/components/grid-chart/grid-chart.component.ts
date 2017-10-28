@@ -7,8 +7,8 @@ declare const d3, tippy;
 
 @Component({
   selector: 'grid-chart',
-  templateUrl: 'grid-chart.html',
-  styleUrls: ['grid-chart.css']
+  templateUrl: './components/grid-chart/grid-chart.html',
+  styleUrls: ['./components/grid-chart/grid-chart.css']
 })
 
 export class GridChartComponent {

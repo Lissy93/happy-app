@@ -7,8 +7,8 @@ declare const d3, moment, tippy;
 
 @Component({
   selector: "time-chart",
-  templateUrl: "time-chart.html",
-  styleUrls: ["time-chart.css"]
+  templateUrl: "./components/time-chart/time-chart.html",
+  styleUrls: ["./components/time-chart/time-chart.css"]
 })
 
 export class TimeChartComponent implements OnInit, OnDestroy {

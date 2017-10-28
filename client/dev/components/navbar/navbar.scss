@@ -12,13 +12,10 @@ header{
     padding: 0.5em 1em;
     cursor: default;
 
-    h1, h2, i{
+    h1, h2, mat-icon{
       font-weight: 100;
       margin: 0;
       display: inline-block;
-    }
-
-    h1{
       color: $black;
     }
 
@@ -27,7 +24,6 @@ header{
       margin-top: 0.2em;
       opacity: 0.6;
     }
-
   }
 
   .team-tabs{
@@ -41,6 +37,12 @@ header{
       float: right;
       width: auto;
       padding: 0.25em;
+    }
+
+    mat-icon{
+      vertical-align: sub;
+      margin-right: 0.2em;
+      opacity: 0.9;
     }
 
     /deep/ .highlighted-button{ background: $light-grey;}

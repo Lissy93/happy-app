@@ -3,15 +3,17 @@ import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../../services/team.service";
 import {AllTeamsService} from "../../services/all-teams.service";
-import {MatDialog, MatSnackBar} from "@angular/material";
+// import {MatDialog, MatSnackBar} from "@angular/material";
+import { MatMenuModule } from "@angular/material/menu";
+
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
 import {AppHelpComponent} from "../app-help/app-help";
 import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: "navbar",
-  templateUrl: "navbar.html",
-  styleUrls: ["navbar.css"],
+  templateUrl: "./components/navbar/navbar.html",
+  styleUrls: ["./components/navbar/navbar.css"],
   providers: [AppFeedbackComponent]
 })
 
