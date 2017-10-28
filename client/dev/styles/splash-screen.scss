@@ -31,13 +31,13 @@
 
   h4{ // Happy-App sub-title
     text-align: center;
-    color: $primary-dark;
+    color: $primary-color;
     margin-top: 10%;
   }
 
   h2{ // Loading... Title
     text-align: center;
-    color: $primary-dark;
+    color: $primary-color;
     font-size: $font-giant;
   }
 
@@ -74,7 +74,7 @@ app:empty + .initial-splash-screen {
   border-top: 1.1em solid rgba(255, 179, 0, 0.1);
   border-right: 1.1em solid rgba(255, 179, 0, 0.1);
   border-bottom: 1.1em solid rgba(255, 179, 0, 0.1);
-  border-left: 1.1em solid $primary-dark;
+  border-left: 1.1em solid $primary-color;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);

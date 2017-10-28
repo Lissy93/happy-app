@@ -29,19 +29,20 @@ header{
   .team-tabs{
     @include tablet-landscape-and-below{ display: none; }
 
-    /deep/ .mat-tab-links a{ min-width: 100px; }
+    float: right;
+    padding: 0;
 
     .mat-tab-link {
-      line-height: 48px;
-      height: 48px;
-      padding: 0 12px;
-      font-size: 14px;
+      line-height: 3em;
+      height: 3em;
+      padding: 0 0.5em;
+      font-size: 1em;
       font-family: Roboto,"Helvetica Neue",sans-serif;
       font-weight: 500;
       cursor: pointer;
       box-sizing: border-box;
       opacity: .6;
-      min-width: 160px;
+      min-width: 8em;
       text-align: center;
       display: inline-block;
       vertical-align: top;
@@ -92,9 +93,8 @@ a.link-button{
 
 nav{
   border: none;
-
-  /deep/.mat-tab-links{ text-align: right; }
-
+  text-align: right;
+  
   a:hover{
     color: $black;
     background: darken($primary-color, 20%);

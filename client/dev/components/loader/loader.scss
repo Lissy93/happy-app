@@ -1,0 +1,10 @@
+@import "../../styles/constants.scss";
+
+/deep/ mat-progress-spinner svg circle{
+  stroke: $primary-color;
+
+  /* Mobile-only splash screen */
+  @include tablet-portrait-and-below{
+    stroke: $black;
+  }
+}
