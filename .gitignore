@@ -17,9 +17,15 @@ client/dev/**/*.css
 client/dev/**/*.js
 client/dev/**/*.map
 !client/dev/config.js
-
 client/dist/**/*
 
-.env
+# Logs
 **.log
+
+# Generated package version files
 yarn.lock
+package-lock.json
+
+# Environmental Variables
+.env
+
