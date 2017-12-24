@@ -4,9 +4,10 @@ require('dotenv').config();
 if (process.env.NODE_ENV === "production") {
   // New Relic
   // require("newrelic");
-
-
 }
+
+require('./scheduler');
+
 
 // Rollbar
 const rollbar = require("./commons/tracking/error-tracking");
