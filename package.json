@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server/index",
     "watch": "gulp",
-    "dev": "tsc && concurrently \"nodemon ./server/index --watch server\" \"gulp\"",
+    "dev": "tsc && concurrently \"nodemon ./server/index.js --watch server\" \"gulp\"",
     "build-dev": "gulp client.build:dev",
     "build-dist": "gulp client.build:dist",
     "test-client": "gulp client.unit_test",
