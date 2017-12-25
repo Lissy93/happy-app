@@ -9,7 +9,7 @@ export default class DBConfig {
       const URL = (process.env.NODE_ENV === "production") ? process.env.MONGOHQ_URL
                                                           : dbConst.localhost;
       mongoose.Promise = Promise;
-      mongoose.connect(URL);
+      mongoose.createConnection(URL);
       mongoose.connection.on("error", this.trackMongooseError);
     }
 
