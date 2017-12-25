@@ -1,5 +1,7 @@
 const schedule = require('node-schedule');
 
-const j = schedule.scheduleJob('42 * * * * *', function(){
+const adminConfig = require('./config/happy-app-admin-config');
+
+schedule.scheduleJob(adminConfig.emailCronTime, function(){
   console.log('The answer to life, the universe, and everything!');
 });
