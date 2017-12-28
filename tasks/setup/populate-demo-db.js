@@ -1,7 +1,7 @@
 
 // Import the Mongo config, then connect (by calling init())
 import DBConfig from '../../server/config/db.conf';
-// DBConfig.init(); //todo uncoment
+DBConfig.init();
 
 
 // The schema for TeamRecord, that data is formated to, before insert
