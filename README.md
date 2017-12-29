@@ -1,6 +1,14 @@
 ![IntroImage](/docs/app-intro.png "HappyApp")
 
 
+[![dependencies Status](https://david-dm.org/lissy93/happy-app/status.svg)](https://david-dm.org/lissy93/happy-app)
+[![devDependencies Status](https://david-dm.org/lissy93/happy-app/dev-status.svg)](https://david-dm.org/lissy93/happy-app?type=dev)
+[![Maintainability](https://api.codeclimate.com/v1/badges/89f1978a0085fdf6de14/maintainability)](https://codeclimate.com/github/Lissy93/happy-app/maintainability)
+[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/Lissy93/twitter-sentiment-visualisation)
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](#)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a00e557844654c20bd4f40fe3364e5ed)](https://www.codacy.com/app/lissy93/happy-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Lissy93/happy-app&amp;utm_campaign=Badge_Grade)
+
+
 ## Contents
  1. [About](#introduction)
     * [Introduction](#introduction)
