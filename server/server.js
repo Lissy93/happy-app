@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 /* Initiate the scheduler */
-require('./scheduler');
+require('./commons/scheduler');
 
 /* Initiate the app */
 const app = express();
