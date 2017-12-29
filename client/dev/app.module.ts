@@ -46,6 +46,10 @@ export class RollbarErrorHandler implements ErrorHandler {
   }
 }
 
+export function userFactory() {
+  return new Rollbar(rollbarConfig)
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -80,9 +84,7 @@ export class RollbarErrorHandler implements ErrorHandler {
     CommonService,
     { provide: ErrorHandler, useClass: RollbarErrorHandler },
     { provide: Rollbar,
-      useFactory: () => {
-        return new Rollbar(rollbarConfig)
-      }
+      useFactory: userFactory
     }
   ],
   bootstrap: [
