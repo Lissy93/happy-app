@@ -1,7 +1,7 @@
 
 const Rollbar = require('rollbar');
 
-class RollbarTracking{
+class ErrorTracking{
 
   /**
    *  Create a rollbar instance, with API key and configure options
@@ -58,4 +58,4 @@ class RollbarTracking{
 
 }
 
-module.exports = new RollbarTracking();
+module.exports = new ErrorTracking();

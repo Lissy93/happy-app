@@ -3,7 +3,7 @@ const TeamRecordModel = require('../records/record.model');
 export default class TeamNameController {
 
   static getAll(req, res) {
-    const rollbar = require("../../commons/tracking/error-tracking"); // for tracking
+    const rollbar = require("../../commons/error-tracking"); // for tracking
     let teamNames = [];
       TeamRecordModel.find({}, function(err, teams) {
         if (err) rollbar.logWarning("Unable to fetch team list", err);

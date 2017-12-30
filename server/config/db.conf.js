@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Promise from 'bluebird';
-import dbConst from '../constants/db.json';
-const rollbar = require('../commons/tracking/error-tracking');
+import dbConst from './db.json';
+const rollbar = require('../commons/error-tracking');
 
 export default class DBConfig {
 

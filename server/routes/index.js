@@ -3,7 +3,7 @@ import TodoRoutes from "../api/todo/route/todo-route";
 import TeamRoutes from "../api/records/team.route";
 import SentimentsRoute from "../api/records/sentiments.route";
 
-import StaticDispatcher from "../commons/static/index";
+import StaticDispatcher from "../commons/static-dispatcher";
 
 export default class Routes {
    static init(app, router) {

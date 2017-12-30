@@ -17,7 +17,7 @@ import Routes from "./routes/index";
 require('dotenv').config();
 
 /* Log app started message */
-const rollbar = require("./commons/tracking/error-tracking");
+const rollbar = require("./commons/error-tracking");
 rollbar.logMessage("App Started");
 
 /* In production mode, start tracking */

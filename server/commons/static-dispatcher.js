@@ -5,7 +5,7 @@ export default class StaticDispatcher {
     static sendIndex(req, res) {
 
       // const _root = process.cwd();
-      const _root = __dirname+'/../../../';
+      const _root = __dirname+'/../../';
       const _env = process.env.NODE_ENV;
       const _folder = _env === "production" ? "dist" : "dev";
 

@@ -367,15 +367,15 @@ happy-app
 ### Error Handling
 
 Errors are tracked, monitored and handled using [Rollbar](https://rollbar.com).
-An API key is required, and needs to be added into the [`.env`] file, as `ROLLBAR_KEY`.
+An API key is required, and needs to be added into the [`.env`](/.env) file, as `ROLLBAR_KEY`.
 If no key is specified, all Rollbar events will just be skipped.
 
-The error tracking code is in [/server/commons/tracking/error-tracking.js](/server/commons/tracking/error-tracking.js).
+The error tracking code is in [/server/commons/error-tracking.js](/server/commons/error-tracking.js).
 So to swap Rollbar out with something else, such as TrackJS  or ErrLytics,
 this Should be the only file which needs modifying.
 
 To use, first include the above file:
-`const rollbar = require("../../commons/tracking/error-tracking");`
+`const rollbar = require("../../commons/error-tracking");`
 Then either log a message, like:
 `rollbar.logMessage("Team List returned", teamNames);`
 Or in an error catch block, log the error, like:
@@ -400,7 +400,7 @@ trackAnalyticEvents(action, properties = {}){
 }
 ```
 As well as ths, the standard GA / GTAG code snipped it in the
-['client/index.html'](client/dev/index.html).
+[`client/index.html`](client/dev/index.html).
 
 
 ### Mobile App
