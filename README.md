@@ -1,19 +1,12 @@
 ![IntroImage](/docs/app-intro.png "HappyApp")
 
 
-[![dependencies Status](https://david-dm.org/lissy93/happy-app/status.svg)](https://david-dm.org/lissy93/happy-app)
-[![devDependencies Status](https://david-dm.org/lissy93/happy-app/dev-status.svg)](https://david-dm.org/lissy93/happy-app?type=dev)
-[![Maintainability](https://api.codeclimate.com/v1/badges/89f1978a0085fdf6de14/maintainability)](https://codeclimate.com/github/Lissy93/happy-app/maintainability)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/Lissy93/twitter-sentiment-visualisation)
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](#)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a00e557844654c20bd4f40fe3364e5ed)](https://www.codacy.com/app/lissy93/happy-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Lissy93/happy-app&amp;utm_campaign=Badge_Grade)
-
-
 ## Contents
  1. [About](#introduction)
     * [Introduction](#introduction)
     * [Demo](#demo)
     * [Screenshots](#screen-shots)
+    * [Current Status](#current-status)
  2. [User Documentation](#user-documentation)
     * [Initial Configuration](#initial-configuration)
     * [Adding Results](#adding-results)
@@ -41,10 +34,11 @@
     * [Wireframes](#wireframes)
     * [Functional Requirements](#high-level-functional-requirements)
  5. Research
- 6. Legal
-    * License
-    * Accessibility
-    * Contributing
+ 6. [Legal](#legal)
+    * [Licensing Summary](#licensing-summary)
+    * [License](#license)
+    * [Accessibility](#accessibility)
+    * [Contributing](#Contributing)
 
 
 ## Introduction
@@ -93,7 +87,22 @@ The demo uses automatically generated sample data (where teams have been given r
 </details>
 
 
+### Current Status
 
+##### Dependencies
+[![dependencies Status](https://david-dm.org/lissy93/happy-app/status.svg)](https://david-dm.org/lissy93/happy-app)
+[![devDependencies Status](https://david-dm.org/lissy93/happy-app/dev-status.svg)](https://david-dm.org/lissy93/happy-app?type=dev)
+
+##### Code Quality
+[![Maintainability](https://api.codeclimate.com/v1/badges/89f1978a0085fdf6de14/maintainability)](https://codeclimate.com/github/Lissy93/happy-app/maintainability)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a00e557844654c20bd4f40fe3364e5ed)](https://www.codacy.com/app/lissy93/happy-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Lissy93/happy-app&amp;utm_campaign=Badge_Grade)
+
+##### Support
+[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/Lissy93/twitter-sentiment-visualisation)
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](#)
+
+##### Tests
+//todo
 
 ## User Documentation
 
@@ -549,7 +558,7 @@ _Allows team admin to modify certain application settings and maintain the team 
 
 ## Legal
 
-### License Summary
+### Licensing Summary
 
 Happy App is licensed under the Fair Source 5 License.
 It is neither open nor closed source, the code can be viewed by anyone, but it can not be used, without 
@@ -591,6 +600,14 @@ WITH THE SOFTWARE.
 reinstated without the prior written consent of Licensor. Any such termination will not affect the right of others 
 who may have received copies of the Software from you.
 
+### Accessibility 
+
+// TODO
+
+
+### Contributing
+
+// TODO
 
 
 [sample-data]: /tasks/setup/sample-data.json
