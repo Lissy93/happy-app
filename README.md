@@ -2,6 +2,8 @@
 
 
 ## Contents
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Lissy93/happy-app.svg)](https://greenkeeper.io/)
  1. [About](#introduction)
     * [Introduction](#introduction)
     * [Demo](#demo)
