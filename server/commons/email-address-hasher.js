@@ -41,6 +41,4 @@ class EmailAddressHasher {
 }
 
 /* Export static class functions */
-module.exports.makeHash               = EmailAddressHasher.makeHash;
-module.exports.normaliseEmailAddress  = EmailAddressHasher.normaliseEmailAddress;
-module.exports.checkEmailAgainstHash  = EmailAddressHasher.checkEmailAgainstHash;
+module.exports = EmailAddressHasher;
