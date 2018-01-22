@@ -1,4 +1,5 @@
-import Promise from "bluebird";
+
+const ResponseSaver = require("../../commons/response-saver");
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -17,37 +18,15 @@ let teamRecordSchema = new Schema({
   ]
 });
 
+function checkInputIsValidJson(input) {
+  return (/^[\],:{}\s]*$/.test(input.replace(/\\["\\\/bfnrtu]/g, '@').
+  replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+  replace(/(?:^|:|,)(?:\s*\[)+/g, '')));
+}
+
 teamRecordSchema.statics.insertUserResponse = (userResponse) => {
-
-  return new Promise((resolve, reject) => {
-
-    // TODO check if valid json object
-
-    // TODO check if userhash is part of a valid team
-
-    // TODO check user has not already responded today
-
-    // TODO update record with new response
-
-    // TODO return appropriate message
-
-    let teamUserResponse = {
-      teamName:  "demo",
-      data: [
-        {
-          date: new Date(),
-          userResults: [ userResponse ]
-        }
-      ]
-    };
-
-    const _userResponse = new TeamRecordSchema(teamUserResponse);
-
-    _userResponse.save((err, saved) => {
-      err ? reject(err)
-        : resolve(saved);
-    });
-  });
+  const rs = new ResponseSaver();
+  return rs.insertUserResponse(userResponse);
 };
 
 
