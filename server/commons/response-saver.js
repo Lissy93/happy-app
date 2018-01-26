@@ -10,10 +10,11 @@ class ResponseSaver {
 
     return new Promise((resolve, reject) => {
 
-      // if (!checkInputIsValidJson(userResponse)){
-      //     errorMessage = "Malformed input. Must be valid JSON.";
-      //     return reject(new TypeError(errorMessage));
-      // }
+      /* Ensure that the input is of a valid format */
+      if (!ResponseSaver.checkInputIsValidJson(userResponse)){
+          errorMessage = "Malformed input. Must be valid JSON.";
+          return reject(new TypeError(errorMessage));
+      }
       // TODO check if userhash is part of a valid team
       TeamMembersModel.find({ }, function(err, teams) {
         teams.forEach((team)=>{
@@ -47,9 +48,26 @@ class ResponseSaver {
 
       _userResponse.save((err, saved) => {
         err ? reject(err)
-          : resolve(saved);
+          : resolpve(saved);
       });
     });
+  }
+
+  /**
+   * Determines weather input is of a valid format
+   * @param input
+   * @returns {boolean}
+   */
+  static checkInputIsValidJson(input) {
+    if (typeof input === 'string' || input instanceof String) {
+      return (/^[\],:{}\s]*$/.test(input
+        .replace(/\\["\\\/bfnrtu]/g, '@')
+        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+        .replace(/(?:^|:|,)(?:\s*\[)+/g, '')));
+    }
+    else {
+      return (typeof input === 'object' || input instanceof Object);
+    }
   }
 
 }
