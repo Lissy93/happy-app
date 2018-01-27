@@ -15,18 +15,25 @@ class ResponseSaver {
           errorMessage = "Malformed input. Must be valid JSON.";
           return reject(new TypeError(errorMessage));
       }
-      // TODO check if userhash is part of a valid team
-      TeamMembersModel.find({ }, function(err, teams) {
-        teams.forEach((team)=>{
-          let teamName = team.teamName;
-          team.members.forEach((member)=>{
-            console.log(EmailAddressHasher.checkEmailAgainstHash(member.email));
-            if(EmailAddressHasher.checkEmailAgainstHash(member.email)){
-              console.log('user found, in team '+teamName);
-            }
-          })
-        })
-      });
+
+      /* Put input into valid format */
+      // userResponse = this.putInputIntoValidFormat(userResponse);
+
+      /* Check if user is part of a valid team*/
+       ResponseSaver.checkIfUserFoundInTeam( userResponse.emailHash,
+         (teamName)=> {
+           if(!teamName){ // User was not found in any team :(
+             errorMessage = "User cold not be found.";
+             return reject(new TypeError(errorMessage));
+           }
+
+           /* Check that the user has not yet responded already today */
+           ResponseSaver.checkIfUserAlreadySubittedToday(userResponse.emailHash,
+             ()=>{
+              console.log("Ready for the next stage....")
+             })
+
+       });
 
       // TODO check user has not already responded today
 
@@ -68,6 +75,36 @@ class ResponseSaver {
     else {
       return (typeof input === 'object' || input instanceof Object);
     }
+  }
+
+  /**
+   * If input was passed as a string, quickly convert it to an object
+   * @param input
+   * @returns {*}
+   */
+  static putInputIntoValidFormat (input) {
+    if (typeof input === 'string' || input instanceof String) {
+      return JSON.parse(input);
+    }
+    return input;
+  }
+
+  static checkIfUserFoundInTeam(userHash, cb) {
+    TeamMembersModel.find({}, (err, teams) => {
+      teams.forEach((team) => {
+        let teamName = team.teamName;
+        team.members.forEach((member) => {
+          if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
+            cb(teamName);
+          }
+        })
+      });
+      cb(null);
+    });
+  }
+
+  static checkIfUserAlreadySubittedToday(userHash, cb){
+    cb()
   }
 
 }

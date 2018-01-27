@@ -5,7 +5,6 @@ export default class SaveResponseController {
 
   static saveResponse(req, res) {
     let _response = req.body;
-    console.log("===============>", _response);
     TeamRecordModel
       .insertUserResponse(_response)
       .then(data => res.status(201).json(data))
