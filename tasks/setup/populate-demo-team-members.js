@@ -1,6 +1,7 @@
 
 // Import the Mongo config, then connect (by calling init())
 import DBConfig from '../../server/config/db.conf';
+const TeamRecordModel = require('../../server/api/records/record.model');
 DBConfig.init();
 
 
@@ -30,8 +31,22 @@ function executeInsertScript(sampleDataLocation = undefined){
 
   // If no data, then call generate new sample data, then insert into db
   else{
-    const randomSampleData = generateSomeRandomSampleData();
-    insertJsonData(randomSampleData);
+
+    // Fetch current team names
+    let teamNames = [];
+    TeamRecordModel.find({}, function(err, teams) {
+      teams.forEach((team)=> teamNames.push(team.teamName));
+
+      // If no team names were returned, then undefined will cause us to use defaults
+      if(err || teamNames.length < 1) teamNames = undefined;
+
+      // Generate the rest of the sample responses
+      const randomSampleData = generateSomeRandomSampleData(teamNames);
+
+      // And finally, insert into the db
+      insertJsonData(randomSampleData);
+
+    });
   }
 
 }
@@ -79,11 +94,14 @@ function cleanUp(){
 /**
  * Generates a set of random sample data
  */
-function generateSomeRandomSampleData(){
+function generateSomeRandomSampleData(teamNames = undefined){
 
-  const teamNames = ['atlanta', 'brisbane', 'budapest', 'chicago', 'delhi',
-    'detroit', 'istanbul', 'lisbon', 'london', 'mexico', 'mumbai', 'paris',
-    'rio', 'rome', 'san-francisco', 'tokyo', 'vancouver', 'vienna'];
+  // Set the team names (if they weren't passed as a parameter)
+  if (!teamNames){
+    teamNames = ['atlanta', 'brisbane', 'budapest', 'chicago', 'delhi',
+      'detroit', 'istanbul', 'lisbon', 'london', 'mexico', 'mumbai', 'paris',
+      'rio', 'rome', 'san-francisco', 'tokyo', 'vancouver', 'vienna'];
+  }
 
   // Define some ranges
   const numTeams = {min: 4,  max: 6 };  // The number of teams to generate

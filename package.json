@@ -12,7 +12,7 @@
     "test-server": "mocha 'tests/server/**/*_test.js' --recursive --check-leaks --reporter min --compilers js:babel-register",
     "coverage-server": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'tests/server/**/*_test.js' --compilers js:babel-register",
     "coveralls-server": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'tests/server/**/*_test.js' --compilers js:babel-register --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "populate-with-sample-data": "gulp delete-database && gulp populate-sample-data",
+    "populate-with-sample-data": "gulp delete-database && gulp populate-sample-data && gulp populate-demo-team-members",
     "ngc": "node_modules/.bin/ngc -p tsconfig-aot.json"
   },
   "dependencies": {
