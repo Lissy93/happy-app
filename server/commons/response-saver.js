@@ -28,7 +28,7 @@ class ResponseSaver {
            }
 
            /* Check that the user has not yet responded already today */
-           ResponseSaver.checkIfUserAlreadySubittedToday(userResponse.emailHash,
+           ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash,
              ()=>{
               console.log("Ready for the next stage....")
              })
@@ -94,7 +94,10 @@ class ResponseSaver {
       teams.forEach((team) => {
         let teamName = team.teamName;
         team.members.forEach((member) => {
+          console.log(EmailAddressHasher.makeHash(member.email)+' comparing to '+userHash );
+          console.log(EmailAddressHasher.checkEmailAgainstHash(member.email, userHash));
           if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
+            console.log('user found');
             cb(teamName);
           }
         })
@@ -103,7 +106,7 @@ class ResponseSaver {
     });
   }
 
-  static checkIfUserAlreadySubittedToday(userHash, cb){
+  static checkIfUserAlreadySubmittedToday(userHash, cb){
     cb()
   }
 

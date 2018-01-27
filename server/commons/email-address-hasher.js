@@ -35,7 +35,9 @@ class EmailAddressHasher {
    * @returns {boolean}
    */
   static checkEmailAgainstHash(emailAddress, hashString) {
-    return EmailAddressHasher.makeHash(emailAddress) === hashString;
+    const hash1 = parseInt(EmailAddressHasher.makeHash(emailAddress));
+    const hash2 = parseInt(hashString);
+    return  hash1 === hash2;
   }
 
 }
