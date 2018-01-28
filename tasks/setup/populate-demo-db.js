@@ -7,6 +7,7 @@ DBConfig.init();
 // The schema for TeamRecord, that data is formated to, before insert
 const TeamRecordSchema = require('../../server/api/records/record.model');
 
+// Includes common helper functions
 import Helpers from '../../server/commons/helpers';
 
 
@@ -33,7 +34,6 @@ function executeInsertScript(sampleDataLocation = undefined){
     const randomSampleData = generateSomeRandomSampleData();
     insertJsonData(randomSampleData);
   }
-
 }
 
 
@@ -76,7 +76,6 @@ function cleanUp(){
 }
 
 
-
 /**
  * Generates a set of random sample data
  */
@@ -96,7 +95,7 @@ function generateSomeRandomSampleData(){
     'acceptance criteria still to vague', 'unrealistic story estimates', 'not so good'];
 
   // Format and pad out the positive and negative comments
-  const blanks = Array.apply(null, Array(300)).map(String.prototype.valueOf,'');
+  const blanks = Array.apply(null, new Array(300)).map(String.prototype.valueOf,'');
   positiveComments = shuffle(positiveComments.concat(blanks));
   negativeComments = shuffle(negativeComments.concat(blanks));
 
@@ -130,13 +129,13 @@ function generateSomeRandomSampleData(){
   function makeLessRandomMoods(){
     let todaysMoods = [];
     moods.forEach((mood)=>{
-      let newMs = Array.apply(null,Array(getNumInRange(numMoods))).map(String.prototype.valueOf, mood);
+      let newMs = Array.apply(null, new Array(getNumInRange(numMoods))).map(String.prototype.valueOf, mood);
       newMs.forEach((m)=> todaysMoods.push(m));
     });
     return todaysMoods;
   }
 
-  // Shuffles a given array
+  /* Shuffles a given array */
   function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
@@ -165,8 +164,8 @@ function generateSomeRandomSampleData(){
         let userHash = makeFakeUserHash(userNum);
         let mood = getRandomElemFromArr(todaysMoods);
         let comment = '';
-        if(mood == 'good'){ comment = getRandomElemFromArr(positiveComments); }
-        else if(mood == 'bad'){ comment = getRandomElemFromArr(negativeComments); }
+        if(mood === 'good'){ comment = getRandomElemFromArr(positiveComments); }
+        else if(mood === 'bad'){ comment = getRandomElemFromArr(negativeComments); }
         userResults.push({userHash: userHash, score: mood, comment: comment})
       }
       dataArr.push({date: date, userResults: userResults});
