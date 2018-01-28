@@ -7,6 +7,8 @@ DBConfig.init();
 // The schema for TeamRecord, that data is formated to, before insert
 const TeamRecordSchema = require('../../server/api/records/record.model');
 
+import Helpers from '../../server/commons/helpers';
+
 
 /**
  * Main starting script.
@@ -155,6 +157,8 @@ function generateSomeRandomSampleData(){
     for(let dayNum = 0; dayNum < getNumInRange(numDates); dayNum++ ){
       let date = new Date();
       date.setDate(date.getDate()-dayNum);
+      date = Helpers.roundDate(date);
+
       let todaysMoods = makeLessRandomMoods();
       let userResults = [];
       for(let userNum = 0; userNum < getNumInRange(numUsers); userNum++ ){
