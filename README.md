@@ -320,6 +320,32 @@ Returns all recorded sentiment data for any given team
 - **Error Response:**
   - **Code:** `200`
   - **Content:** `{}`
+  
+#### /team-members
+Returns all member hashes for each team. Requires authentication.
+
+- **URL:** `/team-members`
+- **Method:** `GET`
+- **URL Params:** _none_
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** ``
+- **Error Response:**
+  - **Code:** ``
+  - **Content:** `{}`
+  
+#### /save-response
+Checks and saves the response for a given user hash.
+
+- **URL:** `/save-response`
+- **Method:** `POST`
+- **URL Params:** `{ emailHash: '', score: 'good', comment: ''}`
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** ``
+- **Error Response:**
+  - **Code:** ``
+  - **Content:** `{}`
 
 
 ### File Structure
