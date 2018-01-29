@@ -1,6 +1,11 @@
 import Promise from "bluebird";
 import TeamMembersModel from "../api/teams/team-members.model";
+// const TeamRecordModel = require('../api/records/record.model');
+
+
 import EmailAddressHasher from "./email-address-hasher";
+import Helpers from "./helpers";
+
 const TeamRecordSchema = require("../api/records/record.model");
 
 class ResponseSaver {
@@ -19,8 +24,8 @@ class ResponseSaver {
       /* Put input into valid format */
       // userResponse = this.putInputIntoValidFormat(userResponse);
 
-      /* Check if user is part of a valid team*/
-       ResponseSaver.checkIfUserFoundInTeam( userResponse.emailHash,
+        /* Check if user is part of a valid team*/
+       ResponseSaver.checkIfUserFoundInTeam( userResponse.emailHash).then(
          (teamName)=> {
            if(!teamName){ // User was not found in any team :(
              errorMessage = "User cold not be found.";
@@ -28,7 +33,7 @@ class ResponseSaver {
            }
 
            /* Check that the user has not yet responded already today */
-           ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash,
+           ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash, teamName,
              ()=>{
               console.log("Ready for the next stage....")
              })
@@ -89,24 +94,37 @@ class ResponseSaver {
     return input;
   }
 
-  static checkIfUserFoundInTeam(userHash, cb) {
-    TeamMembersModel.find({}, (err, teams) => {
-      teams.forEach((team) => {
-        let teamName = team.teamName;
-        team.members.forEach((member) => {
-          console.log(EmailAddressHasher.makeHash(member.email)+' comparing to '+userHash );
-          console.log(EmailAddressHasher.checkEmailAgainstHash(member.email, userHash));
-          if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
-            console.log('user found');
-            cb(teamName);
-          }
-        })
+  static checkIfUserFoundInTeam(userHash) {
+    return new Promise((resolve, reject) => {
+      TeamMembersModel.find({}, (err, teams) => {
+        teams.forEach((team) => {
+          let teamName = team.teamName;
+          team.members.forEach((member) => {
+            console.log(EmailAddressHasher.makeHash(member.email) + ' comparing to ' + userHash);
+            console.log(EmailAddressHasher.checkEmailAgainstHash(member.email, userHash));
+            if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
+              console.log('user found');
+              resolve(teamName)
+
+            }
+          })
+        });
+        reject()
       });
-      cb(null);
     });
   }
 
-  static checkIfUserAlreadySubmittedToday(userHash, cb){
+  static checkIfUserAlreadySubmittedToday(userHash, teamName, cb){
+    /* Get today's date */
+    const today = Helpers.roundDate(new Date());
+    // console.log("====>", TeamRecordModel);
+    //
+    //
+    // TeamRecordModel.find({teamName: teamName}, function(err, teams) {
+    //   if (err) throw err;
+    //   const results = (teams.length > 0 ? teams[0] : {}); // always be's JSON
+    //   console.log(results)
+    // });
     cb()
   }
 
