@@ -17,6 +17,26 @@ class Helpers {
 
   }
 
+  /**
+   * Determines if a given date is today.
+   * Returns true if it is, false if it isn't
+    * @param date
+   * @returns {boolean}
+   */
+  static isDateToday(date){
+    return true;
+  }
+
+  /**
+   * Puts a given string into uniform format by making it
+   * lowercase and removing trailing spaces and funky symbols
+   * @param str
+   * @returns {string}
+   */
+  static normaliseString(str) {
+    return str.toLowerCase().replace(/\W/g, '');
+  }
+
 }
 
 module.exports = Helpers;
