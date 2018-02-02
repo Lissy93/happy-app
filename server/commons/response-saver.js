@@ -1,7 +1,5 @@
 import Promise from "bluebird";
 import TeamMembersModel from "../api/teams/team-members.model";
-const TeamRecordModel = require('../api/records/record.model');
-
 
 import EmailAddressHasher from "./email-address-hasher";
 import Helpers from "./helpers";
@@ -10,7 +8,6 @@ class ResponseSaver {
 
   insertUserResponse(userResponse){
     let errorMessage = "Can't fetch error message."; // This will be overridden with correct err message
-
     return new Promise((resolve, reject) => {
 
         /* Ensure that the input is of a valid format */
@@ -23,7 +20,7 @@ class ResponseSaver {
         // userResponse = this.putInputIntoValidFormat(userResponse);
         resolve(userResponse);
       })
-    .then((userResponse)=>{
+    .then((userResponse)=>{ // Check if part of team
       return new Promise(( resolve, reject) => {
         /* Check if user is part of a valid team*/
         ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
@@ -35,48 +32,19 @@ class ResponseSaver {
             return resolve(teamName);
           })
       });
-
     })
-    .then(
-      (teamName)=> {
+    .then((teamName)=> {
         return new Promise((resolve, reject) => {
             /* Check that the user has not yet responded already today */
             ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash, teamName).then(
               (userNotYetSubmitted) => {
-
                 console.log("userNotYetSubmitted ", userNotYetSubmitted);
-
-                if(userNotYetSubmitted){
-
-                }
+                resolve(userNotYetSubmitted);
               }
             )
           }
         );
       });
-      //
-      // // TODO check user has not already responded today
-      //
-      // // TODO update record with new response
-      //
-      // // TODO return appropriate message
-      //
-      // let teamUserResponse = {
-      //   teamName:  "demo",
-      //   data: [
-      //     {
-      //       date: new Date(),
-      //       userResults: [ userResponse ]
-      //     }
-      //   ]
-      // };
-      //
-      // const _userResponse = new TeamRecordSchema(teamUserResponse);
-      //
-      // _userResponse.save((err, saved) => {
-      //   err ? reject(err)
-      //     : resolpve(saved);
-      // });
   }
 
   /**
@@ -127,30 +95,54 @@ class ResponseSaver {
 
   static checkIfUserAlreadySubmittedToday(userHash, teamName){
     return new Promise((resolve, reject) => {
-
-      /* Get today's date */
-      const today = Helpers.roundDate(new Date());
-
-      /* Make request */
       const TeamRecordModel = require('../api/records/record.model');
       TeamRecordModel.find({teamName: teamName}, function(err, teams) {
         if (err) reject(err);
-        let teamData = (teams.length > 0 ? teams[0] : {}); // always be's JSON!
+        resolve(ResponseSaver.checkUserDataForResponse(userHash, teamName, teams))
+      });
+    });
+  }
 
-        if(teamData.length > 1){ teamData = teamData[0]; }
+    static checkUserDataForResponse(userHash, teamName, userData){
 
-          if(Helpers.normaliseString(teamData.teamName) === Helpers.normaliseString(teamName)){
-            teamData.data.forEach((dateBlock)=>{
-              if( Helpers.isDateToday(dateBlock.date)) {
-                dateBlock.userResults.forEach((userResult) => {
-                  if(userResult.userHash === userHash){ resolve(true);}
-                });
+      let teamData = (userData.length > 0 ? userData[0] : {}); // always be's JSON!
+
+      if(teamData.length > 1){ teamData = teamData[0]; }
+
+      if(Helpers.normaliseString(teamData.teamName) === Helpers.normaliseString(teamName)){
+        teamData.data.forEach((dateBlock)=>{
+          if( Helpers.isDateToday(dateBlock.date)) {
+            dateBlock.userResults.forEach((userResult) => {
+              if(userResult.userHash === userHash){
+                return true;
               }
             });
           }
-        resolve(false)
-      });
+        });
+      }
+      return false;
+    }
 
+    static makeTheInsert(userResponse){
+      return new Promise((resolve, reject) => {
+
+        const TeamRecordSchema = require('../api/records/record.model');
+
+
+        let teamUserResponse = {
+          teamName:  "demo",
+          data: [
+            {
+              date: new Date(),
+              userResults: [ userResponse ]
+            }
+          ]
+        };
+
+        const _userResponse = new TeamRecordSchema(teamUserResponse);
+        _userResponse.save((err, saved) => {
+          err ? reject(err) : resolve(saved);
+        });
       });
     }
 
