@@ -10,6 +10,8 @@ class ResponseSaver {
     let errorMessage = "Can't fetch error message."; // This will be overridden with correct err message
     return new Promise((resolve, reject) => {
 
+        reject("stupid");
+
         /* Ensure that the input is of a valid format */
         if (!ResponseSaver.checkInputIsValidJson(userResponse)) {
           errorMessage = "Malformed input. Must be valid JSON.";
@@ -44,6 +46,10 @@ class ResponseSaver {
             )
           }
         );
+      })
+      .catch(e => {
+        ResponseSaver.thereWasAnError('something', e);
+        reject("Oh, hey there");
       });
   }
 
@@ -169,6 +175,33 @@ class ResponseSaver {
         err ? reject(err) : resolve(saved);
       });
     });
+  }
+
+  /**
+   * Called when there is an error inserting user response
+   * This could anything from something major like server down,
+   * to something trivial, like user already submitted a response today
+   * All errors are recorded in Rollbar/ error tracker
+   * And a meaningful English error message is shown to the user.
+   */
+  static thereWasAnError(errMessageKey="defaultErr", err=null){
+
+    console.log("=== There was an Error ===");
+    console.log(err);
+
+
+    /* These are the en-GB error messages for the user */
+    const errorMessages = {
+      defaultErr:               "Failed save user response. (Error Code: SR001)",
+      shitsReallyGoneWrong:     "Failed save user response. (Error Code: SR002)",
+      iHaveNoClueWtfWentWrong:  "Failed save user response. (Error Code: SR003)",
+      evenTheErrCodeIsInvalid:  "Failed save user response. (Error Code: SR004)",
+      invalidInput:             "Malformed input. Must be valid JSON. (Error Code: SR005)",
+    };
+
+    /* Submit an error report */
+
+    /* Render error message JSON as request response */
   }
 
 
