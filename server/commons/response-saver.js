@@ -76,6 +76,12 @@ class ResponseSaver {
     return input;
   }
 
+  /**
+   * A promise function that checks if a
+   * given user (specified by a hash) exists
+   * If user found, resolves with the teamName of member
+   * @param userHash
+   */
   static checkIfUserFoundInTeam(userHash) {
     return new Promise((resolve, reject) => {
       TeamMembersModel.find({}, (err, teams) => {
@@ -93,6 +99,12 @@ class ResponseSaver {
     });
   }
 
+  /**
+   * Determines if a given user (in a given team)
+   * has already submitted a response for today
+   * @param userHash
+   * @param teamName
+   */
   static checkIfUserAlreadySubmittedToday(userHash, teamName){
     return new Promise((resolve, reject) => {
       const TeamRecordModel = require('../api/records/record.model');
@@ -103,48 +115,61 @@ class ResponseSaver {
     });
   }
 
-    static checkUserDataForResponse(userHash, teamName, userData){
+  /**
+   * A private function that does the logic part of the
+   * checking weather a user has already submitted a response
+   * @param userHash
+   * @param teamName
+   * @param userData
+   * @returns {boolean}
+   */
+  static checkUserDataForResponse(userHash, teamName, userData){
 
-      let teamData = (userData.length > 0 ? userData[0] : {}); // always be's JSON!
+    let teamData = (userData.length > 0 ? userData[0] : {}); // always be's JSON!
 
-      if(teamData.length > 1){ teamData = teamData[0]; }
+    if(teamData.length > 1){ teamData = teamData[0]; }
 
-      if(Helpers.normaliseString(teamData.teamName) === Helpers.normaliseString(teamName)){
-        teamData.data.forEach((dateBlock)=>{
-          if( Helpers.isDateToday(dateBlock.date)) {
-            dateBlock.userResults.forEach((userResult) => {
-              if(userResult.userHash === userHash){
-                return true;
-              }
-            });
-          }
-        });
-      }
-      return false;
-    }
-
-    static makeTheInsert(userResponse){
-      return new Promise((resolve, reject) => {
-
-        const TeamRecordSchema = require('../api/records/record.model');
-
-
-        let teamUserResponse = {
-          teamName:  "demo",
-          data: [
-            {
-              date: new Date(),
-              userResults: [ userResponse ]
+    if(Helpers.normaliseString(teamData.teamName) === Helpers.normaliseString(teamName)){
+      teamData.data.forEach((dateBlock)=>{
+        if( Helpers.isDateToday(dateBlock.date)) {
+          dateBlock.userResults.forEach((userResult) => {
+            if(userResult.userHash === userHash){
+              return true;
             }
-          ]
-        };
-
-        const _userResponse = new TeamRecordSchema(teamUserResponse);
-        _userResponse.save((err, saved) => {
-          err ? reject(err) : resolve(saved);
-        });
+          });
+        }
       });
     }
+    return false;
+  }
+
+  /**
+   * Does/ attempts the actual insert
+   * Should only be called once all checks have been carried out
+   * @param userResponse
+   */
+  static makeTheInsert(userResponse){
+    return new Promise((resolve, reject) => {
+
+      const TeamRecordSchema = require('../api/records/record.model');
+
+
+      let teamUserResponse = {
+        teamName:  "demo",
+        data: [
+          {
+            date: new Date(),
+            userResults: [ userResponse ]
+          }
+        ]
+      };
+
+      const _userResponse = new TeamRecordSchema(teamUserResponse);
+      _userResponse.save((err, saved) => {
+        err ? reject(err) : resolve(saved);
+      });
+    });
+  }
 
 
 }
