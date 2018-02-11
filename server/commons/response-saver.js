@@ -7,29 +7,26 @@ import Helpers from "./helpers";
 class ResponseSaver {
 
   insertUserResponse(userResponse){
-    let errorMessage = "Can't fetch error message."; // This will be overridden with correct err message
     return new Promise((resolve, reject) => {
-
-        reject("stupid");
 
         /* Ensure that the input is of a valid format */
         if (!ResponseSaver.checkInputIsValidJson(userResponse)) {
-          errorMessage = "Malformed input. Must be valid JSON.";
-          return reject(new TypeError(errorMessage));
+          ResponseSaver.thereWasAnError("invalidInput");
         }
 
         /* Put input into valid format */
-        // userResponse = this.putInputIntoValidFormat(userResponse);
+        userResponse = ResponseSaver.putInputIntoValidFormat(userResponse);
+
         resolve(userResponse);
       })
     .then((userResponse)=>{ // Check if part of team
       return new Promise(( resolve, reject) => {
+
         /* Check if user is part of a valid team*/
         ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
           (teamName) => {
             if (!teamName) { // User was not found in any team :(
-              errorMessage = "User cold not be found.";
-              return reject(new TypeError(errorMessage));
+              ResponseSaver.thereWasAnError("userNotFound");
             }
             return resolve(teamName);
           })
@@ -40,6 +37,10 @@ class ResponseSaver {
             /* Check that the user has not yet responded already today */
             ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash, teamName).then(
               (userNotYetSubmitted) => {
+                if(!userNotYetSubmitted) ResponseSaver.thereWasAnError("userAlreadySubmitted");
+                else{
+
+                }
                 console.log("userNotYetSubmitted ", userNotYetSubmitted);
                 resolve(userNotYetSubmitted);
               }
@@ -48,8 +49,7 @@ class ResponseSaver {
         );
       })
       .catch(e => {
-        ResponseSaver.thereWasAnError('something', e);
-        reject("Oh, hey there");
+        ResponseSaver.thereWasAnError("errorCheckingDupResponses", e);
       });
   }
 
@@ -197,11 +197,25 @@ class ResponseSaver {
       iHaveNoClueWtfWentWrong:  "Failed save user response. (Error Code: SR003)",
       evenTheErrCodeIsInvalid:  "Failed save user response. (Error Code: SR004)",
       invalidInput:             "Malformed input. Must be valid JSON. (Error Code: SR005)",
+      userNotFound:             "The specified user wasn't found. (Error Code: SR006)",
+      userAlreadySubmitted:     "Your response has already been recorded today. (Error Code: SR007)",
+      errorCheckingDupResponses:"There was a problem while checking for previous responses. (Error Code: SR008)",
+    };
+
+    /* Make error object */
+    const userErrMessage  = (errorMessages.hasOwnProperty(errMessageKey)?
+        errorMessages[errMessageKey] : errorMessages.evenTheErrCodeIsInvalid);
+    const errorJson = {
+      userErrMessage: userErrMessage,
+      stackTrace: err
     };
 
     /* Submit an error report */
+    const errorTracking = require('../commons/error-tracking');
+    errorTracking.logWarning("Unable to save user response.", errorJson);
 
-    /* Render error message JSON as request response */
+    /* Return error message, to be rendered as request response */
+    return errorJson;
   }
 
 

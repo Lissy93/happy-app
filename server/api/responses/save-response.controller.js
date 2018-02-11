@@ -8,7 +8,11 @@ export default class SaveResponseController {
     TeamRecordModel
       .insertUserResponse(_response)
       .then(data => res.status(201).json(data))
-      .catch(error => res.status(400).json(error));
+      .catch(
+        (error) => {
+          console.log("caught ", error);
+          res.status(400).json(error)
+        });
   }
 
   static getResponses(req, res) {
