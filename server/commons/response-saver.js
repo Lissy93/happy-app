@@ -6,50 +6,69 @@ import Helpers from "./helpers";
 
 class ResponseSaver {
 
+  /**
+   * This is the main function that gets called
+   * to kick off the saving response process
+   * @param userResponse
+   */
   insertUserResponse(userResponse){
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
         /* Ensure that the input is of a valid format */
         if (!ResponseSaver.checkInputIsValidJson(userResponse)) {
-          ResponseSaver.thereWasAnError("invalidInput");
+          resolve(ResponseSaver.thereWasAnError("invalidInput"));
         }
-
-        /* Put input into valid format */
         userResponse = ResponseSaver.putInputIntoValidFormat(userResponse);
-
         resolve(userResponse);
       })
     .then((userResponse)=>{ // Check if part of team
-      return new Promise(( resolve, reject) => {
+
+      return new Promise(( resolve) => {
+
+        /* If there was an err in a previous step, then skip this step */
+        ResponseSaver.passDownTheError(userResponse, resolve);
 
         /* Check if user is part of a valid team*/
         ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
           (teamName) => {
+
+            /* Check for previous errors, if there immediately resolve*/
+            ResponseSaver.passDownTheError(teamName, resolve);
+
+            /* If the user wasn't found, take action, else return team name */
             if (!teamName) { // User was not found in any team :(
-              ResponseSaver.thereWasAnError("userNotFound");
+              resolve(ResponseSaver.thereWasAnError("userNotFound"));
             }
             return resolve(teamName);
           })
       });
     })
     .then((teamName)=> {
-        return new Promise((resolve, reject) => {
-            /* Check that the user has not yet responded already today */
+
+      return new Promise((resolve) => {
+
+        /* Check previous error */
+        ResponseSaver.passDownTheError(teamName, resolve);
+
+          /* Check that the user has not yet responded already today */
             ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash, teamName).then(
               (userNotYetSubmitted) => {
-                if(!userNotYetSubmitted) ResponseSaver.thereWasAnError("userAlreadySubmitted");
-                else{
 
+                ResponseSaver.passDownTheError(userNotYetSubmitted, resolve);
+
+                if(!userNotYetSubmitted) { // no idea why they'd want to submit twice- but they just tried it!
+                  resolve(ResponseSaver.thereWasAnError("userAlreadySubmitted"));
                 }
-                console.log("userNotYetSubmitted ", userNotYetSubmitted);
-                resolve(userNotYetSubmitted);
+                else{
+                  resolve(userNotYetSubmitted);
+                }
+
               }
-            )
-          }
+            )} // End promise
         );
       })
       .catch(e => {
-        ResponseSaver.thereWasAnError("errorCheckingDupResponses", e);
+        resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses", e));
       });
   }
 
@@ -71,7 +90,8 @@ class ResponseSaver {
   }
 
   /**
-   * If input was passed as a string, quickly convert it to an object
+   * Quickly make input clean,
+   * in case come idiot (probably me) tries to pass the wrong format
    * @param input
    * @returns {*}
    */
@@ -89,18 +109,23 @@ class ResponseSaver {
    * @param userHash
    */
   static checkIfUserFoundInTeam(userHash) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
+
+      ResponseSaver.passDownTheError(userHash, resolve);
+
       TeamMembersModel.find({}, (err, teams) => {
+        if(!teams || teams.length < 1){
+          resolve(ResponseSaver.thereWasAnError("noTeamsLoaded"));
+        }
         teams.forEach((team) => {
           let teamName = team.teamName;
           team.members.forEach((member) => {
             if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
-              console.log('user found');
               resolve(teamName)
             }
           })
         });
-        reject()
+        resolve(ResponseSaver.thereWasAnError("unableToCheckForTeams"));
       });
     });
   }
@@ -112,11 +137,19 @@ class ResponseSaver {
    * @param teamName
    */
   static checkIfUserAlreadySubmittedToday(userHash, teamName){
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
+
+      ResponseSaver.passDownTheError(userHash, resolve);
+      ResponseSaver.passDownTheError(teamName, resolve);
+
       const TeamRecordModel = require('../api/records/record.model');
       TeamRecordModel.find({teamName: teamName}, function(err, teams) {
-        if (err) reject(err);
-        resolve(ResponseSaver.checkUserDataForResponse(userHash, teamName, teams))
+        if (err){
+          resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses"));
+        }
+        else{
+          resolve(ResponseSaver.checkUserDataForResponse(userHash, teamName, teams))
+        }
       });
     });
   }
@@ -155,10 +188,9 @@ class ResponseSaver {
    * @param userResponse
    */
   static makeTheInsert(userResponse){
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
 
       const TeamRecordSchema = require('../api/records/record.model');
-
 
       let teamUserResponse = {
         teamName:  "demo",
@@ -172,7 +204,7 @@ class ResponseSaver {
 
       const _userResponse = new TeamRecordSchema(teamUserResponse);
       _userResponse.save((err, saved) => {
-        err ? reject(err) : resolve(saved);
+        err ? resolve(ResponseSaver.thereWasAnError("unableToMakeInsert", err)) : resolve(saved);
       });
     });
   }
@@ -186,10 +218,6 @@ class ResponseSaver {
    */
   static thereWasAnError(errMessageKey="defaultErr", err=null){
 
-    console.log("=== There was an Error ===");
-    console.log(err);
-
-
     /* These are the en-GB error messages for the user */
     const errorMessages = {
       defaultErr:               "Failed save user response. (Error Code: SR001)",
@@ -200,12 +228,16 @@ class ResponseSaver {
       userNotFound:             "The specified user wasn't found. (Error Code: SR006)",
       userAlreadySubmitted:     "Your response has already been recorded today. (Error Code: SR007)",
       errorCheckingDupResponses:"There was a problem while checking for previous responses. (Error Code: SR008)",
+      noTeamsLoaded:            "Error checking users team: No teams were loaded. (Error Code: SR009)",
+      unableToCheckForTeams:    "User not registered in team. (Error Code: SR010)",
+      unableToMakeInsert:       "Unable to insert response into the DB. (Error Code: SR011)"
     };
 
     /* Make error object */
     const userErrMessage  = (errorMessages.hasOwnProperty(errMessageKey)?
         errorMessages[errMessageKey] : errorMessages.evenTheErrCodeIsInvalid);
     const errorJson = {
+      wasThereAnError: true,
       userErrMessage: userErrMessage,
       stackTrace: err
     };
@@ -213,12 +245,33 @@ class ResponseSaver {
     /* Submit an error report */
     const errorTracking = require('../commons/error-tracking');
     errorTracking.logWarning("Unable to save user response.", errorJson);
+    console.warn("Unable to save user response.", errorJson.userErrMessage);
 
     /* Return error message, to be rendered as request response */
     return errorJson;
   }
 
+  /**
+   * So the logic here is, that if there's an error at any stage
+   * we replace the param with an error object
+   * (containing the attribute of 'wasThereAnError').
+   * In this function we then check if there is an error,
+   * and if there was call resolve strait away
+   * as there's no point going any further
+   * @param stuffToCheck - we will check if this is an err obj
+   * @param res - this is the local resolve() func
+   */
+  static passDownTheError(stuffToCheck, res){
+    if(stuffToCheck.wasThereAnError) res(stuffToCheck);
+  }
 
 }
 
-module.exports = ResponseSaver;
+module.exports = ResponseSaver; // The End.
+
+/**
+ * When I wrote this, only God and I understood what I was doing.
+ * Now, God only knows.
+ */
+
+// ^^ Have fun maintaining it!
