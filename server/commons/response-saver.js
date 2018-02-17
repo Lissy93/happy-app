@@ -32,6 +32,8 @@ class ResponseSaver {
         ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
           (teamName) => {
 
+            console.log("Team Name: ", teamName);
+
             /* Check for previous errors, if there immediately resolve*/
             ResponseSaver.passDownTheError(teamName, resolve);
 
@@ -173,13 +175,13 @@ class ResponseSaver {
         if( Helpers.isDateToday(dateBlock.date)) {
           dateBlock.userResults.forEach((userResult) => {
             if(userResult.userHash === userHash){
-              return true;
+              return false
             }
           });
         }
       });
     }
-    return false;
+    return true;
   }
 
   /**

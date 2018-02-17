@@ -24,7 +24,9 @@ class Helpers {
    * @returns {boolean}
    */
   static isDateToday(date){
-    return true;
+    const inputDate = new Date(date).setHours(0,0,0,0);
+    const todaysDate = new Date().setHours(0,0,0,0);
+    return inputDate === todaysDate;
   }
 
   /**
