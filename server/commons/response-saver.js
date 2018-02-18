@@ -32,8 +32,6 @@ class ResponseSaver {
         ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
           (teamName) => {
 
-            console.log("Team Name: ", teamName);
-
             /* Check for previous errors, if there immediately resolve*/
             ResponseSaver.passDownTheError(teamName, resolve);
 
@@ -68,6 +66,20 @@ class ResponseSaver {
               }
             )} // End promise
         );
+      })
+      .then((userNotYetSubmitted) => {
+        return new Promise((resolve) => {
+
+          ResponseSaver.passDownTheError(userNotYetSubmitted, resolve);
+
+          const err =  userResponse.wasThereAnError? userResponse.wasThereAnError : null;
+
+          ResponseSaver.makeTheInsert(userResponse, err)
+            .then((insertResults)=>{
+              resolve(insertResults)
+            });
+
+        });
       })
       .catch(e => {
         resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses", e));
@@ -111,23 +123,31 @@ class ResponseSaver {
    * @param userHash
    */
   static checkIfUserFoundInTeam(userHash) {
+
     return new Promise((resolve) => {
 
       ResponseSaver.passDownTheError(userHash, resolve);
 
+      let resultToResolve = null;
+
       TeamMembersModel.find({}, (err, teams) => {
         if(!teams || teams.length < 1){
-          resolve(ResponseSaver.thereWasAnError("noTeamsLoaded"));
+          resultToResolve = ResponseSaver.thereWasAnError("noTeamsLoaded");
         }
-        teams.forEach((team) => {
-          let teamName = team.teamName;
-          team.members.forEach((member) => {
-            if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
-              resolve(teamName)
-            }
-          })
-        });
-        resolve(ResponseSaver.thereWasAnError("unableToCheckForTeams"));
+        else {
+          teams.forEach((team) => {
+            let teamName = team.teamName;
+            team.members.forEach((member) => {
+              if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
+                resultToResolve = teamName;
+              }
+            })
+          });
+        }
+        if (!resultToResolve){
+          resultToResolve = ResponseSaver.thereWasAnError("unableToCheckForTeams");
+        }
+        resolve(resultToResolve);
       });
     });
   }
@@ -188,26 +208,33 @@ class ResponseSaver {
    * Does/ attempts the actual insert
    * Should only be called once all checks have been carried out
    * @param userResponse
+   * @param err
    */
-  static makeTheInsert(userResponse){
+  static makeTheInsert(userResponse, err){
     return new Promise((resolve) => {
 
-      const TeamRecordSchema = require('../api/records/record.model');
+      if(err) resolve(err);
+      else{
+        resolve("User inserted");
 
-      let teamUserResponse = {
-        teamName:  "demo",
-        data: [
-          {
-            date: new Date(),
-            userResults: [ userResponse ]
-          }
-        ]
-      };
+        const TeamRecordSchema = require('../api/records/record.model');
 
-      const _userResponse = new TeamRecordSchema(teamUserResponse);
-      _userResponse.save((err, saved) => {
-        err ? resolve(ResponseSaver.thereWasAnError("unableToMakeInsert", err)) : resolve(saved);
-      });
+        let teamUserResponse = {
+          teamName:  "demo",
+          data: [
+            {
+              date: new Date(),
+              userResults: [ userResponse ]
+            }
+          ]
+        };
+
+        const _userResponse = new TeamRecordSchema(teamUserResponse);
+        _userResponse.save((err, saved) => {
+          err ? resolve(ResponseSaver.thereWasAnError("unableToMakeInsert", err)) : resolve(saved);
+        });
+
+      }
     });
   }
 
