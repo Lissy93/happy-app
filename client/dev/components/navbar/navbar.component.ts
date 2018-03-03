@@ -69,7 +69,7 @@ export class NavbarComponent {
   }
 
   navigateToTeam(teamName) {
-    this.router.navigate([`./${teamName}`]);
+    this.router.navigate([`./team/${teamName}`]);
     this.teamName = teamName;
     this.trackNavigationAnalyticEvents('NavigatedToTeam', {teamName: teamName});
   }

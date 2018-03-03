@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent }   from "./pages/home/home.component";
 import { homeRouting } from "./pages/home/home.route";
 import { HomeService }   from "./pages/home/home.service";
+import {SubmitResponseComponent} from "./pages/submit-response/submit-response.component";
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TimeChartComponent } from './components/time-chart/time-chart.component';
@@ -71,7 +72,8 @@ export class RollbarErrorHandler implements ErrorHandler {
     SplashScreenComponent,
     AppFeedbackComponent,
     AppHelpComponent,
-    MessageChartComponent
+    MessageChartComponent,
+    SubmitResponseComponent
   ],
   providers: [
     HomeService,
