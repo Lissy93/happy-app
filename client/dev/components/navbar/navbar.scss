@@ -107,3 +107,10 @@ button mat-icon{
   margin-right: 0.4em;
   opacity: 0.9;
 }
+
+
+/deep/ snack-bar-container.feature-still-under-dev-toast {
+  background: $dark-grey;
+  color: $super-light-grey;
+  button{ color: $primary-color; }
+}

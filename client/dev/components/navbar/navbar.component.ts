@@ -4,12 +4,13 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../../services/team.service";
 import {AllTeamsService} from "../../services/all-teams.service";
 import { MatDialogModule, MatDialog } from "@angular/material/dialog";
-import {MatSnackBarModule, MatSnackBar} from "@angular/material/snack-bar";
+import {MatSnackBarModule, MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { MatMenuModule } from "@angular/material/menu";
 
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
 import {AppHelpComponent} from "../app-help/app-help";
 import { Angulartics2 } from 'angulartics2';
+import {message} from "gulp-typescript/release/utils";
 
 @Component({
   selector: "navbar",
@@ -80,7 +81,10 @@ export class NavbarComponent {
   }
 
   showFeatureUnavailableToast() {
-    this.snackBar.open('Feature still under development, or not available on demo', 'Got it');
+    let config = new MatSnackBarConfig();
+    config.duration = 1500;
+    config.extraClasses = ['feature-still-under-dev-toast'];
+    this.snackBar.open('Feature still under development, or not available on demo', 'Got it', config);
     this.trackNavigationAnalyticEvents('TriedToAccessAlphaComponent');
   }
 
