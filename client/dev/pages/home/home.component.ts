@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import {AllTeamsService} from "../../services/all-teams.service";
 import {SharedModule} from "../../shared-helpers.module";
 import {CommonService} from "../../services/common.service";
+import {Router} from "@angular/router";
 
 declare const tippy;
 
@@ -21,13 +22,17 @@ export class HomeComponent implements OnInit, OnDestroy{
   homepageChartData: object[] = [];
   dataReturned: boolean = false;
   ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
+  router: Router;
 
 
   constructor(
     private allTeamsService: AllTeamsService,
     private sharedModule: SharedModule,
-    private commonService: CommonService
-  ) {}
+    private commonService: CommonService,
+    router: Router
+  ) {
+    this.router = router;
+  }
 
 
   /**
@@ -42,6 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy{
         tippy(target, {arrow: true});
       }
     }
+  }
+
+  navigateToTeam(teamName) {
+    this.router.navigate([`./team/${teamName}`]);
   }
 
   /**
