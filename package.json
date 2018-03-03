@@ -1,7 +1,7 @@
 {
   "name": "happy-team",
-  "version": "0.0.1",
-  "main": "src/happy-team.js",
+  "version": "0.5.0",
+  "main": "server/index.js",
   "scripts": {
     "start": "node server/index",
     "watch": "gulp",
@@ -103,12 +103,12 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Lissy93/happy-app"
   },
   "author": "Alicia Sykes",
   "license": "Fair Source License",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/Lissy93/happy-app/issues"
   },
-  "homepage": "http://aliciasykes.com"
+  "homepage": "https://github.com/Lissy93/happy-app"
 }
