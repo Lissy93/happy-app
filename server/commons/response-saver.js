@@ -239,15 +239,16 @@ class ResponseSaver {
         TeamRecordSchema.findOneAndUpdate(
           {teamName: teamName, 'data.date': today},
           {$push:{'data.$.userResults': userResponse}},
-          {new: true, upsert: true, strict: false},
+          {new: true, upsert: true},
 
           function(err, savedDoc){
 
-            if(err){ // You got all this way, then failed at the last hurdle. Sucks to be you.
-              resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
+            if(err){
+              makeNewDayForTeamAndInsert(teamName, userResponse, resolve);
             }
 
             else{
+
               const yayItWorked = {
                 wasThereAnError: false,
                 successMessage: "Response successfully saved",
@@ -257,6 +258,38 @@ class ResponseSaver {
             }
 
           });
+
+
+
+        function makeNewDayForTeamAndInsert(teamName, userResponse, resolve){
+          TeamRecordSchema.findOneAndUpdate(
+            {teamName: teamName },
+            {$push:
+              { data: { date: today, userResults: [userResponse] } }
+            },
+            {new: true, upsert: true, strict: false},
+
+            function(err, savedDoc){
+
+              if(err){ // You got all this way, then failed at the last hurdle. Sucks to be you.
+                resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
+              }
+
+              else{
+                const yayItWorked = {
+                  wasThereAnError: false,
+                  successMessage: "Response successfully saved",
+                  savedDoc: savedDoc
+                };
+                resolve(yayItWorked); // Finally reached the end (second attempt!)!!
+              }
+
+            });
+        }
+
+
+
+
       }
     });
   }
