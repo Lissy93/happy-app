@@ -227,69 +227,50 @@ class ResponseSaver {
   static makeTheInsert(userResponse, teamName, err){
     return new Promise((resolve) => {
 
-      console.log("Team Name: ", teamName);
-
       if(err) resolve(err);
+
       else{
 
         const TeamRecordSchema = require('../api/records/record.model');
 
         const today = Helpers.roundDate(new Date());
 
-        TeamRecordSchema.findOneAndUpdate(
-          {teamName: teamName, 'data.date': today},
-          {$push:{'data.$.userResults': userResponse}},
-          {new: true, upsert: true},
+        TeamRecordSchema.find( {teamName: teamName, 'data.date': today}, (err, res)=>{ // Check if array exists yet
 
-          function(err, savedDoc){
+          if(err) resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
 
-            if(err){
-              makeNewDayForTeamAndInsert(teamName, userResponse, resolve);
-            }
+          if(res.length > 0){ // Append to arr
+            TeamRecordSchema.findOneAndUpdate(
+              {teamName: teamName, 'data.date': today},
+              {$push:{'data.$.userResults': userResponse}},
+              {new: true, upsert: true},
+              (err, savedDoc) => { weAreFinished(err, savedDoc, resolve)});
+          }
 
-            else{
+          else{ // First user of the day, create new array
+            TeamRecordSchema.findOneAndUpdate(
+              {teamName: teamName },
+              {$push:
+                { data: { date: today, userResults: [userResponse] } }
+              },
+              {new: true, upsert: true, strict: false},
+              (err, savedDoc) => { weAreFinished(err, savedDoc, resolve)});
+          }
+        });
 
-              const yayItWorked = {
-                wasThereAnError: false,
-                successMessage: "Response successfully saved",
-                savedDoc: savedDoc
-              };
-              resolve(yayItWorked); // Finally reached the end!!
-            }
-
-          });
-
-
-
-        function makeNewDayForTeamAndInsert(teamName, userResponse, resolve){
-          TeamRecordSchema.findOneAndUpdate(
-            {teamName: teamName },
-            {$push:
-              { data: { date: today, userResults: [userResponse] } }
-            },
-            {new: true, upsert: true, strict: false},
-
-            function(err, savedDoc){
-
-              if(err){ // You got all this way, then failed at the last hurdle. Sucks to be you.
-                resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
-              }
-
-              else{
-                const yayItWorked = {
-                  wasThereAnError: false,
-                  successMessage: "Response successfully saved",
-                  savedDoc: savedDoc
-                };
-                resolve(yayItWorked); // Finally reached the end (second attempt!)!!
-              }
-
-            });
+        function weAreFinished(err, savedDoc, resolve){
+          if(err){ // You got all this way, then failed at the last hurdle. Sucks to be you.
+            resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
+          }
+          else{
+            const yayItWorked = {
+              wasThereAnError: false,
+              successMessage: "Response successfully saved",
+              savedDoc: savedDoc
+            };
+            resolve(yayItWorked); // Finally reached the end (second attempt!)!!
+          }
         }
-
-
-
-
       }
     });
   }
