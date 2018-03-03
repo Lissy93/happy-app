@@ -4,6 +4,15 @@ import TeamMembersModel from "../api/teams/team-members.model";
 import EmailAddressHasher from "./email-address-hasher";
 import Helpers from "./helpers";
 
+/**
+ * This class checks and inserts a users daily response into the database
+ *
+ * Probably the most important file in the project (functionality-wise)
+ * Probably the worst written, messiest file in the project (code-wise)
+ * Moral of the story: Don't drink and code.
+ *
+ * TODO Rewrite this class to be safer, clearer and unit-tested
+ */
 class ResponseSaver {
 
   /**
@@ -29,7 +38,7 @@ class ResponseSaver {
         ResponseSaver.passDownTheError(userResponse, resolve);
 
         /* Check if user is part of a valid team*/
-        ResponseSaver.checkIfUserFoundInTeam(userResponse.emailHash).then(
+        ResponseSaver.checkIfUserFoundInTeam(userResponse.userHash).then(
           (teamName) => {
 
             /* Check for previous errors, if there immediately resolve*/
@@ -51,7 +60,7 @@ class ResponseSaver {
         ResponseSaver.passDownTheError(teamName, resolve);
 
           /* Check that the user has not yet responded already today */
-            ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.emailHash, teamName).then(
+            ResponseSaver.checkIfUserAlreadySubmittedToday(userResponse.userHash, teamName).then(
               (userNotYetSubmitted) => {
 
                 ResponseSaver.passDownTheError(userNotYetSubmitted, resolve);
@@ -60,7 +69,7 @@ class ResponseSaver {
                   resolve(ResponseSaver.thereWasAnError("userAlreadySubmitted"));
                 }
                 else{
-                  resolve(userNotYetSubmitted);
+                  resolve(userNotYetSubmitted, teamName);
                 }
 
               }
@@ -74,7 +83,7 @@ class ResponseSaver {
 
           const err =  userResponse.wasThereAnError? userResponse.wasThereAnError : null;
 
-          ResponseSaver.makeTheInsert(userResponse, err)
+          ResponseSaver.makeTheInsert(userResponse, ResponseSaver.globalTeamName, err)
             .then((insertResults)=>{
               resolve(insertResults)
             });
@@ -82,7 +91,10 @@ class ResponseSaver {
         });
       })
       .catch(e => {
-        resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses", e));
+        return new Promise((resolve) => {
+          // fuck
+          resolve(ResponseSaver.thereWasAnError("shitsReallyGoneWrong", e));
+        });
       });
   }
 
@@ -139,6 +151,7 @@ class ResponseSaver {
             let teamName = team.teamName;
             team.members.forEach((member) => {
               if (EmailAddressHasher.checkEmailAgainstHash(member.email, userHash)) {
+                ResponseSaver.globalTeamName = teamName;
                 resultToResolve = teamName;
               }
             })
@@ -167,7 +180,7 @@ class ResponseSaver {
       const TeamRecordModel = require('../api/records/record.model');
       TeamRecordModel.find({teamName: teamName}, function(err, teams) {
         if (err){
-          resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses"));
+          resolve(ResponseSaver.thereWasAnError("errorCheckingDupResponses", err));
         }
         else{
           resolve(ResponseSaver.checkUserDataForResponse(userHash, teamName, teams))
@@ -208,32 +221,42 @@ class ResponseSaver {
    * Does/ attempts the actual insert
    * Should only be called once all checks have been carried out
    * @param userResponse
+   * @param teamName
    * @param err
    */
-  static makeTheInsert(userResponse, err){
+  static makeTheInsert(userResponse, teamName, err){
     return new Promise((resolve) => {
+
+      console.log("Team Name: ", teamName);
 
       if(err) resolve(err);
       else{
-        resolve("User inserted");
 
         const TeamRecordSchema = require('../api/records/record.model');
 
-        let teamUserResponse = {
-          teamName:  "demo",
-          data: [
-            {
-              date: new Date(),
-              userResults: [ userResponse ]
+        const today = Helpers.roundDate(new Date());
+
+        TeamRecordSchema.findOneAndUpdate(
+          {teamName: teamName, 'data.date': today},
+          {$push:{'data.$.userResults': userResponse}},
+          {new: true, upsert: true, strict: false},
+
+          function(err, savedDoc){
+
+            if(err){ // You got all this way, then failed at the last hurdle. Sucks to be you.
+              resolve(ResponseSaver.thereWasAnError('unableToMakeInsert', err));
             }
-          ]
-        };
 
-        const _userResponse = new TeamRecordSchema(teamUserResponse);
-        _userResponse.save((err, saved) => {
-          err ? resolve(ResponseSaver.thereWasAnError("unableToMakeInsert", err)) : resolve(saved);
-        });
+            else{
+              const yayItWorked = {
+                wasThereAnError: false,
+                successMessage: "Response successfully saved",
+                savedDoc: savedDoc
+              };
+              resolve(yayItWorked); // Finally reached the end!!
+            }
 
+          });
       }
     });
   }
@@ -296,7 +319,7 @@ class ResponseSaver {
 
 }
 
-module.exports = ResponseSaver; // The End.
+module.exports = ResponseSaver; // The Fucking End.
 
 /**
  * When I wrote this, only God and I understood what I was doing.
