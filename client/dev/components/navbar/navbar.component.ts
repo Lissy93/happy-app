@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
 import {AppHelpComponent} from "../app-help/app-help";
 import { Angulartics2 } from 'angulartics2';
+import {SubmitResponseComponent} from "../../pages/submit-response/submit-response.component";
 
 @Component({
   selector: "navbar",
@@ -52,6 +53,11 @@ export class NavbarComponent {
 
   trackNavigationAnalyticEvents(action, properties = {}){
     this.angulartics2.eventTrack.next({ action: action, properties: properties});
+  }
+
+  openSubmitResponseDialog(){
+    this.dialog.open(SubmitResponseComponent);
+    this.trackNavigationAnalyticEvents('SubmitResponseDialogOpened');
   }
 
   openFeedbackDialog(){
