@@ -3,14 +3,12 @@ import {Http} from "@angular/http";
 import {Router, ActivatedRoute} from "@angular/router";
 import {TeamService} from "../../services/team.service";
 import {AllTeamsService} from "../../services/all-teams.service";
-import { MatDialogModule, MatDialog } from "@angular/material/dialog";
-import {MatSnackBarModule, MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
-import { MatMenuModule } from "@angular/material/menu";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 
 import {AppFeedbackComponent} from "../app-feedback/app-feedback";
 import {AppHelpComponent} from "../app-help/app-help";
 import { Angulartics2 } from 'angulartics2';
-import {message} from "gulp-typescript/release/utils";
 
 @Component({
   selector: "navbar",
@@ -19,7 +17,6 @@ import {message} from "gulp-typescript/release/utils";
   providers: [AppFeedbackComponent]
 })
 
-
 export class NavbarComponent {
 
   @Input() teams: string[];
@@ -27,14 +24,13 @@ export class NavbarComponent {
   teamName = '';
 
   constructor(
-    private http: Http,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    router: Router,
     private teamService: TeamService,
     private allTeamsService: AllTeamsService,
     public snackBar: MatSnackBar,
-    private angulartics2: Angulartics2
+    private angulartics2: Angulartics2,
+    router: Router
   ) {
     this.router = router;
   }

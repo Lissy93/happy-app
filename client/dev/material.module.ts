@@ -6,16 +6,10 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDialogModule } from "@angular/material/dialog";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
-  imports: [
-    // MatButton,
-    // MatMenuModule,
-    // MatToolbarModule,
-    // MatIconModule,
-    // MatCardModule
-  ],
+  imports: [],
   exports: [
     MatButtonModule,
     MatCardModule,
@@ -24,11 +18,6 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule
-
-    // MatButton,
-    // MatToolbarModule,
-    // MatIconModule,
-    // MatCardModule
   ]
 })
 export class MaterialModule {}

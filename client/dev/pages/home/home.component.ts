@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit, OnDestroy{
   ngUnsubscribe: Subject<void> = new Subject<void>(); // Used for better unsubscribing
   router: Router;
 
-
   constructor(
     private allTeamsService: AllTeamsService,
     private sharedModule: SharedModule,
@@ -33,7 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy{
   ) {
     this.router = router;
   }
-
 
   /**
    * Applies fancy tooltip to a given element
@@ -49,6 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy{
     }
   }
 
+  /**
+   * Takes user to team route. Used for home-list-chart
+   * @param teamName
+   */
   navigateToTeam(teamName) {
     this.router.navigate([`./team/${teamName}`]);
   }
@@ -58,7 +60,9 @@ export class HomeComponent implements OnInit, OnDestroy{
    * @param str
    * @returns {string}
    */
-  static capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+  static capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   /**
    * Lol just does everything in the init, cos why not
@@ -98,7 +102,6 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
 
   /**
    * Renders the team summary list on the homepage
