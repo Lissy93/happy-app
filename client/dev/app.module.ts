@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, Injectable, Injector } from "@angular/core";
 import { HttpModule } from "@angular/http";
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserModule  } from "@angular/platform-browser";
 import { App }   from "./app";
 
@@ -51,6 +51,7 @@ export class RollbarErrorHandler implements ErrorHandler {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     homeRouting,
     BrowserAnimationsModule,
@@ -80,6 +81,7 @@ export class RollbarErrorHandler implements ErrorHandler {
     TeamService,
     AllTeamsService,
     CommonService,
+    SharedModule,
     { provide: ErrorHandler, useClass: RollbarErrorHandler },
     { provide: Rollbar,
       useFactory: () => {
