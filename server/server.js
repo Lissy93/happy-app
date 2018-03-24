@@ -34,31 +34,31 @@ require('./commons/scheduler');
 const app = express();
 
 /* Specify the port, from .env or config */
-const PORT = process.env.PORT || 3333;
+const port = process.env.PORT || 3333;
+const httpsPort = process.env.HTTPS_PORT || 3334;
 
 /* Initiate routes and db config */
 RoutesConfig.init(app);
 DBConfig.init();
 Routes.init(app, express.Router());
 
-/* Create the server (HTTPS for prod) */
-let server;
-if (process.env.NODE_ENV === "production") {
-  const sshOptions = {
-    key: fs.readFileSync('./ssl/server.key'),
-    cert: fs.readFileSync('./ssl/server.crt'),
-    ca: fs.readFileSync('./ssl/ca.crt'),
-    requestCert: false,
-    rejectUnauthorized: false
-  };
-  server = https.createServer(sshOptions, app);
-}
-else{
-  server = http.createServer(app);
-}
-
 /* Start the server! */
-server.listen(PORT, () => {
-  console.log(`up and running @: ${os.hostname()} on port: ${PORT}`);
+http.createServer(app).listen(port, () => {
+  console.log(`up and running @: ${os.hostname()} on port: ${port}`);
   console.log(`enviroment: ${process.env.NODE_ENV}`);
 });
+
+/* Create and start a HTTPS server (for prod only) */
+if (process.env.NODE_ENV === "production") {
+  const sshOptions = {
+    key: fs.readFileSync('~/.ssl/server.key'),
+    cert: fs.readFileSync('~./.ssl/server.crt'),
+    ca: fs.readFileSync('~/.ssl/ca.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+  };
+  https.createServer(sshOptions, app).listen(port, () => {
+    console.log(`up and running @: ${os.hostname()} on port: ${httpsPort}`);
+    console.log(`enviroment: ${process.env.NODE_ENV}`);
+  });
+}
