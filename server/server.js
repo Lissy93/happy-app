@@ -10,6 +10,7 @@ import os from "os";
 import express from "express";
 import http from "http";
 import https from "https";
+import fs from "fs";
 
 /* Import route config, routes and db config */
 import RoutesConfig from "./config/routes.conf";
@@ -44,8 +45,8 @@ Routes.init(app, express.Router());
 let server;
 if (process.env.NODE_ENV === "production") {
   const sshOptions = {
-    key: fs.readFileSync('~/.ssh/server.key'),
-    cert: fs.readFileSync('~/.ssh/server.crt'),
+    key: fs.readFileSync('~/.ssl/server.key'),
+    cert: fs.readFileSync('~/.ssl/server.crt'),
     requestCert: false,
     rejectUnauthorized: false
   };
