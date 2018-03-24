@@ -45,8 +45,9 @@ Routes.init(app, express.Router());
 let server;
 if (process.env.NODE_ENV === "production") {
   const sshOptions = {
-    key: fs.readFileSync('~/.ssl/server.key'),
-    cert: fs.readFileSync('~/.ssl/server.crt'),
+    key: fs.readFileSync('./ssl/server.key'),
+    cert: fs.readFileSync('./ssl/server.crt'),
+    ca: fs.readFileSync('./ssl/ca.crt'),
     requestCert: false,
     rejectUnauthorized: false
   };
