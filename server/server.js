@@ -9,6 +9,7 @@
 import os from "os";
 import express from "express";
 import http from "http";
+import https from "https";
 
 /* Import route config, routes and db config */
 import RoutesConfig from "./config/routes.conf";
@@ -32,17 +33,30 @@ require('./commons/scheduler');
 const app = express();
 
 /* Specify the port, from .env or config */
-const PORT = 3333;
-// const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3333;
 
 /* Initiate routes and db config */
 RoutesConfig.init(app);
 DBConfig.init();
 Routes.init(app, express.Router());
 
+/* Create the server (HTTPS for prod) */
+let server;
+if (process.env.NODE_ENV === "production") {
+  const sshOptions = {
+    key: fs.readFileSync('~/.ssh/server.key'),
+    cert: fs.readFileSync('~/.ssh/server.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
+  };
+  server = https.createServer(sshOptions, app);
+}
+else{
+  server = http.createServer(app);
+}
+
 /* Start the server! */
-http.createServer(app)
-    .listen(PORT, () => {
-      console.log(`up and running @: ${os.hostname()} on port: ${PORT}`);
-      console.log(`enviroment: ${process.env.NODE_ENV}`);
-    });
+server.listen(PORT, () => {
+  console.log(`up and running @: ${os.hostname()} on port: ${PORT}`);
+  console.log(`enviroment: ${process.env.NODE_ENV}`);
+});
