@@ -1,9 +1,10 @@
 {
   "presets": [
     ["env", {
-      "targets": { "node": "current" }
-    }],
-    "es2015"
+      "targets": {
+        "node": "8.10.0"
+      }
+    }]
   ],
   "plugins": ["transform-class-properties"]
 }
