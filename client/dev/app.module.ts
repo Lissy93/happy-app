@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, Injectable, Injector } from "@angular/core";
 import { HttpModule } from "@angular/http";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule  } from "@angular/platform-browser";
 import { App }   from "./app";
 
@@ -9,25 +9,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent }   from "./pages/home/home.component";
 import { homeRouting } from "./pages/home/home.route";
 import { HomeService }   from "./pages/home/home.service";
-import {SubmitResponseComponent} from "./pages/submit-response/submit-response.component";
+import { SubmitResponseComponent } from "./pages/submit-response/submit-response.component";
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TimeChartComponent } from './components/time-chart/time-chart.component';
 import { CalendarChartComponent } from './components/calendar-chart/calendar-chart.component';
-import {OverviewChartComponent } from './components/overview-chart/overview-chart.component';
+import { OverviewChartComponent } from './components/overview-chart/overview-chart.component';
 import { MaterialModule } from './material.module';
-import {SharedModule} from "./shared-helpers.module";
-import {LoaderComponent} from "./components/loader/loader.component";
-import {TeamComponent} from "./pages/team/team.component";
-import {TeamService} from "./services/team.service";
-import {AllTeamsService} from "./services/all-teams.service";
-import {GridChartComponent} from "./components/grid-chart/grid-chart.component";
-import {DayBreakdownChartComponent} from "./components/day-breakdown-chart/day-breakdown-chart";
-import {CommonService} from "./services/common.service";
-import {SplashScreenComponent} from "./components/splash-screen/splash-screen";
-import {AppFeedbackComponent} from "./components/app-feedback/app-feedback";
-import {AppHelpComponent} from "./components/app-help/app-help";
-import {MessageChartComponent} from "./components/message-chart/message-chart";
+import { SharedModule } from "./shared-helpers.module";
+import { LoaderComponent } from "./components/loader/loader.component";
+import { TeamComponent } from "./pages/team/team.component";
+import { TeamService } from "./services/team.service";
+import { AllTeamsService } from "./services/all-teams.service";
+import { GridChartComponent } from "./components/grid-chart/grid-chart.component";
+import { DayBreakdownChartComponent } from "./components/day-breakdown-chart/day-breakdown-chart";
+import { CommonService } from "./services/common.service";
+import { SplashScreenComponent } from "./components/splash-screen/splash-screen";
+import { AppFeedbackComponent } from "./components/app-feedback/app-feedback";
+import { AppHelpComponent } from "./components/app-help/app-help";
+import { MessageChartComponent } from "./components/message-chart/message-chart";
 import { Angulartics2Module, Angulartics2GoogleTagManager } from "angulartics2";
 import * as Rollbar from 'rollbar';
 
@@ -49,13 +49,13 @@ export class RollbarErrorHandler implements ErrorHandler {
 
 @NgModule({
   imports: [
+    MaterialModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     homeRouting,
     BrowserAnimationsModule,
-    MaterialModule,
     SharedModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
   ],

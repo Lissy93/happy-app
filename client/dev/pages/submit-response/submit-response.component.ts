@@ -1,5 +1,5 @@
 import {Component } from "@angular/core";
-import {FormControl, Validators} from "@angular/forms";
+import { FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "submit-response-page",
@@ -7,8 +7,6 @@ import {FormControl, Validators} from "@angular/forms";
   styleUrls: ["./pages/submit-response/submit-response.css"]
 })
 export class SubmitResponseComponent {
-
-  title: string = "happy-app";
 
   constructor() {
     console.log("submit response");
