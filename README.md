@@ -40,6 +40,10 @@
     * [Accessibility](#accessibility)
     * [Contributing](#Contributing)
 
+## Watch Demo Video
+
+[![Happy App Demo on YouTube](https://i.imgur.com/igY9yGJ.png)](https://www.youtube.com/watch?v=c-k9rYxTwxI&t)
+
 
 ## Introduction
 
@@ -56,7 +60,7 @@ The dashboard displays a summary of results in a series of data visualisations, 
 
 ### Demo
 
-Live demo at: [happy-app-demo.as93.net](http://happy-app-demo.as93.net/)
+Live demo at: _Live demo is no longer availible_
 
 The demo uses automatically generated sample data (where teams have been given random city names), and scores are totally random.
 
@@ -64,27 +68,23 @@ The demo uses automatically generated sample data (where teams have been given r
 
 ### Screen Shots
 
+Home Page:
 ![Homepage](/docs/screen-shot-1.png "Homepage")
+
+
+Mobile Screen Shots:
+![Mobile](/docs/screen-shot-mobile.png "Mobile")
+
 
 <details>
 <summary>Team Page Screenshots (click to show)</summary>
 <p>
-
 
 ![TeamPage](/docs/screen-shot-2.png "TeamPage")
 </p>
 </details>
 
 
-
-<details>
-<summary>Mobile View Screenshots (click to show)</summary>
-<p>
-
-
-![Mobile](/docs/screen-shot-mobile.png "Mobile")
-</p>
-</details>
 
 
 ### Current Status
