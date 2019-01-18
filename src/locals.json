@@ -1,0 +1,14 @@
+{
+    "meta":{
+        "title": "Happy App",
+        "author": "Alicia Sykes",
+        "description": "Documentation site for Happy App | An open source opinion catching tool",
+        "keywords": "agile,d3,demo,lissy93",
+        "url": "https://lissy93.github.io/happy-app",
+        "repo": "https://github.com/Lissy93/happy-app",
+        "color": "#ffd740",
+        "ga": "UA-120900119-6"
+    },
+    "show-vonori-chart": true
+
+}

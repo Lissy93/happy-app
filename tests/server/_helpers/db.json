@@ -1,7 +1,0 @@
-{
-  "db": {
-    "test": {
-      "url": "mongodb://localhost/happy-team_test"
-    }
-  }
-}
