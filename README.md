@@ -38,6 +38,10 @@
 </p>
 </details>
 
+
+| ⚠️ Notice: App is depricated, and no longer maintained. See [alternatives](#deprication-notice). |
+|---|
+
 ---
 
 ## Introduction
@@ -85,6 +89,15 @@ _The demo uses automatically generated sample data (where teams have been given 
 
 <p align="center"><img width="800" src="/docs/screen-shot-mobile.png" alt="Mobile" title="Mobile" /></p>
 
+---
+
+## Deprication Notice
+
+This app was developed in 2016/17, and is now outdated.
+
+Instead, there are several paid solutions that are much more effective than this app, for example: [Team Mood](https://www.teammood.com/), [Geekbot Sentiment](https://geekbot.com/blog/geekbot-sentiment-the-new-way-to-monitor-team-happiness/), [Team Sentiment Tracker](https://coda.io/@codatemplates/team-sentiment-tracker), [Team Retro](https://www.teamretro.com/).
+
+Alternatively, you can fork this project and continue to use it without support.
 
 ---
 
