@@ -1,49 +1,44 @@
-![IntroImage](/docs/app-intro.png "HappyApp")
 
+<h1 align="center">Happy App</h1>
+<p align="center">
+  <i>Anonymously gauge and monitor the sentiment of your team</i>
+   <br/>
+  <a href="http://happy-app-demo.as93.net">
+  <img width="100" alt="😄" src="https://i.ibb.co/mFrLzJ6/smiley-emoji.png" />
+  </a>
+</p>
 
-## Contents
+<details>
+<summary><strong>Contents</strong></summary>
+<p>
+
  1. [About](#introduction)
     * [Introduction](#introduction)
     * [Demo](#demo)
     * [Screenshots](#screen-shots)
-    * [Current Status](#current-status)
- 2. [User Documentation](#user-documentation)
-    * [Initial Configuration](#initial-configuration)
-    * [Adding Results](#adding-results)
-    * [Displaying Results](#displaying-results)
-    * [Mobile](#mobile)
- 3. [Technical Documentation](#technical-documentation)
+ 2. [Technical Documentation](#technical-documentation)
     * [Development Setup](#development-setup)
     * [Production Setup](#production-setup)
-    * [App Customisation](#app-customisation)
-    * [Data Structures](#data)
-    * [API Reference](#api)
-    * [File Structure](#file-structure)
+    * [API Docs](#api-docs)
+    * [Data Structures](#data-structures)
     * [Test Environment](#test-environment)
     * [Error Handling](#error-handling)
     * [Analytics and Tracking](#analytics-and-tracking)
     * [Mobile App](#mobile-app)
-    * [Offline Functionality](#offline-functionality)
-    * [Server-side Rendering](#server-side-rendering)
-    * [AOT](#aot)
-    * [Translations and Text Changes](#translations-and-text-changes)
-    * [D3 Charts Info](#chart-documentation)
+    * [D3 Charts Info](#d3-charts-info)
     * [Tech Stack](#tech-stack)
- 4. [Project Planning](#project-planning)
+    * [File Structure](#file-structure)
+ 3. [Project Planning](#project-planning)
     * [User Flow](#high-level-flow-chart)
     * [Wireframes](#wireframes)
     * [Functional Requirements](#high-level-functional-requirements)
- 5. Research
- 6. [Legal](#legal)
-    * [Licensing Summary](#licensing-summary)
+ 4. [Legal](#legal)
     * [License](#license)
-    * [Accessibility](#accessibility)
-    * [Contributing](#Contributing)
 
-## Watch Demo Video
+</p>
+</details>
 
-[![Happy App Demo on YouTube](https://i.imgur.com/igY9yGJ.png)](https://www.youtube.com/watch?v=c-k9rYxTwxI&t)
-
+---
 
 ## Introduction
 
@@ -56,75 +51,66 @@ The dashboard displays a summary of results in a series of data visualisations, 
  - Overall team sentiment for today
  - Sentiment change over time
  - Sentiment by team
+ 
+ It's built as an Angular app, and uses D3.js for the charts.
+ 
+---
 
+## Demo
 
-### Demo
+A live demo is available at: **[happy-app-demo.as93.net](http://happy-app-demo.as93.net/)**
 
-Live demo at: [happy-app-demo.as93.net](http://happy-app-demo.as93.net/)
+_The demo uses automatically generated sample data (where teams have been given random city names), and scores are totally random._
 
-The demo uses automatically generated sample data (where teams have been given random city names), and scores are totally random.
-
-
-
-### Screen Shots
-
-Home Page:
-![Homepage](/docs/screen-shot-1.png "Homepage")
-
-
-Mobile Screen Shots:
-![Mobile](/docs/screen-shot-mobile.png "Mobile")
-
-
-<details>
-<summary>Team Page Screenshots (click to show)</summary>
-<p>
-
-![TeamPage](/docs/screen-shot-2.png "TeamPage")
+<p align="center"><b>Watch Demo Video</b></p>
+<p align="center">
+<a href="https://www.youtube.com/watch?v=c-k9rYxTwxI&t">
+  <img src="https://i.imgur.com/igY9yGJ.png" width="500" />
+</a>
 </p>
-</details>
+
+---
+
+## Screen Shots
+
+#### Home Page
+
+<p align="center"><img width="800" src="/docs/screen-shot-1.png" alt="Homepage" title="Homepage" /></p>
+
+#### Team Page
+
+<p align="center"><img width="800" src="/docs/screen-shot-2.png" alt="Team Page" title="Team Page" /></p>
+
+#### Mobile Views
+
+<p align="center"><img width="800" src="/docs/screen-shot-mobile.png" alt="Mobile" title="Mobile" /></p>
 
 
+---
 
-
-### Current Status
-
-##### Dependencies
-[![dependencies Status](https://david-dm.org/lissy93/happy-app/status.svg)](https://david-dm.org/lissy93/happy-app)
-[![devDependencies Status](https://david-dm.org/lissy93/happy-app/dev-status.svg)](https://david-dm.org/lissy93/happy-app?type=dev)
-
-##### Code Quality
-[![Maintainability](https://api.codeclimate.com/v1/badges/89f1978a0085fdf6de14/maintainability)](https://codeclimate.com/github/Lissy93/happy-app/maintainability)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a00e557844654c20bd4f40fe3364e5ed)](https://www.codacy.com/app/lissy93/happy-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Lissy93/happy-app&amp;utm_campaign=Badge_Grade)
-
-##### Support
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/Lissy93/twitter-sentiment-visualisation)
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](#)
-
-##### Tests
-//todo
-
-## User Documentation
-
-
-### Initial Configuration
-
-// todo
-
-
-### Adding Results
-
-// todo
-
-
-### Displaying Results
-
-// todo
-
-
-### Mobile
-
-//todo
+## Contents
+ 1. [About](#introduction)
+    * [Introduction](#introduction)
+    * [Demo](#demo)
+    * [Screenshots](#screen-shots)
+ 2. [Technical Documentation](#technical-documentation)
+    * [Development Setup](#development-setup)
+    * [Production Setup](#production-setup)
+    * [API Docs](#api-docs)
+    * [Data Structures](#data-structures)
+    * [Test Environment](#test-environment)
+    * [Error Handling](#error-handling)
+    * [Analytics and Tracking](#analytics-and-tracking)
+    * [Mobile App](#mobile-app)
+    * [D3 Charts Info](#d3-charts-info)
+    * [Tech Stack](#tech-stack)
+    * [File Structure](#file-structure)
+ 3. [Project Planning](#project-planning)
+    * [User Flow](#high-level-flow-chart)
+    * [Wireframes](#wireframes)
+    * [Functional Requirements](#high-level-functional-requirements)
+ 4. [Legal](#legal)
+    * [License](#license)
 
 
 
@@ -141,6 +127,7 @@ The steps are as follows:
  4. Populate the database with some sample data (optional). `gulp populate-sample-data` (*See [Data](#data) section for more info*)
  5. Start the development server, `npm run dev`. This watches, compiles and refreshes appropriate server and client components.
 
+---
 
 ### Production Setup
  1. Clone or upload the files to your server directory
@@ -161,15 +148,87 @@ NEW_RELIC_APP_NAME=happy-app
 NEW_RELIC_LICENSE_KEY=123abc
 ```
 
+---
 
-### App Customisation
+### API Docs
+
+The frontend accesses it's data through the set of functions exposed by the backend.
+There are **GET** routes for just returning data, and **POST** routes which update/
+add new data, and require authentication.
+
+All API calls are made from `BASE_URL/api/`, where `BASE_URL` is the URI of the app
+root *(e.g. 'localhost', IP address or the domain pointing to main app)*
+
+#### /teams
+Returns an array of all teams referenced to in the datasets
+
+- **URL:** `/teams/`
+- **Method:** `GET`
+- **URL Params:** none
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `['team-name1', 'team2', 'three', 'forth-team']`
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `[]`
 
 
-### Test Environment
+#### /team-sentiment
+Returns all recorded sentiment for all teams
 
-Read more about the [test strategy](https://github.com/Lissy93/twitter-sentiment-visualisation/blob/dev/docs/test-strategy.md)
+- **URL:** `/team-sentiment/`
+- **Method:** `GET`
+- **URL Params:** _none_
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `{}`
 
-### Data
+
+#### /team-sentiment/:team-name
+Returns all recorded sentiment data for any given team
+
+- **URL:** `/team-sentiment/:team-name`
+- **Method:** `GET`
+- **URL Params:** `teamName` (the name of the team, as a String)
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
+- **Error Response:**
+  - **Code:** `200`
+  - **Content:** `{}`
+  
+#### /team-members
+Returns all member hashes for each team. Requires authentication.
+
+- **URL:** `/team-members`
+- **Method:** `GET`
+- **URL Params:** _none_
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** ``
+- **Error Response:**
+  - **Code:** ``
+  - **Content:** `{}`
+  
+#### /save-response
+Checks and saves the response for a given user hash.
+
+- **URL:** `/save-response`
+- **Method:** `POST`
+- **URL Params:** `{ emailHash: '', score: 'good', comment: ''}`
+- **Success Response:**
+  - **Code:** `200`
+  - **Content:** ``
+- **Error Response:**
+  - **Code:** ``
+  - **Content:** `{}`
+
+---
+
+### Data Structures
 
 All data is anonymised, a one-way hash is created from the users email address,
 which is used by the system to uniquely identify them, but this is not displayed
@@ -270,125 +329,7 @@ Alternativley, the path of previously generated or exported data can be specifie
 and the database will be populated the that data.
 An example filename parameter may look something like this:  [`/tasks/setup/sample-data.json`][sample-data].
 
-
-### API
-
-The frontend accesses it's data through the set of functions exposed by the backend.
-There are **GET** routes for just returning data, and **POST** routes which update/
-add new data, and require authentication.
-
-All API calls are made from `BASE_URL/api/`, where `BASE_URL` is the URI of the app
-root *(e.g. 'localhost', IP address or the domain pointing to main app)*
-
-#### /teams
-Returns an array of all teams referenced to in the datasets
-
-- **URL:** `/teams/`
-- **Method:** `GET`
-- **URL Params:** none
-- **Success Response:**
-  - **Code:** `200`
-  - **Content:** `['team-name1', 'team2', 'three', 'forth-team']`
-- **Error Response:**
-  - **Code:** `200`
-  - **Content:** `[]`
-
-
-#### /team-sentiment
-Returns all recorded sentiment for all teams
-
-- **URL:** `/team-sentiment/`
-- **Method:** `GET`
-- **URL Params:** _none_
-- **Success Response:**
-  - **Code:** `200`
-  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
-- **Error Response:**
-  - **Code:** `200`
-  - **Content:** `{}`
-
-
-#### /team-sentiment/:team-name
-Returns all recorded sentiment data for any given team
-
-- **URL:** `/team-sentiment/:team-name`
-- **Method:** `GET`
-- **URL Params:** `teamName` (the name of the team, as a String)
-- **Success Response:**
-  - **Code:** `200`
-  - **Content:** `{teamName: '', data: { [.....] }}` (See the above section on [data](#data) format)
-- **Error Response:**
-  - **Code:** `200`
-  - **Content:** `{}`
-  
-#### /team-members
-Returns all member hashes for each team. Requires authentication.
-
-- **URL:** `/team-members`
-- **Method:** `GET`
-- **URL Params:** _none_
-- **Success Response:**
-  - **Code:** `200`
-  - **Content:** ``
-- **Error Response:**
-  - **Code:** ``
-  - **Content:** `{}`
-  
-#### /save-response
-Checks and saves the response for a given user hash.
-
-- **URL:** `/save-response`
-- **Method:** `POST`
-- **URL Params:** `{ emailHash: '', score: 'good', comment: ''}`
-- **Success Response:**
-  - **Code:** `200`
-  - **Content:** ``
-- **Error Response:**
-  - **Code:** ``
-  - **Content:** `{}`
-
-
-### File Structure
-
-```
-happy-app
-│   README.md
-│   package.json    
-│
-└───client
-│   └───dev
-│       │───components
-│       │───pages
-│       │───services
-│       │───styles
-│       │───graphics
-|       |   app.module.js
-|       |   app.ts
-|       |   config.js
-|       |   index.html
-|       |   main-jit.ts
-|       |   main-aot.ts
-|    ___|   manifest.json
-|   |   
-│   └───dist
-│       │─── ...     
-│   
-└───server
-|   │───api
-|   │───auth
-|   │───commons
-|   │───config
-|   │───constants
-|   │───routes
-|   │   error-tracking.js
-|   │   index.js
-|   |   server.js
-|
-└───tasks
-|
-└───tests
-
-```
+---
 
 ### Error Handling
 
@@ -410,6 +351,7 @@ Or in an error catch block, log the error, like:
 Rollbar also catches and manages client side errors, and is initialised in
 [client/app.module.ts](/client/dev/app.module.ts).
 
+---
 
 ### Analytics and Tracking
 
@@ -428,28 +370,15 @@ trackAnalyticEvents(action, properties = {}){
 As well as ths, the standard GA / GTAG code snipped it in the
 [`client/index.html`](client/dev/index.html).
 
+---
 
 ### Mobile App
 
 There is no mobile app companion for happy-app.
 
-Though it was built following Google's Progressive Web App guidelines.
-It aims to be reliable, fast and engaging. And this is achieved through
-making use of service workers for basic offline Functionality, and the Google
-[`manifest.json`](/client/dev/manifest.json), to allow for custom splash screens,
-icons and colours once it to be added to the users home screen. It is, of course
-fully responsive, and every effort has been made to support all modern browsers and
-devices, as best as possible.
+Though it was built as a Progressive Web App, and makes use for service workers for basic offline functionality. It's also fully responsive so displays nicely across all screen sizes.
 
-
-### Offline Functionality
-
-
-### Server-side Rendering
-
-
-### AOT
-
+---
 
 ### D3 Charts Info
 
@@ -468,12 +397,9 @@ follow the same structure. There are (currently) six charts:
  * [`overview-chart`](/client/dev/components/overview-chart) - Donut chart showing proportions of sentiment for a given team
  * [`time-chart`](/client/dev/components/time-chart) - Shows sentiment over time, for a given team
 
-
+---
 
  ### Tech Stack
-
-
- ![TechStack](/docs/tech-stack.png "TechStack")
 
  The app uses a fairly standard [MEAN] ([Mongo], [Express], [Angular 4], Node) stack, with [D3.js] for the charts,
  and isomorphic rendering with [Angular Universal].
@@ -497,6 +423,9 @@ follow the same structure. There are (currently) six charts:
  (was initially used for headless browser testing).
 
  Detailed analytics are collected with [Google Tag Manager (GTM)], and application errors and warnings are tracked with [Rollbar].
+ 
+  ![TechStack](/docs/tech-stack.png "TechStack")
+  
  </p>
  </details>
 
@@ -529,21 +458,199 @@ follow the same structure. There are (currently) six charts:
  [Google Tag Manager]: https://www.google.com/analytics/tag-manager/
  [Rollbar]: https://rollbar.com/
 
+---
 
+### File Structure
+
+```
+happy-app
+│   README.md
+│   package.json    
+╰───client
+│   ╰───dev
+│       │───components
+│       │───pages
+│       │───services
+│       │───styles
+│       │───graphics
+|       |   app.module.js
+|       |   app.ts
+|       |   config.js
+|       |   index.html
+|       |   main-jit.ts
+|       |   main-aot.ts
+|    ___|   manifest.json
+|   |   
+│   ╰───dist
+│       ╰─── ...     
+└───server
+|   │───api
+|   │───auth
+|   │───commons
+|   │───config
+|   │───constants
+|   │───routes
+|     │   error-tracking.js
+|     │   index.js
+|     ╰   server.js
+╰───tasks
+|
+╰───tests
+```
+
+---
+
+### Test Environment
+
+>In order to develop high quality software, thorough testing is essential.
+
+This section is a high level presentation of the test approach to be undertaken 
+in relation to Happy App.
+
+#### Test Driven Development
+This is a process where the tests are written before the code is developed. 
+The test cases are written based on the user stories, and most the logic on 
+the application is developed in the tests, so when it comes to writing the 
+code it should be a very quick process.
+
+TDD was chosen as the testing methodology, as it has several key advantages. 
+Firstly it will ensure the code that is written is structured, as the structure
+ must be determined before the code can be written. Secondly it helps the code 
+ fit with the user stories, since the tests will be based from the user stories. 
+ It also creates a detailed specification. Most importantly less time is spend 
+ debugging and fixing bugs, as code is written to pass tests.
+
+
+#### Unit Testing
+Unit testing involves writing a series of very thorough tests to cover each 
+module, function or method independently as a unit. Each function should be 
+checked that it produces the expected output with a variety of hardcoded inputs. 
+This should include testing error handling, and borderline and unexpected inputs. 
+After the unit tests have been written the unit test process can be automated, 
+so every time a method is changed, the tests are rerun to check that it still 
+produces the correct output with various inputs.
+
+Unit testing has a lot of benefits to software development, firstly any 
+potential bugs or failures will be identified before that function gets 
+integrated with the larger application. Developers can verify their code 
+still works as expected as they refractor and change parts, in the same 
+way, unit testing can prevent future changes from breaking functionality. 
+It also helps you understand your code, and gives you instant feedback when 
+something is not working as it should be.
+
+
+#### Behaviour Driven Development
+This is the same principle as TDD, but involves writing tests with a more 
+functional point of view. The syntax used to write the tests tends to be more 
+like English, and the tests follow very closely to the user stories. 
+Following BDD will ensure that the code written follows user stories, so as 
+long as they are complete, then the finished solution should also be thorough.
+
+
+#### Pass/ Fail Criteria
+
+| Test Type          | Pass Condition                                                                          |
+|--------------------|-----------------------------------------------------------------------------------------|
+| Functional Testing | All acceptance criteria must be met, checked and documented                             |
+| Unit Tests         | 100% of unit tests must pass. It will be immediately clear when a unit test is failing  |
+| Integration Tests  | 100% pass rate after every commit                                                       |
+| Coverage Tests     | 80% or greater                                                                          |
+| Code Reviews       | B grade/ Level 4 or higher. Ideally A grade/ Level 5 if possible.                       |
+| Dependency Checks  | Mostly up-to-date dependencies except in justified circumstances.                       |
+
+
+#### Documenting Results
+A ststus of all unit tests, coverage tests, dependency checks and code review 
+will be displayed in the form of badges on the repository readme. Each will be 
+linked with the appropriate service, so will update live. This will indicate 
+immediately as soon as a test is failing or a dependency becomes outdated.
+
+Detailed test reports for each testing method will also be generated and saved.
+
+#### Testing Tools
+
+##### Framework (with [Mocha](https://github.com/mochajs/mocha))
+Mocha is a feature-rich and well established JavaScript testing framework. 
+A JavaScript framework is required in order to store, write and run the tests 
+in a structured way. Using a framework will also make using various testing 
+plugins easier to use neatly. 
+
+##### Assertion Library (with [Chai](https://github.com/chaijs/chai))
+An assertion library will provide structure and syntax in order to actually 
+write the test cases. Chai is a good choice, as it fits nicely with Mocha, 
+and has a very flexible syntax, including a �should� library built in, which 
+will allow for tests to be written in a BDD style.
+
+##### Coverage Testing (with [Istanbul](https://github.com/gotwarlost/istanbul))
+Coverage testing measures the proportion of your source code that is covered 
+by your unit tests. It can be very helpful while developing as it makes it 
+easier to aim for as close to 100% as possible. It also highlights the code 
+that is not covered by unit tests. For this project Istanbul will be configured 
+to show a coverage summary in the console when a test or source code file 
+changes, it will also generate a much more detailed HTML report that will be 
+saved in the reports directory.
+
+##### Stubs, Spies and Mocking (with [Sinon.js](https://github.com/sinonjs/sinon))
+For the tests, it is not good practice to have any network calls, so Sinon.js 
+will be used to stub the data that would have been returned for each network 
+call. Spies will also be used to test the functionality of methods.
+
+##### Continuous Integration Testing (with [Travis CI](https://github.com/travis-ci/travis-ci))
+Since the code will be written following a very modular approach, and each 
+module will be thoroughly tested standalone but it is of course vital that 
+they work together seamlessly as they are meant to. A Travis CI configuration 
+file will be written in a Yamel format, which will specify to Travis which 
+tests need to be run in order to ensure the code is working as it should, 
+and which versions of Node (and other technologies) the code will need to be 
+run on. Then every time a new commit is made Travis will run tests to ensure 
+everything continues to pass, and the code repository is not broken by the 
+latest commit.
+
+##### Dependency Checking (with [David](https://github.com/alanshaw/david))
+Since there are quite a few external dependencies that come together to make 
+each component of the project possible, it is important to ensure that all 
+the current dependencies are stable and have no bugs that could effect the 
+running of TSV. For this automated dependency checking will be implemented 
+with David-DM. When a dependency is no longer in date an notification will 
+be triggered.
+
+##### Automated Code Review's (with [Code Climate](https://github.com/codeclimate/codeclimate))
+Code reviews can pick up on bad practices and inefficient code, such as 
+including dependencies and not using them, variables in the wrong scope, 
+poor identifiers, not following convention etc.. All of this information 
+can help write better quality code. Code Climate also provides automated 
+coverage testing in conjunction with Istanbul.
+
+##### Headless Browser Testing (with [PhantomJS](https://github.com/ariya/phantomjs))
+For running functional frontend tests without having to use a browser, 
+it can be automated in the same way as the other tests and can test the 
+integration with other frontend libraries. PhantomJS also provides network 
+monitoring utilities that can help cut down page load times.
+
+##### Testing HTTP services (with [SuperTest](https://github.com/visionmedia/supertest))
+SuperTest is an agent driven library for testing node.js HTTP servers using 
+a fluent API. It will be used for testing HTTP servers. It will be used to 
+check the routing for the Express web service, to ensure with a given URL 
+and parameters returns the expected output.
+
+
+---
 
 ## Project Planning
 
 
 ### High-Level Flow Chart
 
-![Flowchart](/docs/high-level-flow-chart.png "Flowchart")
+<p align="center"><img align="center" width="800" src="/docs/high-level-flow-chart.png" alt="Flowchart" title="Flowchart" /></p>
 
+
+---
 
 ### Wireframes
 
-![Wireframes](/docs/wireframes.png "Wireframes")
+<p align="center"><img align="center" width="800" src="/docs/wireframes.png" alt="Wireframes" title="Wireframes" /></p>
 
-
+---
 
 ### High-Level Functional Requirements
 
@@ -577,10 +684,7 @@ _Allows team admin to modify certain application settings and maintain the team 
 - Should allow the admin to modify when emails are sent out (times and days)
 - Should allow admin to add and remove team email addresses on the distribution list
 
-
-
-## Research
-
+---
 
 ## Legal
 
@@ -625,15 +729,6 @@ WITH THE SOFTWARE.
 **Termination**. If you violate the terms of this license, your rights will terminate automatically and will not be 
 reinstated without the prior written consent of Licensor. Any such termination will not affect the right of others 
 who may have received copies of the Software from you.
-
-### Accessibility 
-
-// TODO
-
-
-### Contributing
-
-// TODO
 
 
 [sample-data]: /tasks/setup/sample-data.json
